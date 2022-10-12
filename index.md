@@ -1,9 +1,9 @@
 ---
-title: About Alembic
+title: Yichen's Homepage
 feature_text: |
-  ## Alembic
-  A Jekyll boilerplate theme designed to be a starting point for any Jekyll website
-feature_image: "https://picsum.photos/1300/400?image=989"
+  ## Yichen(Eason) Lu
+  A computer science student at University of Illinois, Urbana Champaign
+feature_image: "https://pica.zhimg.com/v2-7cdb0fabe85b17bac66eed4d857dbfa8_1440w.jpg?source=32738c0c"
 excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
 ---
 
