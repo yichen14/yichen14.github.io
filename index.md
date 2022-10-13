@@ -3,7 +3,7 @@ title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
   A computer science student at University of Illinois, Urbana Champaign
-feature_image: "https://pica.zhimg.com/v2-7cdb0fabe85b17bac66eed4d857dbfa8_1440w.jpg?source=32738c0c"
+feature_image: "https://ibb.co/0sTHgNN"
 excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
 ---
 
