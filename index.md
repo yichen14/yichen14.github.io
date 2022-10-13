@@ -3,9 +3,9 @@ title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
   A computer science student at University of Illinois, Urbana Champaign
-feature_image: "{{ site.baseurl }}/assets/feature-image.jpeg"
+feature_image: "./assets/feature-image.jpeg"
 ---
-{% include figure.html image="https://picsum.photos/600/800?image=894" caption="Image with caption"  position="left"  width="200" height="550" %}
+{% include figure.html image="./assets/profile_pic.jpeg"  position="left"  width="200" height="550" %}
 
 Hello! I am a senior undergraduate student major in Statistics & Computer Science at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I am currently working as an undergraduate research assistant in [CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/). Besides, I am also an undergraduate research assistant in [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html).
 
