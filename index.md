@@ -18,7 +18,7 @@ My research interests mainly lie in computer vision and graph neural network, es
   - [06/2022] Joined CyPhy Group as an undergraduate research assistant working on robust graph learning on dynamic link prediction.
 
 ## Research Experiences
-  - [09/2022 - Present] CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/)
+  - [09/2022 - Present] [CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/)
   - [06/2022 - Present] [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html)
   - [02/2022 - 08/2022] [Intelligent Motion Lab](https://motion.cs.illinois.edu/), supervised by Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/)
 
