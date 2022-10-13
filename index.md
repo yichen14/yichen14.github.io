@@ -3,7 +3,7 @@ title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
   A computer science student at University of Illinois, Urbana Champaign
-feature_image: "https://s1.wallpapermaiden.com/image/2017/10/26/anime-landscape-sea-ships-colorful-clouds-scenic-tree-horizon-anime-18266.jpg"
+feature_image: "{{ site.baseurl }}/assets/feature-image.jpeg"
 ---
 {% include figure.html image="https://picsum.photos/600/800?image=894" caption="Image with caption"  position="left"  width="200" height="550" %}
 
