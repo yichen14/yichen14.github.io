@@ -3,8 +3,7 @@ title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
   A computer science student at University of Illinois, Urbana Champaign
-feature_image: "https://ibb.co/0sTHgNN"
-excerpt: "Alembic is a starting point for [Jekyll](https://jekyllrb.com/) projects. Rather than starting from scratch, this boilerplate is designed to get the ball rolling immediately. Install it, configure it, tweak it, push it."
+feature_image: "https://s1.wallpapermaiden.com/image/2017/10/26/anime-landscape-sea-ships-colorful-clouds-scenic-tree-horizon-anime-18266.jpg"
 ---
 
 Hello! I am a senior undergraduate student major in Statistics & Computer Science at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I am currently working as an undergraduate research assistant in [CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/). Besides, I am also an undergraduate research assistant in [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html).
