@@ -3,8 +3,6 @@ title: Statement of Purpose
 feature_text: |
   ## Statement of Purpose
   Rough draft of statement of purpose for grad school application
-excerpt: |
-  Rough draft of statement of purpose for grad school application
 categories:
 - Graduate School Application
 feature_image: "https://picsum.photos/2560/600?image=872"

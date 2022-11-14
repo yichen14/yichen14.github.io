@@ -3,8 +3,6 @@ title: Personal Statement
 feature_text: |
   ## Personal Statement
   My general personal statement for grad school application
-excerpt: |
-  My general personal statement for grad school application
 categories:
 - Graduate School Application
 feature_image: "https://picsum.photos/2560/600?image=872"
