@@ -14,7 +14,7 @@ My research interests mainly lie in computer vision and graph neural network, es
 {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichen14@illinois.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
 ## Publications
-
+  - 
 
 ## News
   - [09/2022] Joined vision group as an undergraduate research assistant.
