@@ -7,8 +7,6 @@ feature_image: "./assets/feature-image-2.jpeg"
 ---
 {% include figure.html image="/assets/profile_pic.jpg"  position="left"  width="200" height="550" %}
 
-Your introduction is well-structured, but it can be made more concise and engaging. Here's a revised version:
-
 Hello! I'm currently pursuing my Master's in Artificial Intelligence Engineering at [Carnegie Mellon University](https://www.cmu.edu/), where I'm actively engaged in research at [WAVLab](https://www.wavlab.org/) under the guidance of Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe). My primary research areas include Multimodal Language Models, Multimodal Fusion, Speech Recognition, AVSR, and Speech Translation.
 
 I hold a Bachelor's degree in Computer Science from the [University of Illinois at Urbana-Champaign](https://illinois.edu/). During my undergraduate studies, I had the opportunity to work as a research assistant in the [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html). Additionally, I gained valuable experience collaborating with Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/) in the [Intelligent Motion Lab](https://motion.cs.illinois.edu/index.html).
@@ -19,8 +17,8 @@ My research interests are centered around Multimodal Large Language Models and M
 
 ## Publications
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
-    <small>Xuankai Chang, Brian Yan, Kwanghee Choi, Jeeweon Jung, Yichen Lu, Soumi Maiti, Roshan Sharma, Jiatong Shi, Jinchuan Tian, Shinji Watanabe, Yuya Fujita, Takashi Maekaku, Pengcheng Guo, Yao-Fei Cheng, Pavel Denisov, Kohei Saijo, Hsiu-Hsuan Wang <small>
-    <small> ICASSP 2023 <small>  
+    <small>Xuankai Chang, Brian Yan, Kwanghee Choi, Jeeweon Jung, Yichen Lu, Soumi Maiti, Roshan Sharma, Jiatong Shi, Jinchuan Tian, Shinji Watanabe, Yuya Fujita, Takashi Maekaku, Pengcheng Guo, Yao-Fei Cheng, Pavel Denisov, Kohei Saijo, Hsiu-Hsuan Wang <small>  
+    <small> **ICASSP 2023** <small>  
     [Paper](https://arxiv.org/abs/2309.15800)  
   - **Robust Reasoning Over Noisy Knowledge Graphs Via Structure Learning.**  
     <small>Ruijie Wang, **Yichen Lu**, Baoyu Li, Tarek Abdelzaher.<small>  
