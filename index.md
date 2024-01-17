@@ -26,7 +26,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
     [Paper](https://arxiv.org/abs/2306.07512)  
 
 ## News
-  - [01/2024] Released my first open source project: [ViDove V0.1.0](https://pigeonai.club/)!
+  - [01/2024] Released my first open source project: [ViDove V0.1.0](https://pigeonai.club/)! See official intro [here](https://www.bilibili.com/read/cv29086524/?spm_id_from=333.999.0.0)
   - [08/2023] Joined WAVLab as research assistant
   - [08/2023] Start my journy at CMU!
   - [05/2023] Start my internship at Trova.AI, supervised by [Sanjay Patel](https://sjp.ece.illinois.edu/)
