@@ -11,7 +11,7 @@ Hello! I'm currently pursuing my Master's in Artificial Intelligence Engineering
 
 I hold a Bachelor's degree in Computer Science from the [University of Illinois at Urbana-Champaign](https://illinois.edu/). During my undergraduate studies, I had the opportunity to work as a research assistant in the [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html). Additionally, I gained valuable experience collaborating with Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/) in the [Intelligent Motion Lab](https://motion.cs.illinois.edu/index.html).
 
-My research interests are centered around Multimodal Large Language Models and Multimodal Fusion, with a particular focus on integrating speech and visual modalities.
+My research interests are centered around **Multimodal Large Language Models(MLLM)** and **Multimodal Fusion**, with a particular focus on integrating speech and visual modalities.
 
 {% include button.html text="Google Scholar" icon="" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#29D5FF" %} {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
@@ -29,7 +29,7 @@ My research interests are centered around Multimodal Large Language Models and M
   - [01/2024] Released my first open source project: [ViDove V0.1.0](https://pigeonai.club/)!
   - [08/2023] Joined WAVLab as research assistant
   - [08/2023] Start my journy at CMU!
-  - [05/2023] Start my internship at Trova.AI
+  - [05/2023] Start my internship at Trova.AI, supervised by [Sanjay Patel](https://sjp.ece.illinois.edu/)
   - [05/2023] Graduated with highest distinction from UIUC!
   - [06/2022] Joined CyPhy Group as an undergraduate research assistant working on robust graph learning on dynamic link prediction.
 
