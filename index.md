@@ -2,32 +2,42 @@
 title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
-  A computer science student at University of Illinois, Urbana-Champaign
+  MS in AI @ Carnegie Mellon University | B.S. in Computer Science & Statistics @ UIUC
 feature_image: "./assets/feature-image-2.jpeg"
 ---
 {% include figure.html image="/assets/profile_pic.jpg"  position="left"  width="200" height="550" %}
 
-Hello! I am a senior undergraduate student major in Statistics & Computer Science at the [University of Illinois at Urbana-Champaign](https://illinois.edu/). I am currently working as an undergraduate research assistant in [CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/). Besides, I am also an undergraduate research assistant in [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html).
+Your introduction is well-structured, but it can be made more concise and engaging. Here's a revised version:
 
-My research interests mainly lie in computer vision and graph neural network, especially in explainable artificial intelligence, dynamic link prediction, incremental few-shot learning, and robust graph learning.
+Hello! I'm currently pursuing my Master's in Artificial Intelligence Engineering at [Carnegie Mellon University](https://www.cmu.edu/), where I'm actively engaged in research at [WAVLab](https://www.wavlab.org/) under the guidance of Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe). My primary research areas include Multimodal Language Models, Multimodal Fusion, Speech Recognition, AVSR, and Speech Translation.
+
+I hold a Bachelor's degree in Computer Science from the [University of Illinois at Urbana-Champaign](https://illinois.edu/). During my undergraduate studies, I had the opportunity to work as a research assistant in the [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html). Additionally, I gained valuable experience collaborating with Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/) in the [Intelligent Motion Lab](https://motion.cs.illinois.edu/index.html).
+
+My research interests are centered around Multimodal Large Language Models and Multimodal Fusion, with a particular focus on integrating speech and visual modalities.
 
 {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichen14@illinois.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
 ## Publications
+  - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
+    <small>Xuankai Chang, Brian Yan, Kwanghee Choi, Jeeweon Jung, Yichen Lu, Soumi Maiti, Roshan Sharma, Jiatong Shi, Jinchuan Tian, Shinji Watanabe, Yuya Fujita, Takashi Maekaku, Pengcheng Guo, Yao-Fei Cheng, Pavel Denisov, Kohei Saijo, Hsiu-Hsuan Wang <small>
+    <small> ICASSP 2023 <small>  
+    [Paper](https://arxiv.org/abs/2309.15800)  
   - **Robust Reasoning Over Noisy Knowledge Graphs Via Structure Learning.**  
     <small>Ruijie Wang, **Yichen Lu**, Baoyu Li, Tarek Abdelzaher.<small>  
-    <small>**Still under review.**<small>  
+    <small>**ACL Findings 2023**<small>  
+    [Paper](https://arxiv.org/abs/2306.07512)  
 
 ## News
   - [09/2022] Joined vision group as an undergraduate research assistant.
   - [06/2022] Joined CyPhy Group as an undergraduate research assistant working on robust graph learning on dynamic link prediction.
 
 ## Research Experiences
-  - [09/2022 - Present] [CS@Illinois Computer Vision Group](https://vision.cs.illinois.edu/vision_website/), supervised by Prof. [Derek Hoiem](https://dhoiem.cs.illinois.edu/)
+  - [08/2023 - Present] [WAVLab](https://www.wavlab.org/), supervised by Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe)
   - [06/2022 - Present] [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html)
   - [02/2022 - 08/2022] [Intelligent Motion Lab](https://motion.cs.illinois.edu/), supervised by Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/)
 
 ## Industry Experiences
+  - [05/2023 - 08/2023] Machine Learning Engineer Intern at **Trova.AI**
   - [07/2021 - 01/2022] Software Engineer Intern at **VMware, Inc**.
   - [10/2020 - 02/2021] Software Engineer Intern at **NetEase, Inc**.
 
