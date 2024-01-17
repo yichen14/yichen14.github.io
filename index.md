@@ -5,7 +5,7 @@ feature_text: |
   MS in AI @ Carnegie Mellon University | B.S. in Computer Science & Statistics @ UIUC
 feature_image: "./assets/feature-image-2.jpeg"
 ---
-{% include figure.html image="/assets/profile_pic.jpg"  position="left"  width="200" height="550" %}
+{% include figure.html image="/assets/profile_pic_2.jpg"  position="left"  width="200" height="550" %}
 
 Hello! I'm currently pursuing my Master's in Artificial Intelligence Engineering at [Carnegie Mellon University](https://www.cmu.edu/), where I'm actively engaged in research at [WAVLab](https://www.wavlab.org/) under the guidance of Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe). My primary research areas include Multimodal Language Models, Multimodal Fusion, Speech Recognition, AVSR, and Speech Translation.
 
