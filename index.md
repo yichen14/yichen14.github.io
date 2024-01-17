@@ -35,7 +35,7 @@ My research interests are centered around Multimodal Large Language Models and M
 
 ## Research Experiences
   - [08/2023 - Present] [WAVLab](https://www.wavlab.org/), supervised by Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe)
-  - [06/2022 - Present] [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html)
+  - [06/2022 - 05/2023] [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html)
   - [02/2022 - 08/2022] [Intelligent Motion Lab](https://motion.cs.illinois.edu/), supervised by Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/)
 
 ## Industry Experiences
