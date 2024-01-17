@@ -13,7 +13,7 @@ I hold a Bachelor's degree in Computer Science from the [University of Illinois 
 
 My research interests are centered around Multimodal Large Language Models and Multimodal Fusion, with a particular focus on integrating speech and visual modalities.
 
-{% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} {% include button.html text="Google Scholar" icon="instagram" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#05bf85" %} 
+{% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} {% include button.html text="Google Scholar" icon="" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#29D5FF" %} 
 
 ## Publications
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
