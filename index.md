@@ -24,7 +24,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
   - [06/2022] Joined CyPhy Group as an undergraduate research assistant working on robust graph learning on dynamic link prediction.  
 
 ## Publications
-  - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
+  - **SynesLM: Audio-Visual Language Model for Multimodal Language Understanding**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
     <small> **Under Review** <small>  
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
