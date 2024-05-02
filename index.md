@@ -16,6 +16,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
 {% include button.html text="Google Scholar" icon="" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#29D5FF" %} {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
 ## News
+  - [03/2024] My first first-author paper has submitted to Interspeech 2024!
   - [01/2024] Released my first open source project: [ViDove V0.1.0](https://pigeonai.club/)! See the official intro [here](https://www.bilibili.com/read/cv29086524/?spm_id_from=333.999.0.0)
   - [08/2023] Joined WAVLab as a research assistant
   - [08/2023] Start my journey at CMU!
