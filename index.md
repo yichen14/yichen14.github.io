@@ -29,7 +29,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
   - **FastAdaSP: Multitask-Adapted Efficient Inference for Large Speech Language Model**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Chao-Han Huck Yang, Shinji Watanabe<small>  
     <small> **Under Review** <small>
-  - **SynesLM: Audio-Visual Language Model for Multimodal Language Understanding**  
+  - **SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation via Language Model and Synthetic Data**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
     <small> **Interspeech 2024 Syndata4genai Workshop** <small>  
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
