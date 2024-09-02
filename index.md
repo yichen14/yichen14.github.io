@@ -22,7 +22,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
   - [08/2023] Joined WAVLab as a research assistant
   - [08/2023] Start my journey at CMU!
   - [05/2023] Start my internship at Trova.AI, supervised by [Sanjay Patel](https://sjp.ece.illinois.edu/)
-  - [05/2023] Graduated with the highest distinction from UIUC!
+  - [05/2023] Graduated with the **highest distinction** from UIUC!
   - [06/2022] Joined CyPhy Group as an undergraduate research assistant working on robust graph learning on dynamic link prediction.  
 
 ## Publications
