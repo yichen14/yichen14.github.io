@@ -31,13 +31,17 @@ My research interests are centered around **Multimodal Large Language Models(MLL
     <small> **Under Review** <small>
   - **SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation via Language Model and Synthetic Data**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
-    <small> **Interspeech 2024 Syndata4genai Workshop** <small>  
+    <small> **Interspeech 2024 Syndata4genai Workshop** <small>
+    [Paper](https://arxiv.org/abs/2408.00624)
+  - **Robust Audiovisual Speech Recognition Models with Mixture-of-Experts**
+    <small>Yihan Wu, Yifan Peng,  **Yichen Lu**, Xuankai Chang, Ruihua Song, Shinji Watanabe<small>
+    <small> **SLT 2024** <small>
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
     <small>Xuankai Chang, Brian Yan, Kwanghee Choi, Jeeweon Jung, **Yichen Lu**, Soumi Maiti, Roshan Sharma, Jiatong Shi, Jinchuan Tian, Shinji Watanabe, Yuya Fujita, Takashi Maekaku, Pengcheng Guo, Yao-Fei Cheng, Pavel Denisov, Kohei Saijo, Hsiu-Hsuan Wang <small>  
     <small> **ICASSP 2024** <small>  
     [Paper](https://arxiv.org/abs/2309.15800)  
   - **Robust Reasoning Over Noisy Knowledge Graphs Via Structure Learning.**  
-    <small>Ruijie Wang, **Yichen Lu**, Baoyu Li, Tarek Abdelzaher.<small>  
+    <small>Ruijie Wang, Baoyu Li, **Yichen Lu**, Tarek Abdelzaher.<small>  
     <small>**ACL Findings 2023**<small>  
     [Paper](https://arxiv.org/abs/2306.07512)  
 
