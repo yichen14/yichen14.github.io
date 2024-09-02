@@ -33,7 +33,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
     <small> **Interspeech 2024 Syndata4genai Workshop** <small>  
     [Paper](https://arxiv.org/abs/2408.00624)
-  - **Robust Audiovisual Speech Recognition Models with Mixture-of-Experts**
+  - **Robust Audiovisual Speech Recognition Models with Mixture-of-Experts**  
     <small>Yihan Wu, Yifan Peng,  **Yichen Lu**, Xuankai Chang, Ruihua Song, Shinji Watanabe<small>  
     <small> **SLT 2024** <small>  
   - **Exploring Speech Recognition, Translation, and Understanding with Discrete Speech Units: A Comparative Study**  
