@@ -28,7 +28,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
 ## Publications
   - **FastAdaSP: Multitask-Adapted Efficient Inference for Large Speech Language Model**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Chao-Han Huck Yang, Shinji Watanabe<small>  
-    <small> **EMNLP 2024 Industry Track** <small>  
+    <small> **EMNLP 2024 Industry Track (Oral)** <small>  
     [Paper](https://arxiv.org/abs/2410.03007)  
     [Blog](https://fastadasp.github.io/)  
   - **SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation via Language Model and Synthetic Data**  
