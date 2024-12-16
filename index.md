@@ -16,6 +16,8 @@ My research interests are centered around **Multimodal Large Language Models(MLL
 {% include button.html text="Google Scholar" icon="" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#29D5FF" %} {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
 ## News
+  - [12/2024] Graduated from CMU!
+  - [12/2024] One paper accepted by AAAI 2025
   - [09/2024] FastAdaSP has been accepted by EMNLP2024!
   - [07/2024] My first first-author paper has been accepted by Interspeech 2024 Syndata4genai Workshop!
   - [01/2024] Released my first open source project: [ViDove V0.1.0](https://pigeonai.club/)! See the official intro [here](https://www.bilibili.com/read/cv29086524/?spm_id_from=333.999.0.0)
@@ -30,7 +32,10 @@ My research interests are centered around **Multimodal Large Language Models(MLL
     <small>**Yichen Lu\***, Jiaqi Song\*, Chao-Han Huck Yang, Shinji Watanabe<small>  
     <small> **EMNLP 2024 Industry Track (Oral)** <small>  
     [Paper](https://arxiv.org/abs/2410.03007)  
-    [Blog](https://fastadasp.github.io/)  
+    [Blog](https://fastadasp.github.io/)
+  - **Enhancing Audiovisual Speech Recognition through Bifocal Preference Optimization**
+    <small>Yihan Wu, Yichen Lu, Yifan Peng, Xihua Wang, Ruihua Song, Shinji Watanabe<small>
+    <small> **AAAI 2025** <small> 
   - **SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation via Language Model and Synthetic Data**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
     <small> **Interspeech 2024 Syndata4genai Workshop** <small>  
