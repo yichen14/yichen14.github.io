@@ -2,20 +2,22 @@
 title: Yichen's Homepage
 feature_text: |
   ## Yichen(Eason) Lu
-  MS in AI @ Carnegie Mellon University | B.S. in Computer Science & Statistics @ UIUC
+  Research Scientist @ Anuttacon 
+  CMU/UIUC Alumni
 feature_image: "./assets/feature-image-2.jpeg"
 ---
 {% include figure.html image="/assets/profile_pic_3.jpg"  position="left"  width="200" height="550" %}
 
-Hello! I'm currently pursuing my Master's in Artificial Intelligence Engineering at [Carnegie Mellon University](https://www.cmu.edu/), where I'm actively engaged in research at [WAVLab](https://www.wavlab.org/) under the guidance of Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe). My primary research areas include Multimodal Language Models, Multimodal Fusion, Speech Recognition, AVSR, and Speech Translation.
+Hello! I am currently a Research Scientist at [Anuttacon](https://www.anuttacon.com/), where our work primarily focuses on audio understanding. I hold a Bachelor's degree in Computer Science from the [University of Illinois at Urbana-Champaign (UIUC)](https://illinois.edu/) and a Master's degree in Artificial Intelligence from [Carnegie Mellon University (CMU)](https://www.cmu.edu/). At CMU, I have been actively involved in research at the [WAVLab](https://www.wavlab.org/) under the supervision of Prof. [Shinji Watanabe](https://sites.google.com/view/shinjiwatanabe).
 
-I hold a Bachelor's degree in Computer Science from the [University of Illinois at Urbana-Champaign](https://illinois.edu/). During my undergraduate studies, I had the opportunity to work as a research assistant in the [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html). Additionally, I gained valuable experience collaborating with Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/) in the [Intelligent Motion Lab](https://motion.cs.illinois.edu/index.html).
+My core research interests include **general speech/audio language models**, **audio-visual fusion**, and **multimodal language models**.
 
-My research interests are centered around **Multimodal Large Language Models(MLLM)** and **Multimodal Fusion**, with a particular focus on integrating speech and visual modalities.
+During my undergraduate studies, I was also fortunate to work with Prof. [Tarek Abdelzaher](https://abdelzaher.cs.illinois.edu/index.html), Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/), and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/), which greatly shaped my research journey.
 
 {% include button.html text="Google Scholar" icon="" link="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" color="#29D5FF" %} {% include button.html text="Github" icon="github" link="https://github.com/yichen14" color="#000000" %} {% include button.html text="Email" icon="email" link="mailto: yichenl5@andrew.cmu.edu" color="#f68140" %}{% include button.html text="CV" icon="cv" link="/assets/resume.pdf" color="#0366d6" %}  {% include button.html text="LinkedIn" icon="linkedin" link="https://www.linkedin.com/in/yichen-lu-80b4a2198/" color="#0d94e7" %} {% include button.html text="Ins" icon="instagram" link="https://www.instagram.com/eason_lu1017/" color="#05bf85" %} 
 
 ## News
+  - [01/2025] I joined Anuttacon as an Research Scientist focus on Audio Understanding!
   - [12/2024] Graduated from CMU!
   - [12/2024] One paper accepted by AAAI 2025
   - [09/2024] FastAdaSP has been accepted by EMNLP2024!
@@ -32,10 +34,11 @@ My research interests are centered around **Multimodal Large Language Models(MLL
     <small>**Yichen Lu\***, Jiaqi Song\*, Chao-Han Huck Yang, Shinji Watanabe<small>  
     <small> **EMNLP 2024 Industry Track (Oral)** <small>  
     [Paper](https://arxiv.org/abs/2410.03007)  
-    [Blog](https://fastadasp.github.io/)
-  - **Enhancing Audiovisual Speech Recognition through Bifocal Preference Optimization**
-    <small>Yihan Wu, Yichen Lu, Yifan Peng, Xihua Wang, Ruihua Song, Shinji Watanabe<small>
-    <small> **AAAI 2025** <small> 
+    [Blog](https://fastadasp.github.io/)  
+  - **Enhancing Audiovisual Speech Recognition through Bifocal Preference Optimization**  
+    <small>Yihan Wu, Yichen Lu, Yifan Peng, Xihua Wang, Ruihua Song, Shinji Watanabe<small>  
+    <small> **AAAI 2025** <small>  
+    [Paper](https://arxiv.org/pdf/2412.19005)  
   - **SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation via Language Model and Synthetic Data**  
     <small>**Yichen Lu\***, Jiaqi Song\*, Xuankai Chang, Hengwei Bian, Soumi Maiti, Shinji Watanabe<small>  
     <small> **Interspeech 2024 Syndata4genai Workshop** <small>  
@@ -58,7 +61,7 @@ My research interests are centered around **Multimodal Large Language Models(MLL
   - [06/2022 - 05/2023] [CyPhy Group](https://abdelzaher.cs.illinois.edu/teaching.html), supervised by Prof. [Tarek Abdelazher](https://abdelzaher.cs.illinois.edu/index.html)
   - [02/2022 - 08/2022] [Intelligent Motion Lab](https://motion.cs.illinois.edu/), supervised by Prof. [Kris Hauser](https://kkhauser.web.illinois.edu/) and Prof. [Yuxiong Wang](https://yxw.web.illinois.edu/)
 
-## Industry Experiences
+## Internship Experiences
   - [05/2023 - 08/2023] Machine Learning Engineer Intern at **Trova.AI**
   - [07/2021 - 01/2022] Software Engineer Intern at **VMware, Inc**.
   - [10/2020 - 02/2021] Software Engineer Intern at **NetEase, Inc**.
