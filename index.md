@@ -1,9 +1,9 @@
 ---
 title: Yichen's Homepage
 feature_text: |
-  ## Yichen(Eason) Lu
-  Research Scientist @ Anuttacon 
-  CMU/UIUC Alumni
+  ## Yichen(Eason) Lu  
+  Research Scientist @ Anuttacon  
+  EX-CMU/UIUC Alumni  
 feature_image: "./assets/feature-image-2.jpeg"
 ---
 {% include figure.html image="/assets/profile_pic_3.jpg"  position="left"  width="200" height="550" %}
