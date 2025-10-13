@@ -119,8 +119,9 @@
       html.setAttribute('data-theme', savedTheme);
       updateThemeButton(savedTheme);
     } else {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      updateThemeButton(prefersDark ? 'dark' : 'light');
+      // 默认使用 light 主题
+      html.setAttribute('data-theme', 'light');
+      updateThemeButton('light');
     }
 
     themeToggle.addEventListener('click', () => {

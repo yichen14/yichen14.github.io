@@ -112,9 +112,9 @@
       html.setAttribute('data-theme', savedTheme);
       updateThemeButton(savedTheme);
     } else {
-      // 如果没有保存的主题，检查系统偏好
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      updateThemeButton(prefersDark ? 'dark' : 'light');
+      // 默认使用 light 主题
+      html.setAttribute('data-theme', 'light');
+      updateThemeButton('light');
     }
 
     // 主题切换按钮点击事件

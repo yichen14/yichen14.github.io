@@ -22,8 +22,8 @@
     .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
     .theme-toggle:hover{background:var(--line)}
     .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
-    .hero{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center;margin-top:8px}
-    .avatar{width:160px;height:160px;border-radius:8px;object-fit:cover;border:1px solid var(--line)}
+    .hero{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:center;margin-top:8px}
+    .avatar{width:220px;height:220px;border-radius:12px;object-fit:cover;border:1px solid var(--line)}
     h1{margin:0 0 2px 0;font-size:2rem;letter-spacing:-0.02em}
     .subtitle{color:var(--muted)}
     .icons{margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
@@ -47,7 +47,7 @@
     .small{color:var(--muted)}
     ul{margin:8px 0 0 18px}
     li{margin:6px 0}
-    @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:120px;height:120px}}
+    @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:160px;height:160px}}
   </style>
 </head>
 <body>
@@ -81,8 +81,7 @@
         </div>
         <div class="small" style="margin-top:6px">
           📍 Mountain View, CA | 
-          📧 <a href="mailto:mythsama@outlook.com">mythsama@outlook.com</a> | 
-          🌐 <a href="https://yichen14.github.io" target="_blank">yichen14.github.io</a>
+          📧 <a href="mailto:mythsama@outlook.com">mythsama@outlook.com</a>
         </div>
       </div>
     </div>
@@ -223,10 +222,19 @@
       <p class="small"><strong>Program Committee:</strong> IEEE ASRU 2025, IEEE T-ASLP 2025, AAAI 2026, ICASSP</p>
     </section>
 
+    <section>
+      <h2>Misc.</h2>
+      <ul>
+        <li>🐱 I have a tuxedo cat named <strong>Brann</strong></li>
+        <li>🎭 My favorite musical is <strong>Hamilton</strong></li>
+        <li>🎬 I used to be an <strong>AMVer</strong> (Anime Music Video creator)</li>
+      </ul>
+    </section>
+
     <section style="text-align:center">
       <h2>Visitor Map</h2>
-      <div style="display:inline-block">
-        <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=QCfahRnO0cxIUJRkzYrwjwvFXITXv9o7V3-ojBTlUrM&cl=ffffff&w=a"></script>
+      <div style="display:inline-block;min-width:300px;min-height:200px;">
+        <script type="text/javascript" id="clustrmaps" src="https://clustrmaps.com/map_v2.js?d=QCfahRnO0cxIUJRkzYrwjwvFXITXv9o7V3-ojBTlUrM&cl=ffffff&w=a"></script>
       </div>
     </section>
 
@@ -252,9 +260,9 @@
       html.setAttribute('data-theme', savedTheme);
       updateThemeButton(savedTheme);
     } else {
-      // 如果没有保存的主题，检查系统偏好
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      updateThemeButton(prefersDark ? 'dark' : 'light');
+      // 默认使用 light 主题
+      html.setAttribute('data-theme', 'light');
+      updateThemeButton('light');
     }
 
     // 主题切换按钮点击事件
