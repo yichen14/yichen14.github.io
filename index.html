@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yichen (Eason) Lu</title>
+  <meta name="description" content="Yichen (Eason) Lu — Multimodal & Audio Language Models" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
+    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
+    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.7;transition:background 0.3s,color 0.3s}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
+    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .nav{display:flex;align-items:center}
+    .nav a{margin-left:18px;color:var(--fg)}
+    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
+    .theme-toggle:hover{background:var(--line)}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
+    .hero{display:grid;grid-template-columns:160px 1fr;gap:24px;align-items:center;margin-top:8px}
+    .avatar{width:160px;height:160px;border-radius:8px;object-fit:cover;border:1px solid var(--line)}
+    h1{margin:0 0 2px 0;font-size:2rem;letter-spacing:-0.02em}
+    .subtitle{color:var(--muted)}
+    .icons{margin-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+    .icons a{color:var(--link);font-size:14px}
+    section{margin-top:26px}
+    h2{margin:0 0 10px 0;font-size:1.125rem}
+    .card{border:1px solid var(--line);border-radius:10px;padding:14px}
+    .year-title{font-size:2rem;font-weight:700;margin:30px 0 20px 0}
+    .pub-item{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:20px;margin-bottom:20px;background:var(--bg);border:1px solid var(--line);border-radius:10px;transition:all 0.2s}
+    .pub-item:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);transform:translateY(-2px)}
+    .pub-item.highlight{border:2px dashed #ff5353;background:rgba(255,83,83,0.02)}
+    .pub-img{width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
+    .pub-content{display:flex;flex-direction:column;gap:8px}
+    .pub-title{font-size:1.1rem;font-weight:600;line-height:1.4}
+    .pub-authors{color:var(--fg);font-size:0.95rem}
+    .pub-venue{color:var(--muted);font-style:italic;font-size:0.9rem}
+    .pub-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+    .pub-links a{font-size:0.9rem}
+    @media(max-width:720px){.pub-item{grid-template-columns:1fr}.pub-img{max-width:200px}}
+    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
+    .small{color:var(--muted)}
+    ul{margin:8px 0 0 18px}
+    li{margin:6px 0}
+    @media(max-width:720px){.hero{grid-template-columns:1fr}.avatar{width:120px;height:120px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><strong>Yichen (Eason) Lu</strong></div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="publications.html">Publications</a>
+        <a href="blog.html">Blog</a>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">dark</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main id="home" class="wrap">
+    <div class="hero">
+      <img class="avatar" src="assets/profile.jpg" alt="avatar" />
+      <div>
+        <h1>Yichen (Eason) Lu</h1>
+        <div class="subtitle">Research Scientist @ Anuttacon · Multimodal & Audio Large Language Models</div>
+        <div class="icons">
+          <a href="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" title="Google Scholar">[Google Scholar]</a>
+          <a href="https://github.com/yichen14" title="GitHub">[GitHub]</a>
+          <a href="https://www.instagram.com/eason_lu1017/" title="Instagram">[Instagram]</a>
+          <a href="https://www.linkedin.com/in/yichen-lu-80b4a2198/" title="LinkedIn">[LinkedIn]</a>
+          <a href="assets/resume.pdf" target="_blank" title="Resume">[CV/Resume]</a>
+        </div>
+        <div class="small" style="margin-top:6px">
+          📍 Mountain View, CA | 
+          📧 <a href="mailto:mythsama@outlook.com">mythsama@outlook.com</a> | 
+          🌐 <a href="https://yichen14.github.io" target="_blank">yichen14.github.io</a>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2>About Me</h2>
+      <p>
+        Hello! I am currently a <strong>Research Scientist at <a href="https://www.anuttacon.com/" target="_blank"><em></em>Anuttacon</em></a></strong>, where I work on fully duplex speech-to-speech conversational models 
+        and lead the research and development of general audio understanding models, with a focus on <strong>Large Audio Language Model (LALM)</strong> architectures. 
+        My work involves continual audio-text pretraining and post-training for comprehensive audio, speech, and music understanding.
+      </p>
+      <p>
+        I hold a B.S. in Computer Science from the <strong>UIUC</strong> 
+        and a M.S. in Artificial Intelligence from <strong>CMU</strong>. 
+        At CMU, I was actively involved in research at the WAVLab under the supervision of 
+        <a href="https://sites.google.com/view/shinjiwatanabe" target="_blank">Prof. Shinji Watanabe</a>.
+      </p>
+      <p>
+        My core research interests include <strong>general speech/audio language models</strong>, 
+        <strong>audio-visual fusion</strong>, and <strong>multimodal language models</strong>.
+      </p>
+      <p>
+        During my undergraduate studies, I was fortunate to work with 
+        <a href="http://abdelzaher.cs.illinois.edu/" target="_blank">Prof. Tarek Abdelzaher</a>, 
+        <a href="https://kkhauser.web.illinois.edu/" target="_blank">Prof. Kris Hauser</a>, and 
+        <a href="https://yxw.web.illinois.edu/" target="_blank">Prof. Yuxiong Wang</a>, 
+        which greatly shaped my research journey.
+      </p>
+      <p class="small">I'm happy to collaborate on interesting projects. If you'd like to chat, just drop me an email ✨</p>
+    </section>
+
+    <section>
+      <h2>News</h2>
+      <ul>
+        <li><b>[Sep 2025]</b> <em>EMNLP 2025 System Demo</em> accepted: <a href="https://github.com/pigeonai-org/ViDove" target="_blank"><em>ViDove</em></a> (multimodal translation agent).</li>
+        <li><b>[Aug 2025]</b> We released <a href="https://wfts.anuttacon.com/" target="_blank"><em>Whispers from the Star</em></a>, I am responsible for the audio understanding part.</li>
+        <li><b>[Jan 2025]</b> Started as Research Scientist at <a href="https://www.anuttacon.com/" target="_blank"><em></em>Anuttacon</em></a></li>
+        <li><b>[2025]</b> One papers accepted to <em>Interspeech 2025</em>: <a href="https://www.isca-archive.org/interspeech_2025/wu25e_interspeech.html" target="_blank"><em></em>GALAXY</em></a> (multimodal learning dataset).</li>
+        <li><b>[2024]</b> <strong>Oral presentation</strong> at <em>EMNLP 2024</em>: FastAdaSP - Multitask-Adapted Efficient Inference for Large Speech LM.</li>
+      </ul>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+        <ul>
+          <li>
+            <strong>Research Scientist</strong>, Anuttacon – Mountain View, CA<br>
+            <span class="small">Jan 2025 – Present</span>
+          </li>
+          <li>
+            <strong>Research Assistant</strong>, CMU (WavLab) – Pittsburgh, PA<br>
+            <span class="small">July 2023 – Jan 2025 | Contributed to ESPNet, research on efficient inference and unified audio-visual language understanding</span>
+          </li>
+          <li>
+            <strong>MLE Intern</strong>, TrovaAI – Champaign, IL<br>
+            <span class="small">May 2023 – Aug 2023 | Designed RAG pipeline and AI agent platform using LangChain</span>
+          </li>
+          <li>
+            <strong>MLE Intern</strong>, VMware, Inc. – Beijing, China<br>
+            <span class="small">July 2021 – Jan 2022 | Built automatic data analysis system for machine translation</span>
+          </li>
+        </ul>
+      </section>
+
+    <section id="publications">
+      <h2>Selected Publications</h2>
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-weight:600">FastAdaSP: Multitask-Adapted Efficient Inference for Large Speech Language Model</div>
+        <div class="small"><strong>Yichen Lu*</strong>, J Song*, CH Yang, Shinji Watanabe. <em>EMNLP 2024 (Oral)</em></div>
+        <div><a href="https://arxiv.org/abs/2410.03007" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/yichen14/FastAdaSP" target="_blank" rel="noopener">[Code]</a></div>
+      </div>
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-weight:600">ViDove: A Translation Agent System with Multimodal Context and Memory-Augmented Reasoning</div>
+        <div class="small"><strong>Yichen Lu*</strong>, Wei Dai*, Jiaen Liu*, et al. <em>EMNLP 2025 System Demonstrations</em></div>
+        <div><a href="https://arxiv.org/pdf/2507.07306" target="_blank" rel="noopener">[Paper]</a> <a href="https://github.com/pigeonai-org/ViDove" target="_blank" rel="noopener">[Code]</a></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:600">SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation</div>
+        <div class="small"><strong>Yichen Lu*</strong>, J Song*, X Chang, H Bian, S Maiti, Shinji Watanabe. <em>Interspeech 2024 Workshop</em></div>
+        <div><a href="https://arxiv.org/abs/2408.00624" target="_blank" rel="noopener">[Paper]</a></div>
+      </div>
+      <p style="margin-top:10px"><a href="publications.html">→ View all 9 publications</a></p>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <ul>
+          <li>
+            <strong>Carnegie Mellon University</strong> – M.S. in Artificial Intelligence<br>
+            <span class="small">Aug 2023 – Dec 2024 | GPA: 3.76/4.00 | Coursework: Multimodal ML, LLM System, System Tool Chains for AI, Speech Recognition and Understanding</span>
+          </li>
+          <li>
+            <strong>University of Illinois at Urbana-Champaign</strong> – B.S. in Statistics & Computer Science<br>
+            <span class="small">Aug 2019 – May 2023 | GPA: 3.93/4.00 (Highest Honor; Dean's List) | Coursework: Computer Vision, Autonomous Vehicle, Applied ML, OS, Linear Algebra, DB Design, Web Dev</span>
+          </li>
+        </ul>
+      </section>
+
+    <section>
+      <h2>Notable Projects</h2>
+      <div class="card" style="margin-bottom:12px">
+        <div style="font-weight:600">ViDove - Multimodal Translation Agent</div>
+        <div class="small" style="margin:6px 0"><em>Founder & Researcher</em></div>
+        <p style="margin:4px 0">
+          Developed an end-to-end multimodal translation agent for video subtitle generation in specific fields. 
+          Managed open-source repository with 10+ technical members and directed marketing team.
+        </p>
+        <p style="margin:4px 0">
+          <strong>Impact:</strong> Officially cooperated with <strong>StarCraft 2 World Team League</strong> 
+          (one of the biggest SC2 E-Sports tournaments in the world), helping them translate the tournament content.
+        </p>
+        <div style="margin-top:6px"><a href="https://github.com/pigeonai-org/ViDove" target="_blank" rel="noopener">[GitHub Repo]</a></div>
+      </div>
+      <div class="card">
+        <div style="font-weight:600">SUGAR MASSES CREATIVE - China Minecraft Construction Summit</div>
+        <div class="small" style="margin:6px 0"><em>Founder, Developer & Director</em> (Feb 2014 – Dec 2018)</div>
+        <p style="margin:4px 0">
+          Launched <strong>the largest official Minecraft tournament in China</strong>, attracting over 
+          <strong>1,000 contestants and over 1 million online viewers annually</strong> by leading a team of 30 members.
+        </p>
+        <p style="margin:4px 0">
+          Achieved long-term cooperation with major internet companies in China including NetEase, Qihoo360, Tencent, and Youku; 
+          secured project investment from NetEase and JoyMe.com. Presented at ChinaJoy2016 with more than 325,000 entries.
+        </p>
+      </div>
+    </section>
+
+    <section id="blog">
+      <h2>Recent Blog Posts</h2>
+      <ul>
+        <li><span class="small">[Nov 6, 2023]</span> <a href="posts/fall-2023.html">2023秋(Placeholder)</a></li>
+      </ul>
+      <p style="margin-top:10px"><a href="blog.html">→ View all blog posts</a></p>
+    </section>
+
+    <section>
+      <h2>Academic Services</h2>
+      <p class="small"><strong>Program Committee:</strong> IEEE ASRU 2025, IEEE T-ASLP 2025, AAAI 2026, ICASSP</p>
+    </section>
+
+    <section style="text-align:center">
+      <h2>Visitor Map</h2>
+      <div style="display:inline-block">
+        <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=QCfahRnO0cxIUJRkzYrwjwvFXITXv9o7V3-ojBTlUrM&cl=ffffff&w=a"></script>
+      </div>
+    </section>
+
+    <div class="foot">
+      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
+      <div class="small">Last Updated: <span id="ts"></span></div>
+    </div>
+  </main>
+  <script>
+    const d=new Date();
+    document.getElementById('year').textContent=d.getFullYear();
+    document.getElementById('ts').textContent=d.toLocaleString();
+
+    // 主题切换功能
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    // 从localStorage读取主题设置
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+      updateThemeButton(savedTheme);
+    } else {
+      // 如果没有保存的主题，检查系统偏好
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      updateThemeButton(prefersDark ? 'dark' : 'light');
+    }
+
+    // 主题切换按钮点击事件
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeButton(newTheme);
+    });
+
+    // 更新按钮文字和图标
+    function updateThemeButton(theme) {
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'light';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'dark';
+      }
+    }
+  </script>
+</body>
+</html>

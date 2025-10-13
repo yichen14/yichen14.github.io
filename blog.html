@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog - Yichen (Eason) Lu</title>
+  <meta name="description" content="Blog and essays by Yichen (Eason) Lu" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
+    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
+    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.7;transition:background 0.3s,color 0.3s}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
+    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .nav{display:flex;align-items:center}
+    .nav a{margin-left:18px;color:var(--fg)}
+    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
+    .theme-toggle:hover{background:var(--line)}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
+    h1{margin:20px 0;font-size:2.5rem;letter-spacing:-0.02em}
+    .blog-item{padding:24px;margin-bottom:20px;background:var(--bg);border:1px solid var(--line);border-radius:10px;transition:all 0.2s}
+    .blog-item:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);transform:translateY(-2px)}
+    .blog-date{color:var(--muted);font-size:0.9rem;margin-bottom:8px}
+    .blog-title{font-size:1.4rem;font-weight:600;line-height:1.4;margin-bottom:12px}
+    .blog-title a{color:var(--fg)}
+    .blog-excerpt{color:var(--fg);margin-bottom:12px;line-height:1.6}
+    .blog-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .blog-tag{background:var(--line);color:var(--fg);padding:4px 10px;border-radius:4px;font-size:0.85rem}
+    .read-more{color:var(--link);font-weight:500}
+    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
+    .small{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><strong>Yichen (Eason) Lu</strong></div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="publications.html">Publications</a>
+        <a href="blog.html">Blog</a>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">dark</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <h1>Blog & Essays</h1>
+    <p class="small" style="margin-bottom:30px">Thoughts on research, technology, and life.</p>
+    
+    <!-- 博客文章列表 -->
+    
+    <div class="blog-item">
+      <div class="blog-date">November 6, 2023</div>
+      <div class="blog-title">
+        <a href="posts/fall-2023.html">2023秋</a>
+      </div>
+      <div class="blog-excerpt">
+        从香槟到匹兹堡，从UIUC到CMU，记录一段心态的转变 —— 从对梦校的崇拜，到失望，再到真正的认可和喜爱。
+        在这个美好的秋天，写下对过去和现在的思考...
+      </div>
+      <div class="blog-tags">
+        <span class="blog-tag">个人随笔</span>
+        <span class="blog-tag">CMU</span>
+        <span class="blog-tag">UIUC</span>
+        <span class="blog-tag">生活感悟</span>
+      </div>
+    </div>
+
+    <!-- 添加更多博客文章的模板： -->
+    <!--
+    <div class="blog-item">
+      <div class="blog-date">Month Day, Year</div>
+      <div class="blog-title">
+        <a href="posts/your-post.html">Your Blog Post Title</a>
+      </div>
+      <div class="blog-excerpt">
+        Brief excerpt or summary of your blog post content...
+      </div>
+      <div class="blog-tags">
+        <span class="blog-tag">Tag1</span>
+        <span class="blog-tag">Tag2</span>
+      </div>
+    </div>
+    -->
+
+    <div class="foot">
+      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
+    </div>
+  </main>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 主题切换功能
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    // 从localStorage读取主题设置
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+      updateThemeButton(savedTheme);
+    } else {
+      // 如果没有保存的主题，检查系统偏好
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      updateThemeButton(prefersDark ? 'dark' : 'light');
+    }
+
+    // 主题切换按钮点击事件
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeButton(newTheme);
+    });
+
+    // 更新按钮文字和图标
+    function updateThemeButton(theme) {
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'light';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'dark';
+      }
+    }
+  </script>
+</body>
+</html>
+

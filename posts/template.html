@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog Post Title - Yichen (Eason) Lu</title>
+  <meta name="description" content="Blog post description" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
+    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
+    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.7;transition:background 0.3s,color 0.3s}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
+    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .nav{display:flex;align-items:center}
+    .nav a{margin-left:18px;color:var(--fg)}
+    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
+    .theme-toggle:hover{background:var(--line)}
+    .wrap{max-width:720px;margin:0 auto;padding:24px 20px}
+    .back-link{color:var(--muted);margin-bottom:20px;display:inline-block}
+    .post-header{margin-bottom:40px}
+    .post-title{font-size:2.5rem;font-weight:700;line-height:1.2;margin:0 0 16px 0}
+    .post-meta{color:var(--muted);font-size:0.95rem;margin-bottom:16px}
+    .post-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .post-tag{background:var(--line);color:var(--fg);padding:4px 10px;border-radius:4px;font-size:0.85rem}
+    .post-content{font-size:1.05rem;line-height:1.8}
+    .post-content h2{margin-top:40px;margin-bottom:16px;font-size:1.75rem}
+    .post-content h3{margin-top:32px;margin-bottom:12px;font-size:1.4rem}
+    .post-content p{margin:20px 0}
+    .post-content code{background:var(--line);padding:2px 6px;border-radius:3px;font-size:0.9em}
+    .post-content pre{background:var(--line);padding:16px;border-radius:6px;overflow-x:auto;line-height:1.5}
+    .post-content blockquote{border-left:4px solid var(--link);padding-left:20px;margin:20px 0;color:var(--muted);font-style:italic}
+    .post-content img{max-width:100%;height:auto;border-radius:8px;margin:20px 0}
+    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><strong>Yichen (Eason) Lu</strong></div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../blog.html">Blog</a>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">dark</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <a href="../blog.html" class="back-link">← Back to Blog</a>
+    
+    <article class="post-header">
+      <h1 class="post-title">Your Blog Post Title Here</h1>
+      <div class="post-meta">
+        <span>Month Day, Year</span> · <span>5 min read</span>
+      </div>
+      <div class="post-tags">
+        <span class="post-tag">Tag1</span>
+        <span class="post-tag">Tag2</span>
+      </div>
+    </article>
+
+    <div class="post-content">
+      <p>
+        This is a template for your blog posts. You can write your thoughts, reflections, and essays here.
+        The content supports basic HTML formatting.
+      </p>
+
+      <h2>Section Heading</h2>
+      <p>
+        Write your content here. You can use paragraphs, headings, lists, code blocks, and more.
+      </p>
+
+      <h3>Subsection</h3>
+      <p>
+        Some example text with <code>inline code</code> formatting.
+      </p>
+
+      <blockquote>
+        "You can also include quotes like this."
+      </blockquote>
+
+      <h2>Another Section</h2>
+      <p>
+        Continue your blog post content here. Feel free to add images, code snippets, or any other content you'd like.
+      </p>
+
+      <h2>Conclusion</h2>
+      <p>
+        Wrap up your blog post with final thoughts.
+      </p>
+    </div>
+
+    <div class="foot">
+      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
+    </div>
+  </main>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 主题切换功能
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+      updateThemeButton(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      updateThemeButton(prefersDark ? 'dark' : 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeButton(newTheme);
+    });
+
+    function updateThemeButton(theme) {
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'light';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'dark';
+      }
+    }
+  </script>
+</body>
+</html>
+

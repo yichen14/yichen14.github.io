@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications - Yichen (Eason) Lu</title>
+  <meta name="description" content="Publications by Yichen (Eason) Lu" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
+    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
+    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.7;transition:background 0.3s,color 0.3s}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
+    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+    .nav{display:flex;align-items:center}
+    .nav a{margin-left:18px;color:var(--fg)}
+    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
+    .theme-toggle:hover{background:var(--line)}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
+    h1{margin:20px 0;font-size:2.5rem;letter-spacing:-0.02em}
+    .year-title{font-size:2rem;font-weight:700;margin:30px 0 20px 0}
+    .pub-item{display:grid;grid-template-columns:200px 1fr;gap:20px;padding:20px;margin-bottom:20px;background:var(--bg);border:1px solid var(--line);border-radius:10px;transition:all 0.2s}
+    .pub-item:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);transform:translateY(-2px)}
+    .pub-item.highlight{border:2px dashed #ff5353;background:rgba(255,83,83,0.02)}
+    .pub-img{width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
+    .pub-content{display:flex;flex-direction:column;gap:8px}
+    .pub-title{font-size:1.1rem;font-weight:600;line-height:1.4}
+    .pub-authors{color:var(--fg);font-size:0.95rem}
+    .pub-venue{color:var(--muted);font-style:italic;font-size:0.9rem}
+    .pub-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+    .pub-links a{font-size:0.9rem}
+    @media(max-width:720px){.pub-item{grid-template-columns:1fr}.pub-img{max-width:200px}}
+    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
+    .small{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div><strong>Yichen (Eason) Lu</strong></div>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="publications.html">Publications</a>
+        <a href="blog.html">Blog</a>
+        <button class="theme-toggle" id="themeToggle">
+          <span id="themeIcon">🌙</span>
+          <span id="themeText">dark</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <h1>Publications</h1>
+    <p class="small" style="margin-bottom:30px">
+      For the most up-to-date and complete list of publications, please visit my 
+      <a href="https://scholar.google.com/citations?user=FNCDQpcAAAAJ&hl=en" target="_blank" rel="noopener"><strong>Google Scholar profile</strong></a>.
+    </p>
+    
+    <div class="year-title">2025</div>
+    
+    <div class="pub-item highlight">
+      <img class="pub-img" src="assets/papers/vidove.png" alt="ViDove" />
+      <div class="pub-content">
+        <div class="pub-title">ViDove: A Translation Agent System with Multimodal Context and Memory-Augmented Reasoning</div>
+        <div class="pub-authors"><strong>Yichen Lu*</strong>, Wei Dai*, Jiaen Liu*, et al.</div>
+        <div class="pub-venue">EMNLP 2025 System Demonstrations</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/pdf/2507.07306" target="_blank" rel="noopener">[Paper]</a>
+          <a href="https://github.com/pigeonai-org/ViDove" target="_blank" rel="noopener">[Code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/galaxy.jpg" alt="GALAXY" onerror="this.src='https://via.placeholder.com/200x150?text=GALAXY'" />
+      <div class="pub-content">
+        <div class="pub-title">GALAXY: A Large-Scale Open-Domain Dataset for Multimodal Learning</div>
+        <div class="pub-authors">Yihan Wu, <strong>Yichen Lu</strong>, Yijing Chen, Jiaqi Song, William Chen, Ruihua Song, Shinji Watanabe</div>
+        <div class="pub-venue">Interspeech 2025</div>
+        <div class="pub-links">
+          <a href="https://www.isca-archive.org/interspeech_2025/wu25e_interspeech.html" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/aaai2025.jpg" alt="Audiovisual SR" onerror="this.src='https://via.placeholder.com/200x150?text=AVSR'" />
+      <div class="pub-content">
+        <div class="pub-title">Enhancing Audiovisual Speech Recognition by Bifocal Preference Optimization</div>
+        <div class="pub-authors">Yihan Wu, <strong>Yichen Lu</strong>, Y Peng, X Wang, R Song, Shinji Watanabe</div>
+        <div class="pub-venue">AAAI 2025</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2412.19005" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-title">2024</div>
+
+    <div class="pub-item highlight">
+      <img class="pub-img" src="assets/papers/fastadasp.png" alt="FastAdaSP" />
+      <div class="pub-content">
+        <div class="pub-title">FastAdaSP: Multitask-Adapted Efficient Inference for Large Speech Language Model</div>
+        <div class="pub-authors"><strong>Yichen Lu*</strong>, J Song*, CH Yang, Shinji Watanabe</div>
+        <div class="pub-venue">EMNLP 2024 (Oral Presentation)</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2410.03007" target="_blank" rel="noopener">[Paper]</a>
+          <a href="https://github.com/yichen14/FastAdaSP" target="_blank" rel="noopener">[Code]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/papers/SynesLM.png" alt="SynesLM" />
+      <div class="pub-content">
+        <div class="pub-title">SynesLM: A Unified Approach for Audio-visual Speech Recognition and Translation</div>
+        <div class="pub-authors"><strong>Yichen Lu*</strong>, J Song*, X Chang, H Bian, S Maiti, Shinji Watanabe</div>
+        <div class="pub-venue">Interspeech 2024 Workshop</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2408.00624" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/papers/AV-MOE.png" alt="MoE AVSR" onerror="this.src='https://via.placeholder.com/200x150?text=MoE'" />
+      <div class="pub-content">
+        <div class="pub-title">Robust Audiovisual Speech Recognition Model with Mixture-of-Experts</div>
+        <div class="pub-authors">Yihan Wu, Yifan Peng, <strong>Yichen Lu</strong>, X Chang, R Song, Shinji Watanabe</div>
+        <div class="pub-venue">SLT 2024</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2409.12370" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/icassp2024.jpg" alt="Discrete Input" onerror="this.src='https://via.placeholder.com/200x150?text=ICASSP'" />
+      <div class="pub-content">
+        <div class="pub-title">Exploring Speech Recognition, Translation, and Understanding with Discrete Input</div>
+        <div class="pub-authors">Xuankai Chang, B Yan, K Choi, J Jung, <strong>Yichen Lu</strong>, et al.</div>
+        <div class="pub-venue">ICASSP 2024</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2309.15800" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-title">Under Review</div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/speech-drame.jpg" alt="Speech-DRAME" onerror="this.src='https://via.placeholder.com/200x150?text=DRAME'" />
+      <div class="pub-content">
+        <div class="pub-title">Speech-DRAME: A Framework for Human-Aligned Benchmarks in Speech Role-Play</div>
+        <div class="pub-authors">Jiatong Shi, Jionghao Han, <strong>Yichen Lu*</strong>, et al.</div>
+        <div class="pub-venue">Under Review</div>
+        <div class="pub-links">
+          <a href="#" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-title">2023</div>
+
+    <div class="pub-item">
+      <img class="pub-img" src="assets/papers/noiesy-robust.png" alt="NPU Learning" onerror="this.src='https://via.placeholder.com/200x150?text=ACL'" />
+      <div class="pub-content">
+        <div class="pub-title">Noisy Positive-Unlabeled Learning with Self-Training for Knowledge Graph Completion</div>
+        <div class="pub-authors">Ruijie Wang, B Li, <strong>Yichen Lu</strong>, D Sun, J Li, Yuchen Yan, S Liu, H Tong, T F. Abdelzaher</div>
+        <div class="pub-venue">ACL 2023 Findings</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/abs/2306.07512" target="_blank" rel="noopener">[Paper]</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
+    </div>
+  </main>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 主题切换功能
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const html = document.documentElement;
+
+    // 从localStorage读取主题设置
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      html.setAttribute('data-theme', savedTheme);
+      updateThemeButton(savedTheme);
+    } else {
+      // 如果没有保存的主题，检查系统偏好
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      updateThemeButton(prefersDark ? 'dark' : 'light');
+    }
+
+    // 主题切换按钮点击事件
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeButton(newTheme);
+    });
+
+    // 更新按钮文字和图标
+    function updateThemeButton(theme) {
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'light';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'dark';
+      }
+    }
+  </script>
+</body>
+</html>
+
+
