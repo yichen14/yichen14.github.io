@@ -6,6 +6,39 @@ behaviour script, `assets/zine.js`. Pages carry **no inline `<style>` block and
 no per-page theme script** — don't add either, or the post will drift away from
 the rest of the site.
 
+## Two Categories
+
+| | `Technical` / 技术 | `Personal` / 随笔 |
+|---|---|---|
+| `.post-kind` label | `技术` / `Technical` | `随笔` / `Personal` |
+| Section in `blog.html` | `#technical` | `#personal` |
+| Citation block | **yes** | **no** |
+
+Every post carries a `.post-kind` label above its title. Technical posts end
+with a `.citation` block (APA + BibTeX with copy buttons); personal notes
+deliberately omit it — they aren't meant to be cited.
+
+## Bilingual Copy
+
+Every post exists in Chinese and English. Pair the two with `data-i18n`:
+
+```html
+<p>
+  <span data-i18n="zh" lang="zh-Hans">中文段落。</span>
+  <span data-i18n="en" lang="en">English paragraph.</span>
+</p>
+```
+
+The stylesheet hides whichever language is inactive, so **both must always be
+present in equal numbers** — an unpaired block will vanish in one language.
+For long articles it is easier to wrap the whole body twice (see
+`fall-2023.html`); for dense ones, pair inline (see `thoughts-on-agents.html`).
+SVG diagram labels pair the same way, by wrapping `<text>` in
+`<g data-i18n="zh">` / `<g data-i18n="en">`.
+
+Reader language is chosen by: stored preference → browser language → English.
+Without JavaScript the Chinese original shows.
+
 ## How to Add a New Blog Post
 
 1. **Copy the template**: Make a copy of `template.html` and rename it (e.g., `my-new-post.html`)
@@ -15,7 +48,8 @@ the rest of the site.
    - Update `.post-title`, `.post-meta` (date · read time) and `.post-tags`
    - Write your content in the `.post-content` section
 
-3. **Add to blog.html**: Open `../blog.html` and add a new entry:
+3. **Add to blog.html**: Open `../blog.html` and add the entry to the
+   `#technical` or `#personal` section, matching the post's `.post-kind`:
    ```html
    <article class="diary-item">
      <div class="diary-when">06 Nov<br />2023</div>

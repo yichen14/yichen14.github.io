@@ -194,9 +194,9 @@ em     { font-style: italic; }
 /* Torn-edge halftone photo specimen — small, grayscale, photocopied */
 .specimen {
   position: relative;
-  width: 88px;
-  height: 112px;
-  margin-bottom: 2.25rem;
+  width: 150px;
+  height: 190px;
+  margin-bottom: 2.4rem;
   filter: grayscale(1) contrast(1.12) brightness(1.04);
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 112' preserveAspectRatio='none'%3E%3Cpath d='M2 4 L86 1 L87 106 L44 111 L3 108 Z' fill='%23000'/%3E%3C/svg%3E");
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 112' preserveAspectRatio='none'%3E%3Cpath d='M2 4 L86 1 L87 106 L44 111 L3 108 Z' fill='%23000'/%3E%3C/svg%3E");
@@ -495,6 +495,17 @@ h2.leaf-title {
   margin-bottom: 2.6rem;
   border-bottom: 1px solid var(--rule);
 }
+/* Which shelf a piece sits on: technical writing or personal notes */
+.post-kind {
+  display: block;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+  margin-bottom: .9rem;
+}
+
 .post-title {
   font-size: clamp(1.9rem, 4.6vw, 2.9rem);
   line-height: 1.16;
@@ -668,6 +679,7 @@ h2.leaf-title {
   .poster { min-height: auto; padding: 4rem 0 3.4rem; }
   .anchor-block { width: 72px; height: 92px; top: 4.6rem; }
   .anchor-note { display: none; }
+  .specimen { width: 124px; height: 157px; }
   /* the phrase rejoins the flow so it cannot ride over the wordmark */
   .phrase {
     position: static;
@@ -806,10 +818,115 @@ h2.leaf-title {
   .progress-rule { display: none; }
 }
 
-/* ---------- 14. Print: it is already a paper poster ---------- */
+/* ============================================================
+   14. Bilingual copy (中文 / English)
+   Both languages ship in the markup; one is hidden. The hidden one is
+   display:none so assistive tech and find-in-page only ever see the
+   active language. With no JS, [data-lang] is absent and the Chinese
+   original — the canonical text — is what shows.
+   ============================================================ */
+html:not([data-lang="en"]) [data-i18n="en"] { display: none; }
+html[data-lang="en"] [data-i18n="zh"] { display: none; }
+
+/* Chinese sets slightly looser leading; CJK needs the air */
+[data-i18n="zh"] { line-height: 1.86; }
+
+.lang-toggle {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: .3rem .55rem;
+  cursor: pointer;
+  transition: border-color .12s linear, color .12s linear;
+}
+.lang-toggle:hover { border-color: var(--cobalt); color: var(--ink); }
+.lang-toggle .on { color: var(--cobalt); }
+
+/* ============================================================
+   15. Citation block — the imprint at the foot of a piece
+   ============================================================ */
+.citation {
+  margin-top: 3.6rem;
+  padding-top: 1.9rem;
+  border-top: 1px solid var(--rule);
+}
+.citation h2 {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 1.1rem;
+  padding: 0;
+  border: none;
+}
+.cite-block { margin-bottom: 1.6rem; }
+.cite-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .5rem;
+}
+.cite-kind {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.cite-text {
+  font-size: .93rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+}
+.citation pre {
+  font-family: var(--mono);
+  font-size: .76rem;
+  line-height: 1.62;
+  margin: 0;
+  padding: 1rem 1.1rem;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+  border-left: 2px solid var(--cobalt);
+  border-radius: 0;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+.copy-btn {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: .22rem .5rem;
+  cursor: pointer;
+  flex: none;
+  transition: border-color .12s linear, color .12s linear;
+}
+.copy-btn:hover { border-color: var(--cobalt); color: var(--ink); }
+.copy-btn[data-state="done"] { border-color: var(--cobalt); color: var(--cobalt); }
+
+@media (max-width: 520px) {
+  .citation pre { font-size: .7rem; padding: .8rem .85rem; }
+}
+
+/* ---------- 16. Print: it is already a paper poster ---------- */
 @media print {
   body::after, .anchor-block::after { display: none; }
-  .masthead-bar, .theme-toggle, .plate-map, .progress-rule { display: none; }
+  .masthead-bar, .theme-toggle, .lang-toggle, .plate-map,
+  .progress-rule, .copy-btn { display: none; }
   body { background: #fff; color: #000; }
   /* nothing may stay mid-animation on paper */
   [data-motion="on"] [data-reveal] {

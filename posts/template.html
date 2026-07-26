@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog Post Title - Yichen (Eason) Lu</title>
-  <meta name="description" content="Blog post description" />
+  <title>English Title · 中文标题 — Yichen (Eason) Lu</title>
+  <meta name="description" content="One-line description in English. 一句话中文描述。" />
   <link rel="stylesheet" href="../assets/zine.css" />
   <script src="../assets/zine.js"></script>
 </head>
-<body>
+<!-- data-title-* lets the 中/EN switch retitle the browser tab -->
+<body data-title-zh="中文标题 — Yichen (Eason) Lu" data-title-en="English Title — Yichen (Eason) Lu">
   <header class="masthead-bar">
     <div class="sheet">
       <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
@@ -16,6 +17,7 @@
         <a href="../index.html">Home</a>
         <a href="../publications.html">Publications</a>
         <a href="../blog.html" aria-current="page">Blog</a>
+        <button class="lang-toggle" id="langToggle" type="button">中 / EN</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
           <span id="themeIcon">☾</span> <span id="themeText">press</span>
         </button>
@@ -24,49 +26,106 @@
   </header>
 
   <main class="post-sheet">
-  <a href="../blog.html" class="back-link">← Back to Blog</a>
-    
-      <article class="post-header">
-        <h1 class="post-title">Your Blog Post Title Here</h1>
-        <div class="post-meta">
-          <span>Month Day, Year</span> · <span>5 min read</span>
-        </div>
-        <div class="post-tags">
-          <span class="post-tag">Tag1</span>
-          <span class="post-tag">Tag2</span>
-        </div>
-      </article>
+    <a href="../blog.html" class="back-link">
+      <span data-i18n="zh" lang="zh-Hans">← 返回博客</span>
+      <span data-i18n="en" lang="en">← Back to blog</span>
+    </a>
 
-      <div class="post-content">
+    <article class="post-header">
+      <h1 class="post-title">
+        <span data-i18n="zh" lang="zh-Hans">中文标题</span>
+        <span data-i18n="en" lang="en">English Title</span>
+      </h1>
+      <div class="post-meta">
+        <span data-i18n="zh" lang="zh-Hans">2026年1月1日 · 5 分钟阅读</span>
+        <span data-i18n="en" lang="en">1 January 2026 · 5 min read</span>
+      </div>
+      <div class="post-tags">
+        <span data-i18n="zh" lang="zh-Hans">
+          <span class="post-tag">标签一</span>
+          <span class="post-tag">标签二</span>
+        </span>
+        <span data-i18n="en" lang="en">
+          <span class="post-tag">Tag one</span>
+          <span class="post-tag">Tag two</span>
+        </span>
+      </div>
+    </article>
+
+    <div class="post-content">
+
+      <!-- Short pieces: pair each block inline, as below. -->
+      <p class="lead">
+        <span data-i18n="zh" lang="zh-Hans">开篇段落，字号略大。</span>
+        <span data-i18n="en" lang="en">Opening paragraph, set slightly larger.</span>
+      </p>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">小节标题</span>
+        <span data-i18n="en" lang="en">Section Heading</span>
+      </h2>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">正文段落。行内代码用 <code>code</code>。</span>
+        <span data-i18n="en" lang="en">Body paragraph. Inline code uses <code>code</code>.</span>
+      </p>
+
+      <blockquote>
         <p>
-          This is a template for your blog posts. You can write your thoughts, reflections, and essays here.
-          The content supports basic HTML formatting.
+          <span data-i18n="zh" lang="zh-Hans">引文。</span>
+          <span data-i18n="en" lang="en">A quotation.</span>
         </p>
+      </blockquote>
 
-        <h2>Section Heading</h2>
+      <div class="callout">
         <p>
-          Write your content here. You can use paragraphs, headings, lists, code blocks, and more.
-        </p>
-
-        <h3>Subsection</h3>
-        <p>
-          Some example text with <code>inline code</code> formatting.
-        </p>
-
-        <blockquote>
-          "You can also include quotes like this."
-        </blockquote>
-
-        <h2>Another Section</h2>
-        <p>
-          Continue your blog post content here. Feel free to add images, code snippets, or any other content you'd like.
-        </p>
-
-        <h2>Conclusion</h2>
-        <p>
-          Wrap up your blog post with final thoughts.
+          <span data-i18n="zh" lang="zh-Hans">需要强调的旁注。</span>
+          <span data-i18n="en" lang="en">An aside worth emphasising.</span>
         </p>
       </div>
+
+      <!-- Long pieces: it is usually easier to wrap the whole article twice —
+           <div data-i18n="zh" lang="zh-Hans"> …all Chinese paragraphs… </div>
+           <div data-i18n="en" lang="en">  …all English paragraphs… </div>
+           See thoughts-on-agents.html (inline pairs) and fall-2023.html
+           (whole-article pairs) for the two patterns. -->
+
+      <p style="color:var(--ink-soft);font-style:italic;margin-top:2.6rem;text-align:right;">
+        — 2026.1.1
+      </p>
+
+    </div>
+
+    <!-- ── Citation. Replace KEY, and update title / year / month / url. ── -->
+    <section class="citation">
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">引用本文</span>
+        <span data-i18n="en" lang="en">Cite this post</span>
+      </h2>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">APA</span>
+          <button class="copy-btn" type="button" data-copy="cite-apa-KEY">copy</button>
+        </div>
+        <p class="cite-text" id="cite-apa-KEY">Lu, Y. (2026, January 1). <em>English title</em> [Blog post]. https://yichen14.github.io/posts/your-post.html</p>
+      </div>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">BibTeX</span>
+          <button class="copy-btn" type="button" data-copy="cite-bib-KEY">copy</button>
+        </div>
+        <pre id="cite-bib-KEY">@misc{lu2026KEY,
+  author       = {Lu, Yichen},
+  title        = {English Title},
+  howpublished = {Blog post},
+  year         = {2026},
+  month        = jan,
+  url          = {https://yichen14.github.io/posts/your-post.html}
+}</pre>
+      </div>
+    </section>
   </main>
 
   <footer class="colophon post-sheet" style="grid-template-columns:1fr">

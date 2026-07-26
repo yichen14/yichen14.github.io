@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog — Yichen (Eason) Lu</title>
-  <meta name="description" content="Blog and essays by Yichen (Eason) Lu" />
+  <title>Writing · 博客 — Yichen (Eason) Lu</title>
+  <meta name="description" content="Notes on research, technology, and life — in English and 中文." />
   <link rel="stylesheet" href="assets/zine.css" />
   <script src="assets/zine.js"></script>
 </head>
-<body>
+<body data-title-zh="博客 — Yichen (Eason) Lu" data-title-en="Writing — Yichen (Eason) Lu">
   <header class="masthead-bar">
     <div class="sheet">
       <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
@@ -16,6 +16,7 @@
         <a href="index.html">Home</a>
         <a href="publications.html">Publications</a>
         <a href="blog.html" aria-current="page">Blog</a>
+        <button class="lang-toggle" id="langToggle" type="button">中 / EN</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
           <span id="themeIcon">☾</span> <span id="themeText">press</span>
         </button>
@@ -26,45 +27,104 @@
   <main class="sheet">
     <section class="poster" style="min-height:auto;padding:6rem 0 3.2rem">
       <div class="poster-rail">
-        <p class="micro">Notebook<br />Three&nbsp;entries</p>
+        <p class="micro">
+          <span data-i18n="zh" lang="zh-Hans">笔记本<br />技术 / 随笔</span>
+          <span data-i18n="en" lang="en">Notebook<br />Technical&nbsp;/&nbsp;Personal</span>
+        </p>
       </div>
       <div class="poster-body">
         <h1 class="wordmark" data-ghost="Writing" style="font-size:clamp(2.4rem,6.4vw,3.8rem)">Writing</h1>
-        <p class="standfirst">Notes on research, technology, and life.</p>
+        <p class="standfirst">
+          <span data-i18n="zh" lang="zh-Hans">分成两类：<strong>技术</strong>与<strong>随笔</strong>。每篇都有中英两个版本，可用右上角的 中/EN 切换。</span>
+          <span data-i18n="en" lang="en">Two shelves: <strong>technical</strong> writing and <strong>personal</strong> notes. Every piece exists in both Chinese and English — switch with 中/EN, top right.</span>
+        </p>
       </div>
       <div class="anchor-block" aria-hidden="true" style="top:6.5rem;height:96px"></div>
-      <p class="phrase" style="top:13.9rem">Quiet, and in no hurry.</p>
+      <p class="phrase" style="top:13.9rem">
+        <span data-i18n="zh" lang="zh-Hans">安静，不着急。</span>
+        <span data-i18n="en" lang="en">Quiet, and in no hurry.</span>
+      </p>
     </section>
 
-    <section class="leaf wide">
+    <!-- ── Technical ── -->
+    <section class="leaf wide" id="technical">
       <div class="rail">
-        <span class="label">Entries</span>
-        <span class="rail-num">2023—26</span>
+        <span class="label">
+          <span data-i18n="zh" lang="zh-Hans">技术</span>
+          <span data-i18n="en" lang="en">Technical</span>
+        </span>
+        <span class="rail-num">01</span>
       </div>
       <div class="col diary">
 
         <article class="diary-item">
           <div class="diary-when">28 May<br />2026</div>
           <div>
-            <h2 class="diary-title"><a href="posts/thoughts-on-agents.html">关于 Agent 的一些思考</a></h2>
-            <p class="diary-excerpt">Model as Harness System.</p>
+            <h2 class="diary-title">
+              <a href="posts/thoughts-on-agents.html">
+                <span data-i18n="zh" lang="zh-Hans">关于 Agent 的一些思考</span>
+                <span data-i18n="en" lang="en">Some Thoughts on Agents</span>
+              </a>
+            </h2>
+            <p class="diary-excerpt">
+              <span data-i18n="zh" lang="zh-Hans">Model as Harness System —— 关于 agent、harness 与模型研发顺序的一些思考。</span>
+              <span data-i18n="en" lang="en">Model as Harness System — on agents, the harness, and the order in which models should be developed.</span>
+            </p>
             <div class="tags">
-              <span class="tag">Agent</span>
-              <span class="tag">Harness</span>
+              <span data-i18n="zh" lang="zh-Hans">
+                <span class="tag">Agent</span>
+                <span class="tag">Harness</span>
+                <span class="tag">模型即产品</span>
+              </span>
+              <span data-i18n="en" lang="en">
+                <span class="tag">Agent</span>
+                <span class="tag">Harness</span>
+                <span class="tag">Model as Product</span>
+              </span>
             </div>
           </div>
         </article>
 
+      </div>
+    </section>
+
+    <!-- ── Personal ── -->
+    <section class="leaf wide" id="personal">
+      <div class="rail">
+        <span class="label">
+          <span data-i18n="zh" lang="zh-Hans">随笔</span>
+          <span data-i18n="en" lang="en">Personal</span>
+        </span>
+        <span class="rail-num">02</span>
+      </div>
+      <div class="col diary">
+
         <article class="diary-item">
           <div class="diary-when">01 Nov<br />2025</div>
           <div>
-            <h2 class="diary-title"><a href="posts/essay-2025-11-01.html">随笔 2025.11.01</a></h2>
-            <p class="diary-excerpt">随心所欲所写的一些东西。</p>
+            <h2 class="diary-title">
+              <a href="posts/essay-2025-11-01.html">
+                <span data-i18n="zh" lang="zh-Hans">随笔 2025.11.01</span>
+                <span data-i18n="en" lang="en">Notes, 1 Nov 2025</span>
+              </a>
+            </h2>
+            <p class="diary-excerpt">
+              <span data-i18n="zh" lang="zh-Hans">关于成长、自洽与热爱 —— 在横跨太平洋的飞机上随心所欲写下的一些东西。</span>
+              <span data-i18n="en" lang="en">On growth, self-consistency, and the capacity to love the work — written freely on a plane across the Pacific.</span>
+            </p>
             <div class="tags">
-              <span class="tag">个人随笔</span>
-              <span class="tag">成长</span>
-              <span class="tag">自我认知</span>
-              <span class="tag">热爱</span>
+              <span data-i18n="zh" lang="zh-Hans">
+                <span class="tag">个人随笔</span>
+                <span class="tag">成长</span>
+                <span class="tag">自我认知</span>
+                <span class="tag">热爱</span>
+              </span>
+              <span data-i18n="en" lang="en">
+                <span class="tag">Personal essay</span>
+                <span class="tag">Growth</span>
+                <span class="tag">Self-knowledge</span>
+                <span class="tag">Love of the work</span>
+              </span>
             </div>
           </div>
         </article>
@@ -72,16 +132,29 @@
         <article class="diary-item">
           <div class="diary-when">06 Nov<br />2023</div>
           <div>
-            <h2 class="diary-title"><a href="posts/fall-2023.html">2023 秋</a></h2>
+            <h2 class="diary-title">
+              <a href="posts/fall-2023.html">
+                <span data-i18n="zh" lang="zh-Hans">2023 秋</span>
+                <span data-i18n="en" lang="en">Autumn 2023</span>
+              </a>
+            </h2>
             <p class="diary-excerpt">
-              从香槟到匹兹堡，从 UIUC 到 CMU，记录一段心态的转变 —— 从对梦校的崇拜，
-              到失望，再到真正的认可和喜爱。在这个美好的秋天，写下对过去和现在的思考。
+              <span data-i18n="zh" lang="zh-Hans">从香槟到匹兹堡，从 UIUC 到 CMU，记录一段心态的转变 —— 从对梦校的崇拜，到失望，再到真正的认可和喜爱。</span>
+              <span data-i18n="en" lang="en">From Champaign to Pittsburgh, from UIUC to CMU — a record of how an attitude changed: from reverence for a dream school, to disappointment, and finally to genuine affection.</span>
             </p>
             <div class="tags">
-              <span class="tag">个人随笔</span>
-              <span class="tag">CMU</span>
-              <span class="tag">UIUC</span>
-              <span class="tag">生活感悟</span>
+              <span data-i18n="zh" lang="zh-Hans">
+                <span class="tag">个人随笔</span>
+                <span class="tag">CMU</span>
+                <span class="tag">UIUC</span>
+                <span class="tag">生活感悟</span>
+              </span>
+              <span data-i18n="en" lang="en">
+                <span class="tag">Personal essay</span>
+                <span class="tag">CMU</span>
+                <span class="tag">UIUC</span>
+                <span class="tag">Reflections</span>
+              </span>
             </div>
           </div>
         </article>

@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>关于 Agent 的一些思考 - Yichen (Eason) Lu</title>
-  <meta name="description" content="关于 agent、harness 与模型研发顺序的一些思考" />
+  <title>Some Thoughts on Agents · 关于 Agent 的一些思考 — Yichen (Eason) Lu</title>
+  <meta name="description" content="On agents, the harness, and the order in which models should be developed. 关于 agent、harness 与模型研发顺序的一些思考。" />
   <link rel="stylesheet" href="../assets/zine.css" />
   <script src="../assets/zine.js"></script>
 </head>
-<body>
+<body data-title-zh="关于 Agent 的一些思考 — Yichen (Eason) Lu" data-title-en="Some Thoughts on Agents — Yichen (Eason) Lu">
   <header class="masthead-bar">
     <div class="sheet">
       <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
@@ -16,6 +16,7 @@
         <a href="../index.html">Home</a>
         <a href="../publications.html">Publications</a>
         <a href="../blog.html" aria-current="page">Blog</a>
+        <button class="lang-toggle" id="langToggle" type="button">中 / EN</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
           <span id="themeIcon">☾</span> <span id="themeText">press</span>
         </button>
@@ -24,154 +25,233 @@
   </header>
 
   <main class="post-sheet">
-  <a href="../blog.html" class="back-link">← 返回博客</a>
+    <a href="../blog.html" class="back-link">
+      <span data-i18n="zh" lang="zh-Hans">← 返回博客</span>
+      <span data-i18n="en" lang="en">← Back to blog</span>
+    </a>
 
-      <article class="post-header">
-        <h1 class="post-title">关于 Agent 的一些思考</h1>
-        <div class="post-meta">
-          <span>2026年5月28日</span> · <span>12 min read</span>
-        </div>
-        <div class="post-tags">
+    <article class="post-header">
+      <span class="post-kind">
+        <span data-i18n="zh" lang="zh-Hans">技术</span>
+        <span data-i18n="en" lang="en">Technical</span>
+      </span>
+      <h1 class="post-title">
+        <span data-i18n="zh" lang="zh-Hans">关于 Agent 的一些思考</span>
+        <span data-i18n="en" lang="en">Some Thoughts on Agents</span>
+      </h1>
+      <div class="post-meta">
+        <span data-i18n="zh" lang="zh-Hans">2026年5月28日 · 12 分钟阅读</span>
+        <span data-i18n="en" lang="en">28 May 2026 · 12 min read</span>
+      </div>
+      <div class="post-tags">
+        <span data-i18n="zh" lang="zh-Hans">
           <span class="post-tag">Agent</span>
           <span class="post-tag">Harness</span>
           <span class="post-tag">模型即产品</span>
           <span class="post-tag">语音大模型</span>
-        </div>
-      </article>
+        </span>
+        <span data-i18n="en" lang="en">
+          <span class="post-tag">Agent</span>
+          <span class="post-tag">Harness</span>
+          <span class="post-tag">Model as Product</span>
+          <span class="post-tag">Speech LLMs</span>
+        </span>
+      </div>
+    </article>
 
-      <div class="post-content">
+    <div class="post-content">
 
-        <p class="lead">
-          最近因为各个厂家的模型不断更新迭代，agent 爆发，我不断地产生了一些思考。在这里做一些随意的记录。
-        </p>
+      <p class="lead">
+        <span data-i18n="zh" lang="zh-Hans">最近因为各个厂家的模型不断更新迭代，agent 爆发，我不断地产生了一些思考。在这里做一些随意的记录。</span>
+        <span data-i18n="en" lang="en">With every lab shipping model updates and agents breaking out everywhere, I keep having thoughts about it. Some loose notes here.</span>
+      </p>
 
-        <h2>模型即产品，但 Harness 不可或缺</h2>
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">模型即产品，但 Harness 不可或缺</span>
+        <span data-i18n="en" lang="en">Model as Product, but the Harness Is Indispensable</span>
+      </h2>
 
-        <p>
-          首先是，我非常认可现在模型即产品的思路，但从 Claude Code 的诞生中我们也明白了 harness 的重要性，产品 = 模型 + harness 逐渐形成了行业的共识；但 Claude Code 告诉我们，模型跟 harness 是不可分割的，如果我们只做 harness 不做模型，那就会陷入跟 Cursor 一样的境地，因为只做 harness 的公司不可能打得过知道自家模型怎么训练的公司。
-        </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">首先是，我非常认可现在模型即产品的思路，但从 Claude Code 的诞生中我们也明白了 harness 的重要性，产品 = 模型 + harness 逐渐形成了行业的共识；但 Claude Code 告诉我们，模型跟 harness 是不可分割的，如果我们只做 harness 不做模型，那就会陷入跟 Cursor 一样的境地，因为只做 harness 的公司不可能打得过知道自家模型怎么训练的公司。</span>
+        <span data-i18n="en" lang="en">First: I strongly agree with the current "model as product" line of thinking, but the birth of Claude Code also taught us how important the harness is. Product = model + harness has gradually become industry consensus. What Claude Code tells us, though, is that the model and the harness are inseparable — if we only build the harness and not the model, we end up in the same position as Cursor, because a company that only builds the harness cannot possibly out-compete a company that knows how its own model was trained.</span>
+      </p>
 
-        <h2>推演顺序：产品 → Harness → 模型</h2>
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">推演顺序：产品 → Harness → 模型</span>
+        <span data-i18n="en" lang="en">The Order of Derivation: Product → Harness → Model</span>
+      </h2>
 
-        <p>
-          但在这里我的想法更进了一步，我认为未来 AI 产品（模型）的推演思路一定是：产品先行，再去定义 Harness 与 Eval，最后才是训练模型。
-        </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">但在这里我的想法更进了一步，我认为未来 AI 产品（模型）的推演思路一定是：产品先行，再去定义 Harness 与 Eval，最后才是训练模型。</span>
+        <span data-i18n="en" lang="en">But I want to push the idea one step further. I believe the derivation path for future AI products (models) must be: product first, then define the harness and the eval, and only then train the model.</span>
+      </p>
 
-        <figure class="figure">
-          <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="产品到 Harness 与 Eval 再到模型的推演顺序图">
-            <!-- boxes -->
-            <rect class="dgm-box" x="30" y="120" width="130" height="60" rx="10"/>
-            <rect class="dgm-box accent" x="310" y="55" width="160" height="60" rx="10"/>
-            <rect class="dgm-box" x="310" y="185" width="160" height="60" rx="10"/>
-            <rect class="dgm-box" x="600" y="120" width="130" height="60" rx="10"/>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="Order of derivation: product to harness and eval to model">
+          <!-- boxes -->
+          <rect class="dgm-box" x="30" y="120" width="130" height="60" rx="10"/>
+          <rect class="dgm-box accent" x="310" y="55" width="160" height="60" rx="10"/>
+          <rect class="dgm-box" x="310" y="185" width="160" height="60" rx="10"/>
+          <rect class="dgm-box" x="600" y="120" width="130" height="60" rx="10"/>
 
-            <!-- connectors out of product -->
-            <path class="dgm-line" d="M160,150 L235,150 M235,85 L235,215 M235,85 L301,85 M235,215 L301,215"/>
-            <polygon class="dgm-arrow accent" points="310,85 301,80 301,90"/>
-            <polygon class="dgm-arrow" points="310,215 301,210 301,220"/>
+          <!-- connectors out of product -->
+          <path class="dgm-line" d="M160,150 L235,150 M235,85 L235,215 M235,85 L301,85 M235,215 L301,215"/>
+          <polygon class="dgm-arrow accent" points="310,85 301,80 301,90"/>
+          <polygon class="dgm-arrow" points="310,215 301,210 301,220"/>
 
-            <!-- connectors into model -->
-            <path class="dgm-line" d="M470,85 L545,85 M470,215 L545,215 M545,85 L545,215 M545,150 L591,150"/>
-            <polygon class="dgm-arrow" points="600,150 591,145 591,155"/>
+          <!-- connectors into model -->
+          <path class="dgm-line" d="M470,85 L545,85 M470,215 L545,215 M545,85 L545,215 M545,150 L591,150"/>
+          <polygon class="dgm-arrow" points="600,150 591,145 591,155"/>
 
-            <!-- labels -->
+          <!-- labels: 中文 -->
+          <g data-i18n="zh">
             <text class="t" x="95" y="146" text-anchor="middle" font-size="19" font-weight="600">产品</text>
-            <text class="t muted" x="95" y="166" text-anchor="middle" font-size="11">Product · 必须先行</text>
-
+            <text class="t muted" x="95" y="166" text-anchor="middle" font-size="11">必须先行</text>
             <text class="t accent" x="390" y="81" text-anchor="middle" font-size="19" font-weight="600">Harness</text>
             <text class="t muted" x="390" y="101" text-anchor="middle" font-size="11">连接产品与模型的轴承</text>
-
             <text class="t" x="390" y="211" text-anchor="middle" font-size="19" font-weight="600">Eval</text>
-            <text class="t muted" x="390" y="231" text-anchor="middle" font-size="11">评测，也应以 harness 为基础</text>
-
+            <text class="t muted" x="390" y="231" text-anchor="middle" font-size="11">也应以 harness 为基础</text>
             <text class="t" x="665" y="146" text-anchor="middle" font-size="19" font-weight="600">模型</text>
-            <text class="t muted" x="665" y="166" text-anchor="middle" font-size="11">Model</text>
-          </svg>
-          <figcaption>我认为未来的推演顺序是：产品先行，再去定义 Harness 与 Eval，最后才训练模型。Harness 是连接产品与模型的核心轴承。</figcaption>
-        </figure>
-
-        <p>
-          模型即产品的时代，产品还是必须先行；Claude 的成功就是因为他们参透了这件事情。Anthropic 早在两年甚至三四年前就开始布局 agent，一定不是说他们不小心训练出来个内部模型，有了 agent 能力，而是他们觉得未来 AI 想要展现其价值，必须要学会“干活”，而干活这方面，最直接的就是先学 coding，所以他们在 coding 上下了赌注，并开始布局 MCP、Claude Code、terminal use，最后引领了 agent 这个时代，反超了 OpenAI。
-        </p>
-
-        <h2>Harness 会被模型吞掉吗？</h2>
-
-        <p>
-          Harness，作为产品与模型的连接轴承，起到了重要的作用；其实之前我一直在思考，Harness Engineering 是不是也是一个中间产物，是不是因为模型还不够强，所以需要外界的辅助来完成任务，而未来模型会强大到把 harness 完全吞掉。
-        </p>
-
-        <p>
-          我现在觉着答案是否定的，从产品角度来讲，模型能力变强的同时，对 harness 的需求反而会越来越高，因为现在模型能力已经完全超过了人类能力，Harness 诞生的意义更多的是想办法告诉人类，模型该怎么用，而不是在帮助模型去做事情；人类的进步速度缓慢，但模型的进步速度越来越快，它跟人类的能力 gap 只能越来越大，而这个时候，harness 就尤为重要了。
-        </p>
-
-        <p>
-          那反过来从模型训练的角度上来讲，harness 其实更为重要，因为它能够反推出两个模型训练中至关重要的点：
-        </p>
-
-        <ol>
-          <li>模型该如何被训练（看到哪些 pattern 的数据）</li>
-          <li>模型该如何 eval</li>
-        </ol>
-
-        <h2>一个例子：Opus 4.8 与 Workflows</h2>
-
-        <p>
-          我想拿今天（2026.5.28）Anthropic release 的新模型 Opus 4.8 以及 Claude Code 的新模式 ultracode + workflows 来举例；workflows，作为 Anthropic 新的模型工作流模式，我觉得是此次 Opus 4.8 release 最重要的点，因为 Anthropic 发布了一个使用模型的新方式，而 4.8 模型本身把这个新 pattern 训了进去，完全去激发这个新方式的潜力；但如果你用 Claude Code 试一下的话就知道，这个模式不是专属 4.8 的，任何模型都可以使用这个模式（甚至对家 OpenAI 的模型在 CC 里也可以用），但只有 4.8（以及未来的模型）能把它发挥得最好；所以我认为 harness（甚至是大家瞧不起的 prompt engineering）需要先被明确定义，再开始训练模型；Anthropic 一定是先定义了 agentic trace，才能从 0 到 1 地引领 agentic 时代的爆发。
-        </p>
-
-        <blockquote>
-          <p>再补充一个更有共识的例子：CoT 是先用在了非 reasoning 模型上，发现了明显的提点，再被内化到了模型内部，演化出了 reasoning 模型。</p>
-        </blockquote>
-
-        <h2>Evaluation 也该以 Harness 为基础</h2>
-
-        <p>
-          而另一方面我想提到的是 evaluation，现在 evaluation 跟 harness 或许有些脱轨（但并不完全脱轨）；evaluation 的设计一直以来是跳过 harness 这一步的，但我认为未来的 evaluation 也需要更多以 harness 为 foundation 来设计，这里分两点：
-        </p>
-
-        <ul>
-          <li>第一点要 eval 模型与 harness 的适配能力，比如 workflows 该如何给 subagent 分工效率更高；</li>
-          <li>另一方面是，evaluation 需要直接 eval 模型 + harness 的能力是怎么样的，就比如开不开 workflow，Opus 4.7 的任务完成能力是不一样的。</li>
-        </ul>
-
-        <div class="callout">
-          <p>综上所述，我想论证的其实是 harness 在这个时代有着非常特殊的重要性。对于模型公司来讲，harness 是需要一个核心团队来集中开发和定义的，harness 在模型研发上应该先行。</p>
+            <text class="t muted" x="665" y="166" text-anchor="middle" font-size="11">最后才训练</text>
+          </g>
+          <!-- labels: English -->
+          <g data-i18n="en">
+            <text class="t" x="95" y="146" text-anchor="middle" font-size="17" font-weight="600">Product</text>
+            <text class="t muted" x="95" y="166" text-anchor="middle" font-size="10">must come first</text>
+            <text class="t accent" x="390" y="81" text-anchor="middle" font-size="17" font-weight="600">Harness</text>
+            <text class="t muted" x="390" y="101" text-anchor="middle" font-size="10">the bearing between the two</text>
+            <text class="t" x="390" y="211" text-anchor="middle" font-size="17" font-weight="600">Eval</text>
+            <text class="t muted" x="390" y="231" text-anchor="middle" font-size="10">also grounded in the harness</text>
+            <text class="t" x="665" y="146" text-anchor="middle" font-size="17" font-weight="600">Model</text>
+            <text class="t muted" x="665" y="166" text-anchor="middle" font-size="10">trained last</text>
+          </g>
+        </svg>
+        <div class="figcaption">
+          <span data-i18n="zh" lang="zh-Hans">我认为未来的推演顺序是：产品先行，再去定义 Harness 与 Eval，最后才训练模型。Harness 是连接产品与模型的核心轴承。</span>
+          <span data-i18n="en" lang="en">I believe the future order of derivation is: product first, then define the harness and eval, and only then train the model. The harness is the core bearing connecting product to model.</span>
         </div>
+      </figure>
 
-        <h2>另一方面：什么是“基础能力”？</h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">模型即产品的时代，产品还是必须先行；Claude 的成功就是因为他们参透了这件事情。Anthropic 早在两年甚至三四年前就开始布局 agent，一定不是说他们不小心训练出来个内部模型，有了 agent 能力，而是他们觉得未来 AI 想要展现其价值，必须要学会"干活"，而干活这方面，最直接的就是先学 coding，所以他们在 coding 上下了赌注，并开始布局 MCP、Claude Code、terminal use，最后引领了 agent 这个时代，反超了 OpenAI。</span>
+        <span data-i18n="en" lang="en">In the era of model-as-product, the product still has to come first, and Claude's success is precisely because they saw through to this. Anthropic began positioning for agents two, even three or four years ago. It certainly wasn't that they accidentally trained an internal model that turned out to have agentic ability — it was that they judged that for AI to demonstrate its value in future it had to learn to <em>do work</em>, and the most direct route into doing work is to learn coding first. So they bet on coding, and began building out MCP, Claude Code and terminal use, ultimately leading this agent era and overtaking OpenAI.</span>
+      </p>
 
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">Harness 会被模型吞掉吗？</span>
+        <span data-i18n="en" lang="en">Will the Harness Be Swallowed by the Model?</span>
+      </h2>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">Harness，作为产品与模型的连接轴承，起到了重要的作用；其实之前我一直在思考，Harness Engineering 是不是也是一个中间产物，是不是因为模型还不够强，所以需要外界的辅助来完成任务，而未来模型会强大到把 harness 完全吞掉。</span>
+        <span data-i18n="en" lang="en">The harness, as the bearing connecting product and model, plays an important role. For a long time I wondered whether harness engineering is itself an intermediate artefact — whether it exists only because models aren't strong enough yet and need outside assistance to complete tasks, and whether models will eventually become strong enough to swallow the harness entirely.</span>
+      </p>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">我现在觉着答案是否定的，从产品角度来讲，模型能力变强的同时，对 harness 的需求反而会越来越高，因为现在模型能力已经完全超过了人类能力，Harness 诞生的意义更多的是想办法告诉人类，模型该怎么用，而不是在帮助模型去做事情；人类的进步速度缓慢，但模型的进步速度越来越快，它跟人类的能力 gap 只能越来越大，而这个时候，harness 就尤为重要了。</span>
+        <span data-i18n="en" lang="en">I now think the answer is no. From a product standpoint, as model capability rises the need for a harness rises with it — because model capability has already surpassed human capability outright. The point of the harness is less about helping the model get things done and more about finding ways to tell humans how the model should be used. Humans improve slowly while models improve faster and faster; the capability gap between them can only widen, and it is exactly then that the harness matters most.</span>
+      </p>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">那反过来从模型训练的角度上来讲，harness 其实更为重要，因为它能够反推出两个模型训练中至关重要的点：</span>
+        <span data-i18n="en" lang="en">Conversely, from a model-training standpoint the harness matters even more, because it lets you work backwards to two things that are critical in training:</span>
+      </p>
+
+      <ol>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans">模型该如何被训练（看到哪些 pattern 的数据）</span>
+          <span data-i18n="en" lang="en">How the model should be trained — which patterns of data it sees</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans">模型该如何 eval</span>
+          <span data-i18n="en" lang="en">How the model should be evaluated</span>
+        </li>
+      </ol>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">一个例子：Opus 4.8 与 Workflows</span>
+        <span data-i18n="en" lang="en">An Example: Opus 4.8 and Workflows</span>
+      </h2>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">我想拿今天（2026.5.28）Anthropic release 的新模型 Opus 4.8 以及 Claude Code 的新模式 ultracode + workflows 来举例；workflows，作为 Anthropic 新的模型工作流模式，我觉得是此次 Opus 4.8 release 最重要的点，因为 Anthropic 发布了一个使用模型的新方式，而 4.8 模型本身把这个新 pattern 训了进去，完全去激发这个新方式的潜力；但如果你用 Claude Code 试一下的话就知道，这个模式不是专属 4.8 的，任何模型都可以使用这个模式（甚至对家 OpenAI 的模型在 CC 里也可以用），但只有 4.8（以及未来的模型）能把它发挥得最好；所以我认为 harness（甚至是大家瞧不起的 prompt engineering）需要先被明确定义，再开始训练模型；Anthropic 一定是先定义了 agentic trace，才能从 0 到 1 地引领 agentic 时代的爆发。</span>
+        <span data-i18n="en" lang="en">Take the model Anthropic released today (28 May 2026), Opus 4.8, together with Claude Code's new mode — ultracode + workflows. Workflows, as Anthropic's new model workflow mode, is in my view the most important part of this Opus 4.8 release, because Anthropic shipped a new <em>way of using</em> a model, and the 4.8 model itself trained that new pattern in so as to fully draw out its potential. But if you try it in Claude Code you'll find the mode isn't exclusive to 4.8 — any model can use it, even OpenAI's models inside CC — it's just that only 4.8, and future models, can make the most of it. So I think the harness (even the prompt engineering everyone looks down on) needs to be clearly defined first, and only then do you start training the model. Anthropic must have defined the agentic trace first in order to lead the explosion of the agentic era from zero to one.</span>
+      </p>
+
+      <blockquote>
         <p>
-          另一方面是我对于基模能力的思考。什么是基础能力？如果你不确定产品形态，你甚至不知道基础能力是啥；我们不能以简单的智力来对基础能力做概括，因为智力这个词汇实在是太大了，它可以是知识面（MMLU）、reasoning 能力（BBH）、解决复杂 coding 问题的能力（SWE-bench）、创造力（creative writing）、学习能力（in-context learning、long horizon）、数学能力（AIME）、对话能力（Multi-Challenge）等等。
+          <span data-i18n="zh" lang="zh-Hans">再补充一个更有共识的例子：CoT 是先用在了非 reasoning 模型上，发现了明显的提点，再被内化到了模型内部，演化出了 reasoning 模型。</span>
+          <span data-i18n="en" lang="en">One more example with broader consensus: CoT was first used on non-reasoning models, where it produced clear gains, and was then internalised into the model itself, evolving into reasoning models.</span>
         </p>
+      </blockquote>
 
-        <figure class="figure">
-          <svg class="dgm" viewBox="0 0 500 430" role="img" aria-label="基础能力的多维雷达示意图">
-            <!-- grid rings -->
-            <polygon class="dgm-grid" points="250,85 367,142 396,268 315,370 185,370 104,268 133,142"/>
-            <polygon class="dgm-grid" points="250,136 327.4,173.3 346.5,257 292.9,324.2 207.1,324.2 153.5,257 172.6,173.3"/>
-            <polygon class="dgm-grid" points="250,185.5 288.7,204.1 298.3,246 271.5,279.6 228.5,279.6 201.7,246 211.3,204.1"/>
-            <!-- axes -->
-            <g class="dgm-axis">
-              <line x1="250" y1="235" x2="250" y2="85"/>
-              <line x1="250" y1="235" x2="367" y2="142"/>
-              <line x1="250" y1="235" x2="396" y2="268"/>
-              <line x1="250" y1="235" x2="315" y2="370"/>
-              <line x1="250" y1="235" x2="185" y2="370"/>
-              <line x1="250" y1="235" x2="104" y2="268"/>
-              <line x1="250" y1="235" x2="133" y2="142"/>
-            </g>
-            <!-- data polygon -->
-            <polygon class="dgm-area" points="250,107.5 355.5,150.8 388.9,266.7 302.1,343.1 204.4,329.6 140.3,260 173.8,174.2"/>
-            <g class="dgm-dot">
-              <circle cx="250" cy="107.5" r="3"/>
-              <circle cx="355.5" cy="150.8" r="3"/>
-              <circle cx="388.9" cy="266.7" r="3"/>
-              <circle cx="302.1" cy="343.1" r="3"/>
-              <circle cx="204.4" cy="329.6" r="3"/>
-              <circle cx="140.3" cy="260" r="3"/>
-              <circle cx="173.8" cy="174.2" r="3"/>
-            </g>
-            <!-- labels -->
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">Evaluation 也该以 Harness 为基础</span>
+        <span data-i18n="en" lang="en">Evaluation Should Also Be Grounded in the Harness</span>
+      </h2>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">而另一方面我想提到的是 evaluation，现在 evaluation 跟 harness 或许有些脱轨（但并不完全脱轨）；evaluation 的设计一直以来是跳过 harness 这一步的，但我认为未来的 evaluation 也需要更多以 harness 为 foundation 来设计，这里分两点：</span>
+        <span data-i18n="en" lang="en">The other thing I want to raise is evaluation. Right now evaluation and the harness are somewhat decoupled — though not completely. Evaluation design has always skipped the harness step, but I think future evaluation also needs to be designed with the harness as its foundation. Two points here:</span>
+      </p>
+
+      <ul>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans">第一点要 eval 模型与 harness 的适配能力，比如 workflows 该如何给 subagent 分工效率更高；</span>
+          <span data-i18n="en" lang="en">First, evaluate how well the model fits the harness — for instance, how workflows should divide labour among subagents most efficiently.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans">另一方面是，evaluation 需要直接 eval 模型 + harness 的能力是怎么样的，就比如开不开 workflow，Opus 4.7 的任务完成能力是不一样的。</span>
+          <span data-i18n="en" lang="en">Second, evaluation needs to measure the capability of model + harness together. Opus 4.7's task-completion ability differs, for example, depending on whether workflows are switched on.</span>
+        </li>
+      </ul>
+
+      <div class="callout">
+        <p>
+          <span data-i18n="zh" lang="zh-Hans">综上所述，我想论证的其实是 harness 在这个时代有着非常特殊的重要性。对于模型公司来讲，harness 是需要一个核心团队来集中开发和定义的，harness 在模型研发上应该先行。</span>
+          <span data-i18n="en" lang="en">To sum up, what I'm really arguing is that the harness has a very particular importance in this era. For a model company, the harness needs a core team to develop and define it centrally, and the harness should come first in model R&amp;D.</span>
+        </p>
+      </div>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">另一方面：什么是"基础能力"？</span>
+        <span data-i18n="en" lang="en">Separately: What Are "Base Capabilities"?</span>
+      </h2>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">另一方面是我对于基模能力的思考。什么是基础能力？如果你不确定产品形态，你甚至不知道基础能力是啥；我们不能以简单的智力来对基础能力做概括，因为智力这个词汇实在是太大了，它可以是知识面（MMLU）、reasoning 能力（BBH）、解决复杂 coding 问题的能力（SWE-bench）、创造力（creative writing）、学习能力（in-context learning、long horizon）、数学能力（AIME）、对话能力（Multi-Challenge）等等。</span>
+        <span data-i18n="en" lang="en">The other thing on my mind is base-model capability. What <em>are</em> base capabilities? If you haven't settled the product form, you don't even know what they are. We can't sum base capability up as simple intelligence, because "intelligence" is far too big a word: it can mean breadth of knowledge (MMLU), reasoning (BBH), the ability to solve complex coding problems (SWE-bench), creativity (creative writing), learning ability (in-context learning, long horizon), mathematics (AIME), dialogue ability (Multi-Challenge), and so on.</span>
+      </p>
+
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 500 430" role="img" aria-label="Radar sketch of the many dimensions of base capability">
+          <!-- grid rings -->
+          <polygon class="dgm-grid" points="250,85 367,142 396,268 315,370 185,370 104,268 133,142"/>
+          <polygon class="dgm-grid" points="250,136 327.4,173.3 346.5,257 292.9,324.2 207.1,324.2 153.5,257 172.6,173.3"/>
+          <polygon class="dgm-grid" points="250,185.5 288.7,204.1 298.3,246 271.5,279.6 228.5,279.6 201.7,246 211.3,204.1"/>
+          <!-- axes -->
+          <g class="dgm-axis">
+            <line x1="250" y1="235" x2="250" y2="85"/>
+            <line x1="250" y1="235" x2="367" y2="142"/>
+            <line x1="250" y1="235" x2="396" y2="268"/>
+            <line x1="250" y1="235" x2="315" y2="370"/>
+            <line x1="250" y1="235" x2="185" y2="370"/>
+            <line x1="250" y1="235" x2="104" y2="268"/>
+            <line x1="250" y1="235" x2="133" y2="142"/>
+          </g>
+          <!-- data polygon -->
+          <polygon class="dgm-area" points="250,107.5 355.5,150.8 388.9,266.7 302.1,343.1 204.4,329.6 140.3,260 173.8,174.2"/>
+          <g class="dgm-dot">
+            <circle cx="250" cy="107.5" r="3"/>
+            <circle cx="355.5" cy="150.8" r="3"/>
+            <circle cx="388.9" cy="266.7" r="3"/>
+            <circle cx="302.1" cy="343.1" r="3"/>
+            <circle cx="204.4" cy="329.6" r="3"/>
+            <circle cx="140.3" cy="260" r="3"/>
+            <circle cx="173.8" cy="174.2" r="3"/>
+          </g>
+          <!-- labels: 中文 -->
+          <g data-i18n="zh">
             <text class="t" x="250" y="72" text-anchor="middle" font-size="13" font-weight="500">知识面</text>
             <text class="t" x="376" y="139" text-anchor="start" font-size="13" font-weight="500">推理</text>
             <text class="t" x="405" y="272" text-anchor="start" font-size="13" font-weight="500">coding</text>
@@ -179,75 +259,141 @@
             <text class="t" x="185" y="389" text-anchor="middle" font-size="13" font-weight="500">对话</text>
             <text class="t" x="95" y="272" text-anchor="end" font-size="13" font-weight="500">学习能力</text>
             <text class="t" x="124" y="139" text-anchor="end" font-size="13" font-weight="500">创造力</text>
-          </svg>
-          <figcaption>“智力”不是一个标量，而是一个高维向量：知识面（MMLU）、推理（BBH）、coding（SWE-bench）、数学（AIME）、对话（MultiChallenge）等等。有些维度互相依赖，有些则完全正交——不同的产品形态，会在不同维度上定义自己的“基础能力”。（此图仅为示意）</figcaption>
-        </figure>
+          </g>
+          <!-- labels: English -->
+          <g data-i18n="en">
+            <text class="t" x="250" y="72" text-anchor="middle" font-size="12" font-weight="500">Knowledge</text>
+            <text class="t" x="376" y="139" text-anchor="start" font-size="12" font-weight="500">Reasoning</text>
+            <text class="t" x="405" y="272" text-anchor="start" font-size="12" font-weight="500">Coding</text>
+            <text class="t" x="315" y="389" text-anchor="middle" font-size="12" font-weight="500">Maths</text>
+            <text class="t" x="185" y="389" text-anchor="middle" font-size="12" font-weight="500">Dialogue</text>
+            <text class="t" x="95" y="272" text-anchor="end" font-size="12" font-weight="500">Learning</text>
+            <text class="t" x="124" y="139" text-anchor="end" font-size="12" font-weight="500">Creativity</text>
+          </g>
+        </svg>
+        <div class="figcaption">
+          <span data-i18n="zh" lang="zh-Hans">"智力"不是一个标量，而是一个高维向量：知识面（MMLU）、推理（BBH）、coding（SWE-bench）、数学（AIME）、对话（MultiChallenge）等等。有些维度互相依赖，有些则完全正交——不同的产品形态，会在不同维度上定义自己的"基础能力"。（此图仅为示意）</span>
+          <span data-i18n="en" lang="en">"Intelligence" is not a scalar but a high-dimensional vector: knowledge (MMLU), reasoning (BBH), coding (SWE-bench), maths (AIME), dialogue (MultiChallenge) and so on. Some dimensions depend on each other; others are entirely orthogonal — different product forms define their own "base capabilities" along different dimensions. (Illustrative only.)</span>
+        </div>
+      </figure>
 
-        <p>
-          这里有些能力是有 dependency 的，有些是完全正交的，你在确定整个模型、甚至产品、甚至公司的大概路线之前，可能没办法定义什么是智力、什么是基础能力；当然，我并不是说上面我列举的所有能力不是基础能力，它们是已经被验证的基础能力，如果要做到从零到一地引领，那就需要去定义（挖掘）更多基础能力。
-        </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">这里有些能力是有 dependency 的，有些是完全正交的，你在确定整个模型、甚至产品、甚至公司的大概路线之前，可能没办法定义什么是智力、什么是基础能力；当然，我并不是说上面我列举的所有能力不是基础能力，它们是已经被验证的基础能力，如果要做到从零到一地引领，那就需要去定义（挖掘）更多基础能力。</span>
+        <span data-i18n="en" lang="en">Some of these capabilities have dependencies; others are entirely orthogonal. Before you settle the rough route of the model — or the product, or even the company — you may have no way to define what intelligence is, or what base capability is. Of course, I'm not saying the capabilities I listed above <em>aren't</em> base capabilities; they are base capabilities that have already been validated. But to lead from zero to one, you have to define — to uncover — more of them.</span>
+      </p>
 
-        <h2>回到本职：交互层与 “model as harness system”</h2>
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">回到本职：交互层与 "model as harness system"</span>
+        <span data-i18n="en" lang="en">Back to the Day Job: The Interaction Layer and "Model as Harness System"</span>
+      </h2>
 
-        <p>
-          最后我想落回到我自己的本职工作。我想思考的是 agent 交互层的重要性，语音 interaction model 在整个 agent 系统中的作用是什么。
-        </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">最后我想落回到我自己的本职工作。我想思考的是 agent 交互层的重要性，语音 interaction model 在整个 agent 系统中的作用是什么。</span>
+        <span data-i18n="en" lang="en">Finally I want to come back to my own work: the importance of the agent interaction layer, and what role a speech interaction model plays in the agent system as a whole.</span>
+      </p>
 
-        <p>
-          首先我想确定一个假设，就是未来人类与虚拟世界的交互入口将会从各种 app / 网页 converge 成 agent；而 app 都将进化成 agent-native 的 application，人类不需要直接使用这些 app，由 agent 来帮你使用，人类直接与 agent 做交互就好；这件事我认为是未来必将发生的，因此 agent 与人类的交互模块将是未来至关重要的一个模块，也正是因此我坚信自己的领域，也就是语音大模型，将会在未来越来越重要；而这种 system1 — system2 的交互形式（即语音 agent 作为前端交互入口，帮助人类与后端 agent 交互）本质上其实是一种非常 natural 的 harness 形式；所以这里我想提到 model as harness system 这个概念，即前端 interactive agentic 模型变成 harness system 与后端大 agentic 模型交互，由模型来学会该如何 harness，而 harness 会彻底变为一个面向模型研发的中间态形式，一个交互模型会替代掉现在产品中的 harness system：产品 = agentic 模型 + interactive 模型，将是未来模型公司的范式。
-        </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">首先我想确定一个假设，就是未来人类与虚拟世界的交互入口将会从各种 app / 网页 converge 成 agent；而 app 都将进化成 agent-native 的 application，人类不需要直接使用这些 app，由 agent 来帮你使用，人类直接与 agent 做交互就好；这件事我认为是未来必将发生的，因此 agent 与人类的交互模块将是未来至关重要的一个模块，也正是因此我坚信自己的领域，也就是语音大模型，将会在未来越来越重要；而这种 system1 — system2 的交互形式（即语音 agent 作为前端交互入口，帮助人类与后端 agent 交互）本质上其实是一种非常 natural 的 harness 形式；所以这里我想提到 model as harness system 这个概念，即前端 interactive agentic 模型变成 harness system 与后端大 agentic 模型交互，由模型来学会该如何 harness，而 harness 会彻底变为一个面向模型研发的中间态形式，一个交互模型会替代掉现在产品中的 harness system：产品 = agentic 模型 + interactive 模型，将是未来模型公司的范式。</span>
+        <span data-i18n="en" lang="en">First, let me fix an assumption: the entry point through which humans interact with the virtual world will converge from assorted apps and web pages into agents. Apps will evolve into agent-native applications; humans won't need to use those apps directly — the agent will use them for you, and humans need only interact with the agent. I believe this will inevitably happen, which makes the module where agents interact with humans critically important, and it is exactly why I firmly believe my own field — speech large models — will matter more and more. This System-1-to-System-2 form of interaction, with a speech agent as the front-end entry point helping humans interact with back-end agents, is essentially a very natural form of harness. So here I want to raise the concept of <em>model as harness system</em>: the front-end interactive agentic model becomes the harness system that talks to the back-end large agentic model; the model itself learns how to harness, and the harness becomes wholly an intermediate form oriented toward model R&amp;D. An interaction model will replace today's hand-written harness systems, and product = agentic model + interactive model will be the paradigm for future model companies.</span>
+      </p>
 
-        <figure class="figure">
-          <svg class="dgm" viewBox="0 0 820 250" role="img" aria-label="model as harness system 的 system1 与 system2 结构图">
-            <!-- boxes -->
-            <rect class="dgm-box" x="20" y="92" width="120" height="66" rx="10"/>
-            <rect class="dgm-box accent" x="215" y="78" width="180" height="94" rx="12"/>
-            <rect class="dgm-box" x="470" y="78" width="180" height="94" rx="12"/>
-            <rect class="dgm-box" x="720" y="92" width="90" height="66" rx="10"/>
+      <figure class="figure">
+        <svg class="dgm" viewBox="0 0 820 250" role="img" aria-label="Model as harness system: System 1 and System 2 structure">
+          <!-- boxes -->
+          <rect class="dgm-box" x="20" y="92" width="120" height="66" rx="10"/>
+          <rect class="dgm-box accent" x="215" y="78" width="180" height="94" rx="12"/>
+          <rect class="dgm-box" x="470" y="78" width="180" height="94" rx="12"/>
+          <rect class="dgm-box" x="720" y="92" width="90" height="66" rx="10"/>
 
-            <!-- double arrows -->
-            <path class="dgm-line" d="M149,125 L206,125"/>
-            <polygon class="dgm-arrow" points="140,125 149,120 149,130"/>
-            <polygon class="dgm-arrow accent" points="215,125 206,120 206,130"/>
+          <!-- double arrows -->
+          <path class="dgm-line" d="M149,125 L206,125"/>
+          <polygon class="dgm-arrow" points="140,125 149,120 149,130"/>
+          <polygon class="dgm-arrow accent" points="215,125 206,120 206,130"/>
 
-            <path class="dgm-line accent" d="M404,125 L461,125"/>
-            <polygon class="dgm-arrow accent" points="395,125 404,120 404,130"/>
-            <polygon class="dgm-arrow" points="470,125 461,120 461,130"/>
+          <path class="dgm-line accent" d="M404,125 L461,125"/>
+          <polygon class="dgm-arrow accent" points="395,125 404,120 404,130"/>
+          <polygon class="dgm-arrow" points="470,125 461,120 461,130"/>
 
-            <path class="dgm-line" d="M659,125 L711,125"/>
-            <polygon class="dgm-arrow" points="650,125 659,120 659,130"/>
-            <polygon class="dgm-arrow" points="720,125 711,120 711,130"/>
+          <path class="dgm-line" d="M659,125 L711,125"/>
+          <polygon class="dgm-arrow" points="650,125 659,120 659,130"/>
+          <polygon class="dgm-arrow" points="720,125 711,120 711,130"/>
 
-            <!-- labels -->
+          <!-- brace under the interaction model -->
+          <path class="dgm-line accent" d="M215,190 L215,196 L301,196 M305,196 L305,202 M309,196 L395,196 L395,190" stroke-width="1.3"/>
+
+          <!-- labels: 中文 -->
+          <g data-i18n="zh">
             <text class="t" x="80" y="122" text-anchor="middle" font-size="16" font-weight="600">人类</text>
             <text class="t muted" x="80" y="141" text-anchor="middle" font-size="11">Human</text>
-
             <text class="t accent" x="305" y="110" text-anchor="middle" font-size="16" font-weight="600">交互模型</text>
             <text class="t muted" x="305" y="129" text-anchor="middle" font-size="11">前端 · System 1</text>
             <text class="t muted" x="305" y="148" text-anchor="middle" font-size="11">快 / 对话 / 实时</text>
-
             <text class="t" x="560" y="110" text-anchor="middle" font-size="16" font-weight="600">Agentic 模型</text>
             <text class="t muted" x="560" y="129" text-anchor="middle" font-size="11">后端 · System 2</text>
             <text class="t muted" x="560" y="148" text-anchor="middle" font-size="11">慢 / 推理 / 干活</text>
-
             <text class="t" x="765" y="128" text-anchor="middle" font-size="15" font-weight="600">App / 世界</text>
+            <text class="t accent" x="305" y="222" text-anchor="middle" font-size="13" font-weight="600">= 一种"学出来的" Harness</text>
+          </g>
+          <!-- labels: English -->
+          <g data-i18n="en">
+            <text class="t" x="80" y="128" text-anchor="middle" font-size="15" font-weight="600">Human</text>
+            <text class="t accent" x="305" y="110" text-anchor="middle" font-size="15" font-weight="600">Interaction model</text>
+            <text class="t muted" x="305" y="129" text-anchor="middle" font-size="10">front-end · System 1</text>
+            <text class="t muted" x="305" y="148" text-anchor="middle" font-size="10">fast / dialogue / real-time</text>
+            <text class="t" x="560" y="110" text-anchor="middle" font-size="15" font-weight="600">Agentic model</text>
+            <text class="t muted" x="560" y="129" text-anchor="middle" font-size="10">back-end · System 2</text>
+            <text class="t muted" x="560" y="148" text-anchor="middle" font-size="10">slow / reasoning / doing work</text>
+            <text class="t" x="765" y="128" text-anchor="middle" font-size="14" font-weight="600">App / world</text>
+            <text class="t accent" x="305" y="222" text-anchor="middle" font-size="12" font-weight="600">= a "learned" harness</text>
+          </g>
+        </svg>
+        <div class="figcaption">
+          <span data-i18n="zh" lang="zh-Hans">前端交互模型 = 一种"学出来的 harness"：它替代了今天手写的 harness system，成为人类与后端 agentic 模型之间的接口。产品 = agentic 模型 + interactive 模型。</span>
+          <span data-i18n="en" lang="en">The front-end interaction model = a "learned" harness: it replaces today's hand-written harness system and becomes the interface between humans and the back-end agentic model. Product = agentic model + interactive model.</span>
+        </div>
+      </figure>
 
-            <!-- brace annotation under interactive model -->
-            <path class="dgm-line accent" d="M215,190 L215,196 L301,196 M305,196 L305,202 M309,196 L395,196 L395,190" stroke-width="1.3"/>
-            <text class="t accent" x="305" y="222" text-anchor="middle" font-size="13" font-weight="600">= 一种“学出来的” Harness</text>
-          </svg>
-          <figcaption>前端交互模型 = 一种“学出来的 harness”：它替代了今天手写的 harness system，成为人类与后端 agentic 模型之间的接口。产品 = agentic 模型 + interactive 模型。</figcaption>
-        </figure>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">对于前端 interactive agentic 模型，现在我们的探索还非常非常初步，近期 Thinking Machines Lab 和 OpenAI 的 GPT Realtime 2 都在对这个模式进行尝试，虽然非常初步，但还是振奋人心。我认为 Her 一定会在不久的将来到来，而它一定会成为我们与 AI 系统最主要的交互形式之一。</span>
+        <span data-i18n="en" lang="en">Our exploration of front-end interactive agentic models is still extremely preliminary. Recently both Thinking Machines Lab and OpenAI's GPT Realtime 2 have been trying this pattern — very early, but exciting all the same. I believe <em>Her</em> will arrive before long, and that it will become one of the main forms in which we interact with AI systems.</span>
+      </p>
 
-        <p>
-          对于前端 interactive agentic 模型，现在我们的探索还非常非常初步，近期 Thinking Machines Lab 和 OpenAI 的 GPT Realtime 2 都在对这个模式进行尝试，虽然非常初步，但还是振奋人心。我认为 Her 一定会在不久的将来到来，而它一定会成为我们与 AI 系统最主要的交互形式之一。
-        </p>
+      <p style="color:var(--ink-soft);font-style:italic;margin-top:3rem;text-align:right;">
+        — 28 May 2026
+      </p>
 
-        <p style="color:var(--muted);font-style:italic;margin-top:48px;text-align:right;">
-          — 2026.5.28
-        </p>
+    </div>
 
+    <!-- ── Citation ── -->
+    <section class="citation">
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">引用本文</span>
+        <span data-i18n="en" lang="en">Cite this post</span>
+      </h2>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">APA</span>
+          <button class="copy-btn" type="button" data-copy="cite-apa-agents2026">copy</button>
+        </div>
+        <p class="cite-text" id="cite-apa-agents2026">Lu, Y. (2026, May 28). <em>Some thoughts on agents: Model as harness system</em> [Blog post]. https://yichen14.github.io/posts/thoughts-on-agents.html</p>
       </div>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">BibTeX</span>
+          <button class="copy-btn" type="button" data-copy="cite-bib-agents2026">copy</button>
+        </div>
+        <pre id="cite-bib-agents2026">@misc{lu2026agents,
+  author       = {Lu, Yichen},
+  title        = {Some Thoughts on Agents: Model as Harness System},
+  howpublished = {Blog post},
+  year         = {2026},
+  month        = may,
+  url          = {https://yichen14.github.io/posts/thoughts-on-agents.html}
+}</pre>
+      </div>
+    </section>
   </main>
 
   <footer class="colophon post-sheet" style="grid-template-columns:1fr">

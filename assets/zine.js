@@ -36,6 +36,41 @@
   var initial = saved === 'dark' || saved === 'light' ? saved : 'light';
   root.setAttribute('data-theme', initial);
 
+  /* ---------- language ----------
+     Stored choice wins. Failing that, readers whose browser is not set to
+     Chinese get the translation, since they are the ones who need it; the
+     Chinese original remains the default everywhere else. Set before first
+     paint so neither language flashes. */
+  var savedLang = null;
+  try { savedLang = localStorage.getItem('lang'); } catch (e) {}
+
+  var lang;
+  if (savedLang === 'zh' || savedLang === 'en') {
+    lang = savedLang;
+  } else {
+    var nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    lang = nav.indexOf('zh') === 0 ? 'zh' : 'en';
+  }
+  root.setAttribute('data-lang', lang);
+
+  function paintLang(next) {
+    root.setAttribute('data-lang', next);
+    var btn = document.getElementById('langToggle');
+    if (btn) {
+      btn.innerHTML = next === 'zh'
+        ? '<span class="on">中</span> / EN'
+        : '中 / <span class="on">EN</span>';
+      btn.setAttribute('aria-label',
+        next === 'zh' ? 'Switch to English' : '切换到中文');
+    }
+    // Swap the document title if the page supplies both.
+    var b = document.body;
+    if (b) {
+      var t = b.getAttribute(next === 'zh' ? 'data-title-zh' : 'data-title-en');
+      if (t) document.title = t;
+    }
+  }
+
   /* ---------- motion ---------- */
 
   // Which things settle into place, and in what grouping they stagger.
@@ -139,9 +174,69 @@
     apply();
   }
 
+  /* Copy-to-clipboard for the citation blocks. Async clipboard where
+     available, with the legacy textarea path for older/insecure contexts. */
+  function wireCopyButtons() {
+    var btns = document.querySelectorAll('.copy-btn[data-copy]');
+
+    function legacyCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:absolute;left:-9999px;top:0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    function feedback(btn, ok) {
+      var prev = btn.getAttribute('data-label') || btn.textContent;
+      btn.setAttribute('data-label', prev);
+      btn.textContent = ok ? 'copied' : 'select & copy';
+      btn.setAttribute('data-state', ok ? 'done' : '');
+      window.setTimeout(function () {
+        btn.textContent = btn.getAttribute('data-label');
+        btn.removeAttribute('data-state');
+      }, 1800);
+    }
+
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () {
+        var btn = this;
+        var src = document.getElementById(btn.getAttribute('data-copy'));
+        if (!src) return;
+        var text = src.textContent.replace(/\s+$/, '');
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(
+            function () { feedback(btn, true); },
+            function () { feedback(btn, legacyCopy(text)); }
+          );
+        } else {
+          feedback(btn, legacyCopy(text));
+        }
+      });
+    }
+  }
+
   /* ---------- boot ---------- */
   function ready() {
     paint(initial);
+    paintLang(lang);
+
+    var langBtn = document.getElementById('langToggle');
+    if (langBtn) {
+      langBtn.addEventListener('click', function () {
+        var next = root.getAttribute('data-lang') === 'zh' ? 'en' : 'zh';
+        try { localStorage.setItem('lang', next); } catch (e) {}
+        paintLang(next);
+      });
+    }
+
+    wireCopyButtons();
 
     var toggle = document.getElementById('themeToggle');
     if (toggle) {
