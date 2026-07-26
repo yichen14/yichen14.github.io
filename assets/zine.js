@@ -82,8 +82,9 @@
     ['.figure', 0],
     ['.callout', 0],
     ['.post-content h2', 0],
-    ['.plate-fig', 0],         // wipe reveal
-    ['.specimen', 0]
+    ['.plate-fig', 0]          // wipe reveal
+    // The portrait (.specimen) is deliberately absent from this list: it should
+    // simply be there on load rather than perform an entrance.
   ];
 
   function markReveals() {
@@ -125,12 +126,82 @@
     for (var i = 0; i < targets.length; i++) io.observe(targets[i]);
   }
 
-  /* Off-register drift on the wordmark + reading progress on post pages.
-     One rAF-coalesced passive scroll handler drives both; it only ever
-     writes two custom properties, so there is no layout thrash. */
+  /* ---------- eased in-page navigation ----------
+     Own the animation rather than leaning on scroll-behavior:smooth, so the
+     duration and curve match the rest of the motion. Steps are written with
+     behavior:'instant' so the CSS smooth-scroll cannot fight this. */
+  var ANCHOR_GAP = 26;   // px of air above an anchored section
+  var scrollAnim = null;
+
+  function easeOutQuart(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function glideTo(targetY, done) {
+    var startY = window.pageYOffset || root.scrollTop || 0;
+    var maxY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var endY = Math.min(Math.max(0, targetY), maxY);
+    var dist = endY - startY;
+
+    if (Math.abs(dist) < 2) { if (done) done(); return; }
+
+    // Longer trips take longer, but never crawl and never overstay.
+    var dur = Math.min(900, Math.max(420, Math.abs(dist) * 0.55));
+    var t0 = (window.performance && performance.now) ? performance.now() : +new Date();
+    scrollAnim = (t0 + dur);
+
+    function step(now) {
+      var t = Math.min(1, (now - t0) / dur);
+      window.scrollTo({ top: startY + dist * easeOutQuart(t), behavior: 'instant' });
+      if (t < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        scrollAnim = null;
+        if (done) done();
+      }
+    }
+    window.requestAnimationFrame(step);
+  }
+
+  function wireAnchors() {
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (e.button !== undefined && e.button !== 0) return;
+
+      var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+      if (!a) return;
+
+      var href = a.getAttribute('href') || '';
+      if (href.charAt(0) !== '#' || href.length < 2) return;   // same-page only
+
+      var el = document.getElementById(href.slice(1));
+      if (!el) return;
+
+      e.preventDefault();
+      var top = el.getBoundingClientRect().top + (window.pageYOffset || 0) - ANCHOR_GAP;
+      glideTo(top, function () {
+        // Keep the URL shareable and move focus for keyboard users, without
+        // letting focus() perform a second jump.
+        try { history.replaceState(null, '', href); } catch (err) {}
+        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+        try { el.focus({ preventScroll: true }); } catch (err) {}
+      });
+    }, false);
+  }
+
+  /* Off-register drift on the wordmark, reading progress on post pages, and
+     the section index. One rAF-coalesced passive scroll handler drives all
+     three; it writes custom properties and one attribute, so no layout thrash. */
   function scrollEffects() {
     var wordmark = document.querySelector('.wordmark');
     var article  = document.querySelector('.post-content');
+    var sidenav  = document.querySelector('.sidenav');
+    var navLinks = sidenav ? sidenav.querySelectorAll('a[href^="#"]') : [];
+    var sections = [];
+
+    for (var i = 0; i < navLinks.length; i++) {
+      var sec = document.getElementById(navLinks[i].getAttribute('href').slice(1));
+      if (sec) sections.push({ link: navLinks[i], el: sec });
+    }
+    var activeIdx = -1;
 
     var rule = null;
     if (article) {
@@ -139,7 +210,7 @@
       rule.setAttribute('aria-hidden', 'true');
       document.body.appendChild(rule);
     }
-    if (!wordmark && !rule) return;
+    if (!wordmark && !rule && !sections.length) return;
 
     var queued = false;
 
@@ -160,6 +231,31 @@
         var read  = (y - start) / span;
         read = read < 0 ? 0 : read > 1 ? 1 : read;
         rule.style.setProperty('--read', read.toFixed(4));
+      }
+
+      if (sections.length) {
+        // Active = the last section whose top has passed a line a third of
+        // the way down the viewport. At the very bottom, force the last one so
+        // short trailing sections can still be reached.
+        var line = y + window.innerHeight * 0.34;
+        var idx = 0;
+        for (var j = 0; j < sections.length; j++) {
+          if (sections[j].el.getBoundingClientRect().top + y <= line) idx = j;
+        }
+        if (y + window.innerHeight >= document.documentElement.scrollHeight - 4) {
+          idx = sections.length - 1;
+        }
+        if (idx !== activeIdx) {
+          if (activeIdx >= 0) sections[activeIdx].link.removeAttribute('aria-current');
+          sections[idx].link.setAttribute('aria-current', 'true');
+          activeIdx = idx;
+        }
+
+        if (sidenav) {
+          // Hold the index back until the poster has been scrolled past.
+          var show = y > window.innerHeight * 0.42;
+          sidenav.classList[show ? 'add' : 'remove']('is-visible');
+        }
       }
     }
 
@@ -260,6 +356,7 @@
     try {
       markReveals();
       observeReveals();
+      wireAnchors();
       scrollEffects();
     } catch (e) {
       // Anything unexpected: drop the flag so the stylesheet stops hiding

@@ -762,16 +762,15 @@ h2.leaf-title {
 [data-motion="on"] .leaf.is-in::before,
 [data-motion="on"] .post-content h2.is-in::before { transform: scaleX(1); }
 
-/* ---- Plates wipe in under the scan head ---- */
-[data-motion="on"] .plate-fig[data-reveal],
-[data-motion="on"] .specimen[data-reveal] {
+/* ---- Plates wipe in under the scan head ----
+   The portrait is excluded on purpose — it is present from the first paint. */
+[data-motion="on"] .plate-fig[data-reveal] {
   opacity: 1;
   transform: none;
   clip-path: inset(0 100% 0 0);
   transition: clip-path var(--dur-wipe) var(--ease-paper);
 }
-[data-motion="on"] .plate-fig[data-reveal].is-in,
-[data-motion="on"] .specimen[data-reveal].is-in { clip-path: inset(0 0 0 0); }
+[data-motion="on"] .plate-fig[data-reveal].is-in { clip-path: inset(0 0 0 0); }
 
 /* ---- Off-register drift: the cobalt pass slips as the paper moves ----
    Driven by --scroll-slip (px) from zine.js. A 0-4px shift on a 70px
@@ -794,8 +793,89 @@ h2.leaf-title {
   pointer-events: none;
 }
 
-/* ---- Anchor links glide rather than jump ---- */
+/* ---- Anchor links glide rather than jump ----
+   zine.js animates jumps itself with behavior:'instant' steps, so this is the
+   fallback for hash-on-load and any scroll it does not intercept. */
 [data-motion="on"] { scroll-behavior: smooth; }
+
+/* Anchored sections stop a little below the top edge, not flush against it */
+.leaf { scroll-margin-top: 1.6rem; }
+
+/* ============================================================
+   Section index — a running contents list in the left margin
+   Lives entirely in the outer margin, so it never crowds the text
+   column; below 1280px there isn't margin to spare and it is dropped.
+   ============================================================ */
+.sidenav {
+  display: none;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  /* The text column starts at calc(50vw - 31rem); sit a gutter to its left. */
+  left: calc(50vw - 31rem - 1.25rem - 7.4rem);
+  width: 7.4rem;
+  z-index: 20;
+}
+@media (min-width: 1280px) {
+  .sidenav { display: block; }
+}
+
+.sidenav ol { list-style: none; margin: 0; padding: 0; }
+.sidenav li { margin: 0; }
+
+.sidenav a {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .28rem 0;
+  border-bottom: none;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  transition: color .2s linear;
+}
+.sidenav a:hover { background: none; color: var(--ink); }
+
+.sidenav .n {
+  flex: none;
+  font-size: .55rem;
+  color: var(--ink-ghost);
+  transition: color .2s linear;
+}
+.sidenav a:hover .n { color: var(--ink-soft); }
+
+/* A cobalt rule that draws itself alongside the section you are reading.
+   Its width is reserved permanently and only scaleX animates, so the row
+   never reflows and the transition stays on the compositor. */
+.sidenav .tick {
+  flex: none;
+  display: block;
+  width: .95rem;
+  height: 1px;
+  background: var(--cobalt);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .34s var(--ease-paper);
+}
+
+.sidenav .t { white-space: nowrap; }
+
+.sidenav a[aria-current="true"] { color: var(--ink); }
+.sidenav a[aria-current="true"] .n { color: var(--cobalt); }
+.sidenav a[aria-current="true"] .tick { transform: scaleX(1); }
+
+/* The index stays out of the way until the poster has been scrolled past */
+[data-motion="on"] .sidenav {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s var(--ease-paper);
+}
+[data-motion="on"] .sidenav.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 
 /* ---- Reduced motion: no movement at all, nothing hidden ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -816,6 +896,10 @@ h2.leaf-title {
   [data-motion="on"] .post-content h2::before { display: none; }
   .wordmark::before { transform: none; }
   .progress-rule { display: none; }
+  /* the index is still useful without motion — just never animated or faded */
+  [data-motion="on"] .sidenav { opacity: 1 !important; pointer-events: auto; }
+  .sidenav .tick { transition: none !important; }
+  .sidenav a[aria-current="true"] .tick { transform: scaleX(1) !important; }
 }
 
 /* ============================================================
@@ -926,7 +1010,7 @@ html[data-lang="en"] [data-i18n="zh"] { display: none; }
 @media print {
   body::after, .anchor-block::after { display: none; }
   .masthead-bar, .theme-toggle, .lang-toggle, .plate-map,
-  .progress-rule, .copy-btn { display: none; }
+  .progress-rule, .copy-btn, .sidenav { display: none; }
   body { background: #fff; color: #000; }
   /* nothing may stay mid-animation on paper */
   [data-motion="on"] [data-reveal] {
