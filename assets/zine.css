@@ -1,0 +1,695 @@
+/* ============================================================
+   Minimal Zine Poster v0.1 — web design system
+   Aged paper ground · huge negative space · serif/typewriter type
+   one high-chroma cobalt anchor · print & scan defects · flat scan
+   ============================================================ */
+
+/* ---------- 1. Palette ----------
+   Paper tones + gray/black support ONE saturated cobalt anchor.
+   Legacy variable names (--bg/--fg/--muted/--line/--link) are kept
+   as aliases so existing inline SVG diagrams inherit this palette. */
+:root {
+  --paper:      #efece3;
+  --paper-deep: #e4e0d4;
+  --paper-edge: #dcd7c8;
+  --ink:        #1c1a17;
+  --ink-soft:   #5e594f;
+  --ink-faint:  #6f6a5e;  /* carries dates/labels/tags — must clear AA 4.5:1 */
+  --ink-ghost:  #9a9487;  /* decorative marginalia only (aria-hidden) */
+  --rule:       #d3cebf;
+  --cobalt:     #0b40cf;
+
+  /* aliases for legacy markup + post SVGs */
+  --bg:    var(--paper);
+  --fg:    var(--ink);
+  --muted: var(--ink-soft);
+  --line:  var(--rule);
+  --link:  var(--cobalt);
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+           Georgia, "Songti SC", "Noto Serif SC", "Source Han Serif SC", serif;
+  --mono:  "SF Mono", ui-monospace, "IBM Plex Mono", "Roboto Mono",
+           "Courier New", monospace;
+
+  --measure: 34rem;   /* prose column ~62ch */
+  --rail:    9.5rem;  /* left marginalia rail */
+  --gutter:  2.75rem;
+}
+
+/* "Night press" — ink-stained paper rather than clean dark UI */
+[data-theme="dark"] {
+  --paper:      #17150f;
+  --paper-deep: #1e1b14;
+  --paper-edge: #242018;
+  --ink:        #e7e1d2;
+  --ink-soft:   #a09883;
+  --ink-faint:  #8a8372;
+  --ink-ghost:  #635d4f;
+  --rule:       #322d22;
+  --cobalt:     #5b7bff;
+}
+
+/* ---------- 2. Paper ground ----------
+   Aged mottling via layered radial gradients; no gradient-as-decor. */
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 12% 8%,  var(--paper-deep) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 45% at 88% 22%, var(--paper-edge) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 96%, var(--paper-deep) 0%, transparent 65%);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.78;
+  overflow-x: hidden;
+}
+
+/* Scan noise + paper fibre. Fixed overlay, never intercepts pointer. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: .38;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] body::after { mix-blend-mode: screen; opacity: .1; }
+
+::selection { background: var(--cobalt); color: var(--paper); }
+
+/* ---------- 3. Type ---------- */
+h1, h2, h3, h4 { font-weight: 400; letter-spacing: -0.01em; }
+
+p { margin: 1.15em 0; }
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--cobalt);
+  padding-bottom: .5px;
+  transition: background-color .12s linear;
+}
+a:hover { background-color: color-mix(in srgb, var(--cobalt) 13%, transparent); }
+
+strong { font-weight: 600; }
+em     { font-style: italic; }
+
+/* Typewriter microtext — dates, labels, coordinates, archival marks */
+.mono, .micro, .label, .rail-label, .idx, .meta, .small {
+  font-family: var(--mono);
+  font-variant-ligatures: none;
+}
+.micro {
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1.9;
+}
+.small { font-size: .8rem; color: var(--ink-soft); letter-spacing: .01em; }
+
+/* Section label sitting in the left rail */
+.label {
+  font-size: .66rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---------- 4. Shell ---------- */
+.sheet { max-width: 62rem; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* Top rule: hairline only, no sticky bar, no shadow, no card */
+.masthead-bar {
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+}
+.masthead-bar .sheet {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+}
+.sigil {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nav { display: flex; align-items: baseline; gap: 1.5rem; }
+.nav a {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: none;
+}
+.nav a:hover { background: none; color: var(--ink); }
+.nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom: 2px solid var(--cobalt);
+  padding-bottom: 2px;
+}
+
+.theme-toggle {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: .3rem .6rem;
+  cursor: pointer;
+  transition: border-color .12s linear, color .12s linear;
+}
+.theme-toggle:hover { border-color: var(--cobalt); color: var(--ink); }
+
+/* ---------- 5. Poster masthead ----------
+   ~70-90% of this region reads as bare paper; the visual cluster
+   (photo + name + cobalt block) stays small and off-centre. */
+.poster {
+  position: relative;
+  min-height: 60vh;
+  padding: 7.5rem 0 5.5rem;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--gutter);
+  align-content: start;
+}
+
+.poster-rail { grid-column: 1; }
+.poster-body { grid-column: 2; max-width: 30rem; }
+
+/* Torn-edge halftone photo specimen — small, grayscale, photocopied */
+.specimen {
+  position: relative;
+  width: 88px;
+  height: 112px;
+  margin-bottom: 2.25rem;
+  filter: grayscale(1) contrast(1.12) brightness(1.04);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 112' preserveAspectRatio='none'%3E%3Cpath d='M2 4 L86 1 L87 106 L44 111 L3 108 Z' fill='%23000'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 112' preserveAspectRatio='none'%3E%3Cpath d='M2 4 L86 1 L87 106 L44 111 L3 108 Z' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.specimen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* halftone degradation over the plate */
+.specimen::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--ink) .5px, transparent .6px);
+  background-size: 3px 3px;
+  opacity: .3;
+  mix-blend-mode: multiply;
+}
+
+/* Name as headline-as-object, with a single-hue misregistration ghost */
+.wordmark {
+  position: relative;
+  font-size: clamp(2.6rem, 7.2vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  margin: 0 0 1.5rem;
+}
+.wordmark .alt {
+  display: block;
+  font-family: var(--mono);
+  font-size: .2em;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 1.25rem;
+}
+/* Off-register second ink pass. Must read as misprint, never as a shadow:
+   clearly chromatic, offset up-and-left, no blur, no dark edge. */
+.wordmark::before {
+  content: attr(data-ghost);
+  position: absolute;
+  left: -3px; top: -2.5px;
+  color: var(--cobalt);
+  opacity: .34;
+  z-index: -1;
+  pointer-events: none;
+  white-space: pre;
+}
+
+/* The one short readable phrase, drifting under the colour anchor */
+.phrase {
+  position: absolute;
+  top: 18.2rem;   /* clears the colour anchor (8.5rem + 132px) */
+  right: 0;
+  width: 9.5rem;
+  font-size: .82rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+  padding-top: .7rem;
+}
+
+.standfirst {
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+  max-width: 26rem;
+  margin: 0 0 2.1rem;
+}
+.standfirst b { color: var(--ink); font-weight: 600; }
+
+/* THE colour anchor: an opaque cobalt block, ~1.4% of first screen.
+   Substantial, not a hairline or a dot. */
+.anchor-block {
+  position: absolute;
+  top: 8.5rem;
+  right: 0;
+  width: 104px;
+  height: 132px;
+  background: var(--cobalt);
+  z-index: 0;
+}
+.anchor-block::after {  /* risograph grain, saturation preserved */
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.5) .6px, transparent .7px);
+  background-size: 4px 4px;
+  opacity: .22;
+}
+.anchor-note {
+  position: absolute;
+  top: 8.5rem;
+  right: 122px;
+  writing-mode: vertical-rl;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--ink-ghost);
+}
+
+/* Contact / index links — typewriter, drifting */
+.index-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1.4rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+}
+.index-links a { border-bottom-width: 1px; }
+.stamp {
+  margin-top: 1.6rem;
+  font-family: var(--mono);
+  font-size: .68rem;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+}
+
+/* ---------- 6. Sections: rail + column, no cards ---------- */
+.leaf {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--gutter);
+  padding: 3.4rem 0;
+  border-top: 1px solid var(--rule);
+}
+.leaf > .rail { grid-column: 1; }
+.leaf > .col  { grid-column: 2; max-width: var(--measure); }
+.leaf.wide > .col { max-width: none; }
+
+.rail .label { display: block; }
+.rail .rail-num {
+  display: block;
+  font-family: var(--mono);
+  font-size: .62rem;
+  color: var(--cobalt);
+  letter-spacing: .12em;
+  margin-top: .45rem;
+}
+
+h2.leaf-title {
+  font-size: 1.28rem;
+  margin: 0 0 1.3rem;
+  letter-spacing: -0.005em;
+}
+
+/* ---------- 7. Archival lists (news, experience, education, misc) ---------- */
+.entries { list-style: none; margin: 0; padding: 0; }
+.entries > li {
+  padding: .95rem 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.entries > li:last-child { border-bottom: none; }
+.entries .when {
+  display: block;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: .3rem;
+}
+.entries .what { display: block; }
+.entries .where { color: var(--ink-soft); font-size: .93rem; }
+
+/* ---------- 8. Publications — numbered plates, no cards ---------- */
+.plate {
+  display: grid;
+  grid-template-columns: 2.6rem 6.5rem minmax(0, 1fr);
+  gap: 0 1.5rem;
+  padding: 1.7rem 0;
+  border-bottom: 1px dotted var(--rule);
+  align-items: start;
+}
+.plate:last-of-type { border-bottom: none; }
+/* Entries with no local figure keep the three-column grid and leave the
+   plate cell empty, so every title stays on the same alignment. */
+.plate.no-fig > :last-child { grid-column: 3; }
+.plate .idx {
+  font-size: .68rem;
+  color: var(--ink-faint);
+  letter-spacing: .06em;
+  padding-top: .2rem;
+}
+.plate-fig {
+  position: relative;
+  filter: grayscale(1) contrast(1.06);
+  border: 1px solid var(--rule);
+}
+.plate-fig img { display: block; width: 100%; height: auto; }
+.plate-fig::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--ink) .4px, transparent .5px);
+  background-size: 3px 3px;
+  opacity: .26;
+  mix-blend-mode: multiply;
+}
+.plate-title { font-size: 1.02rem; line-height: 1.5; margin: 0 0 .45rem; }
+.plate-authors { font-size: .88rem; margin: 0 0 .3rem; }
+.plate-venue {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 .55rem;
+}
+.plate-links {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: .69rem;
+  letter-spacing: .06em;
+}
+
+/* Marked work: a substantial cobalt bar, not a red dashed box */
+.plate.marked { position: relative; padding-left: 1rem; margin-left: -1rem; }
+.plate.marked::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 1.7rem; bottom: 1.7rem;
+  width: 4px;
+  background: var(--cobalt);
+}
+
+.year-mark {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 2.8rem 0 .4rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.year-mark:first-of-type { margin-top: 0; }
+
+/* ---------- 9. Blog / diary list ---------- */
+.diary { display: block; }
+.diary-item {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: 0 1.5rem;
+  padding: 1.8rem 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.diary-item:last-child { border-bottom: none; }
+.diary-when {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: .35rem;
+}
+.diary-title { font-size: 1.22rem; line-height: 1.4; margin: 0 0 .5rem; }
+.diary-title a { border-bottom: none; }
+.diary-title a:hover { background: none; color: var(--cobalt); }
+.diary-excerpt { color: var(--ink-soft); margin: 0 0 .7rem; font-size: .96rem; }
+
+/* Tags as typewriter marginalia, not filled pills */
+.tags { display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
+.tag {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.tag::before { content: "/ "; color: var(--cobalt); }
+
+/* ---------- 10. Post pages ---------- */
+.post-sheet { max-width: 46rem; margin: 0 auto; padding: 0 var(--gutter); }
+.back-link {
+  display: inline-block;
+  margin: 2.6rem 0 0;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: none;
+}
+.back-link:hover { background: none; color: var(--cobalt); }
+
+.post-header {
+  padding: 3rem 0 2.4rem;
+  margin-bottom: 2.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.post-title {
+  font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.1rem;
+}
+.post-meta {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: .9rem;
+}
+.post-tags { display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
+.post-tag {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+.post-tag::before { content: "/ "; color: var(--cobalt); }
+
+.post-content { font-size: 1.06rem; line-height: 1.85; }
+.post-content .lead { font-size: 1.16rem; line-height: 1.8; color: var(--ink); }
+.post-content h2 {
+  font-size: 1.42rem;
+  margin: 2.9rem 0 1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+}
+.post-content h3 { font-size: 1.14rem; margin: 2.1rem 0 .7rem; }
+.post-content p { margin: 1.25em 0; }
+.post-content ul, .post-content ol { padding-left: 1.3rem; }
+.post-content li { margin: .5rem 0; }
+
+.post-content code {
+  font-family: var(--mono);
+  font-size: .86em;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  padding: .1em .35em;
+  border-radius: 0;
+}
+.post-content pre {
+  font-family: var(--mono);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  border-left: 2px solid var(--rule);
+  padding: 1rem 1.1rem;
+  border-radius: 0;
+  overflow-x: auto;
+  line-height: 1.6;
+  font-size: .86rem;
+}
+.post-content pre code { background: none; padding: 0; }
+
+.post-content blockquote {
+  margin: 1.9rem 0;
+  padding: 0 0 0 1.4rem;
+  border-left: 2px solid var(--cobalt);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0;
+  margin: 1.9rem 0;
+  filter: grayscale(1) contrast(1.05);
+}
+
+/* callout: flat cobalt-tinted panel, no radius, no shadow */
+.callout {
+  margin: 2.2rem 0;
+  padding: 1.1rem 1.3rem;
+  border-left: 3px solid var(--cobalt);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--cobalt) 6%, transparent);
+}
+.callout p { margin: 0; font-size: 1rem; }
+
+.figure { margin: 2.6rem 0; }
+.figure svg { display: block; width: 100%; height: auto; }
+.figure figcaption,
+.figure .caption {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: .7rem;
+}
+.figure .figcaption {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: .7rem;
+}
+
+/* Hand-built inline SVG diagrams, redrawn as flat technical plates:
+   hairline rules in ink, the single cobalt accent for emphasis. */
+.dgm text {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+.dgm-box    { fill: transparent; stroke: var(--rule); stroke-width: 1.25; }
+.dgm-box.accent { stroke: var(--cobalt); stroke-width: 2; }
+.dgm-line   { stroke: var(--ink-faint); stroke-width: 1.25; fill: none; }
+.dgm-line.accent { stroke: var(--cobalt); stroke-width: 1.75; }
+.dgm-grid   { fill: none; stroke: var(--rule); stroke-width: .75; }
+.dgm-axis   { stroke: var(--ink-faint); stroke-width: 1; }
+.dgm-area   {
+  fill: var(--cobalt);
+  fill-opacity: .14;
+  stroke: var(--cobalt);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.dgm-dot    { fill: var(--cobalt); }
+.dgm-arrow  { fill: var(--ink-faint); }
+.dgm-arrow.accent { fill: var(--cobalt); }
+.t          { fill: var(--ink); }
+.t.muted    { fill: var(--ink-soft); }
+.t.accent   { fill: var(--cobalt); }
+
+/* ---------- 11. Colophon ---------- */
+.colophon {
+  border-top: 1px solid var(--rule);
+  margin-top: 4rem;
+  padding: 2.4rem 0 3.4rem;
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--gutter);
+}
+.colophon .col { grid-column: 2; }
+.colophon .micro { margin: 0 0 .3rem; }
+
+/* Visitor plate — kept, but printed as a quiet grayscale map plate */
+.plate-map {
+  filter: grayscale(1) contrast(1.04) opacity(.72);
+  max-width: 320px;
+  margin-top: .8rem;
+}
+.foot {
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .1em;
+  color: var(--ink-faint);
+  text-align: left;
+}
+
+/* ---------- 12. Responsive: rails collapse, air is preserved ---------- */
+@media (max-width: 860px) {
+  :root { --gutter: 1.6rem; }
+  .poster,
+  .leaf,
+  .colophon { grid-template-columns: 1fr; }
+  .poster-rail,
+  .poster-body,
+  .leaf > .rail,
+  .leaf > .col,
+  .colophon .col { grid-column: 1; }
+  .leaf > .rail { margin-bottom: 1.1rem; }
+  .rail .rail-num { display: inline; margin-left: .6rem; }
+  .poster { min-height: auto; padding: 4rem 0 3.4rem; }
+  .anchor-block { width: 72px; height: 92px; top: 4.6rem; }
+  .anchor-note { display: none; }
+  /* the phrase rejoins the flow so it cannot ride over the wordmark */
+  .phrase {
+    position: static;
+    grid-column: 1;
+    width: auto;
+    max-width: 20rem;
+    margin-top: 1.8rem;
+    padding-top: 0;
+  }
+  .plate { grid-template-columns: 2.2rem minmax(0, 1fr); }
+  .plate-fig { display: none; }
+  .plate.no-fig > :last-child { grid-column: 2; }
+  .diary-item { grid-template-columns: 1fr; }
+  .diary-when { padding: 0 0 .5rem; }
+}
+
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .masthead-bar .sheet { flex-wrap: wrap; gap: .8rem; }
+  .nav { gap: 1.1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* ---------- 13. Print: it is already a paper poster ---------- */
+@media print {
+  body::after, .anchor-block::after { display: none; }
+  .masthead-bar, .theme-toggle, .plate-map { display: none; }
+  body { background: #fff; color: #000; }
+}

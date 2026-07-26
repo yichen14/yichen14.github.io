@@ -1,354 +1,259 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>关于 Agent 的一些思考 - Yichen (Eason) Lu</title>
   <meta name="description" content="关于 agent、harness 与模型研发顺序的一些思考" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
-    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
-    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,Segoe UI,Roboto,sans-serif;line-height:1.8;transition:background 0.3s,color 0.3s}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
-    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
-    .nav{display:flex;align-items:center}
-    .nav a{margin-left:18px;color:var(--fg)}
-    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
-    .theme-toggle:hover{background:var(--line)}
-    .wrap{max-width:720px;margin:0 auto;padding:24px 20px}
-    .back-link{color:var(--muted);margin-bottom:20px;display:inline-block}
-    .post-header{margin-bottom:40px}
-    .post-title{font-size:2.5rem;font-weight:700;line-height:1.2;margin:0 0 16px 0;letter-spacing:-0.01em}
-    .post-meta{color:var(--muted);font-size:0.95rem;margin-bottom:16px}
-    .post-tags{display:flex;gap:8px;flex-wrap:wrap}
-    .post-tag{background:var(--line);color:var(--fg);padding:4px 10px;border-radius:4px;font-size:0.85rem}
-    .post-content{font-size:1.05rem;line-height:1.85}
-    .post-content h2{margin-top:52px;margin-bottom:18px;font-size:1.6rem;line-height:1.35;position:relative}
-    .post-content h2::before{content:"";display:block;width:38px;height:3px;border-radius:2px;background:var(--link);margin-bottom:18px;opacity:.9}
-    .post-content h3{margin-top:32px;margin-bottom:12px;font-size:1.4rem}
-    .post-content p{margin:22px 0}
-    .post-content .lead{font-size:1.18rem;line-height:1.85}
-    .post-content code{background:var(--line);padding:2px 6px;border-radius:3px;font-size:0.9em}
-    .post-content pre{background:var(--line);padding:16px;border-radius:6px;overflow-x:auto;line-height:1.5}
-    .post-content blockquote{border-left:4px solid var(--link);padding:4px 0 4px 20px;margin:28px 0;color:var(--muted);font-style:italic}
-    .post-content blockquote p{margin:0}
-    .post-content img{max-width:100%;height:auto;border-radius:8px;margin:20px 0}
-    .post-content ol,.post-content ul{padding-left:1.4em}
-    .post-content li{margin:10px 0}
-    /* key-point callout */
-    .callout{margin:32px 0;padding:18px 22px;border-left:3px solid var(--link);border-radius:10px;background:color-mix(in srgb,var(--link) 7%,transparent)}
-    .callout p{margin:0;font-size:1.05rem}
-    /* figures + diagrams */
-    .figure{margin:40px 0}
-    .figure svg{display:block;width:100%;height:auto}
-    .figcaption{margin-top:14px;color:var(--muted);font-size:0.9rem;line-height:1.7;text-align:center}
-    .dgm text{font-family:Inter,"PingFang SC","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
-    .dgm-box{fill:transparent;stroke:var(--line);stroke-width:1.5}
-    .dgm-box.accent{stroke:var(--link);stroke-width:2}
-    .dgm-line{stroke:var(--muted);stroke-width:1.5;fill:none}
-    .dgm-grid{fill:none;stroke:var(--line);stroke-width:1}
-    .dgm-axis{stroke:var(--line);stroke-width:1}
-    .dgm-area{fill:var(--link);fill-opacity:.12;stroke:var(--link);stroke-width:2;stroke-linejoin:round}
-    .dgm-dot{fill:var(--link)}
-    .dgm-arrow{fill:var(--muted)}
-    .dgm-arrow.accent{fill:var(--link)}
-    .t{fill:var(--fg)}
-    .t.muted{fill:var(--muted)}
-    .t.accent{fill:var(--link)}
-    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
-    @media (max-width:600px){ .post-title{font-size:2rem} .post-content{font-size:1.02rem} }
-  </style>
+  <link rel="stylesheet" href="../assets/zine.css" />
+  <script src="../assets/zine.js"></script>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div><strong>Yichen (Eason) Lu</strong></div>
+  <header class="masthead-bar">
+    <div class="sheet">
+      <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
       <nav class="nav">
         <a href="../index.html">Home</a>
         <a href="../publications.html">Publications</a>
-        <a href="../blog.html">Blog</a>
-        <button class="theme-toggle" id="themeToggle">
-          <span id="themeIcon">🌙</span>
-          <span id="themeText">dark</span>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span id="themeIcon">☾</span> <span id="themeText">press</span>
         </button>
       </nav>
     </div>
-  </div>
+  </header>
 
-  <main class="wrap">
-    <a href="../blog.html" class="back-link">← 返回博客</a>
+  <main class="post-sheet">
+  <a href="../blog.html" class="back-link">← 返回博客</a>
 
-    <article class="post-header">
-      <h1 class="post-title">关于 Agent 的一些思考</h1>
-      <div class="post-meta">
-        <span>2026年5月28日</span> · <span>12 min read</span>
+      <article class="post-header">
+        <h1 class="post-title">关于 Agent 的一些思考</h1>
+        <div class="post-meta">
+          <span>2026年5月28日</span> · <span>12 min read</span>
+        </div>
+        <div class="post-tags">
+          <span class="post-tag">Agent</span>
+          <span class="post-tag">Harness</span>
+          <span class="post-tag">模型即产品</span>
+          <span class="post-tag">语音大模型</span>
+        </div>
+      </article>
+
+      <div class="post-content">
+
+        <p class="lead">
+          最近因为各个厂家的模型不断更新迭代，agent 爆发，我不断地产生了一些思考。在这里做一些随意的记录。
+        </p>
+
+        <h2>模型即产品，但 Harness 不可或缺</h2>
+
+        <p>
+          首先是，我非常认可现在模型即产品的思路，但从 Claude Code 的诞生中我们也明白了 harness 的重要性，产品 = 模型 + harness 逐渐形成了行业的共识；但 Claude Code 告诉我们，模型跟 harness 是不可分割的，如果我们只做 harness 不做模型，那就会陷入跟 Cursor 一样的境地，因为只做 harness 的公司不可能打得过知道自家模型怎么训练的公司。
+        </p>
+
+        <h2>推演顺序：产品 → Harness → 模型</h2>
+
+        <p>
+          但在这里我的想法更进了一步，我认为未来 AI 产品（模型）的推演思路一定是：产品先行，再去定义 Harness 与 Eval，最后才是训练模型。
+        </p>
+
+        <figure class="figure">
+          <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="产品到 Harness 与 Eval 再到模型的推演顺序图">
+            <!-- boxes -->
+            <rect class="dgm-box" x="30" y="120" width="130" height="60" rx="10"/>
+            <rect class="dgm-box accent" x="310" y="55" width="160" height="60" rx="10"/>
+            <rect class="dgm-box" x="310" y="185" width="160" height="60" rx="10"/>
+            <rect class="dgm-box" x="600" y="120" width="130" height="60" rx="10"/>
+
+            <!-- connectors out of product -->
+            <path class="dgm-line" d="M160,150 L235,150 M235,85 L235,215 M235,85 L301,85 M235,215 L301,215"/>
+            <polygon class="dgm-arrow accent" points="310,85 301,80 301,90"/>
+            <polygon class="dgm-arrow" points="310,215 301,210 301,220"/>
+
+            <!-- connectors into model -->
+            <path class="dgm-line" d="M470,85 L545,85 M470,215 L545,215 M545,85 L545,215 M545,150 L591,150"/>
+            <polygon class="dgm-arrow" points="600,150 591,145 591,155"/>
+
+            <!-- labels -->
+            <text class="t" x="95" y="146" text-anchor="middle" font-size="19" font-weight="600">产品</text>
+            <text class="t muted" x="95" y="166" text-anchor="middle" font-size="11">Product · 必须先行</text>
+
+            <text class="t accent" x="390" y="81" text-anchor="middle" font-size="19" font-weight="600">Harness</text>
+            <text class="t muted" x="390" y="101" text-anchor="middle" font-size="11">连接产品与模型的轴承</text>
+
+            <text class="t" x="390" y="211" text-anchor="middle" font-size="19" font-weight="600">Eval</text>
+            <text class="t muted" x="390" y="231" text-anchor="middle" font-size="11">评测，也应以 harness 为基础</text>
+
+            <text class="t" x="665" y="146" text-anchor="middle" font-size="19" font-weight="600">模型</text>
+            <text class="t muted" x="665" y="166" text-anchor="middle" font-size="11">Model</text>
+          </svg>
+          <figcaption>我认为未来的推演顺序是：产品先行，再去定义 Harness 与 Eval，最后才训练模型。Harness 是连接产品与模型的核心轴承。</figcaption>
+        </figure>
+
+        <p>
+          模型即产品的时代，产品还是必须先行；Claude 的成功就是因为他们参透了这件事情。Anthropic 早在两年甚至三四年前就开始布局 agent，一定不是说他们不小心训练出来个内部模型，有了 agent 能力，而是他们觉得未来 AI 想要展现其价值，必须要学会“干活”，而干活这方面，最直接的就是先学 coding，所以他们在 coding 上下了赌注，并开始布局 MCP、Claude Code、terminal use，最后引领了 agent 这个时代，反超了 OpenAI。
+        </p>
+
+        <h2>Harness 会被模型吞掉吗？</h2>
+
+        <p>
+          Harness，作为产品与模型的连接轴承，起到了重要的作用；其实之前我一直在思考，Harness Engineering 是不是也是一个中间产物，是不是因为模型还不够强，所以需要外界的辅助来完成任务，而未来模型会强大到把 harness 完全吞掉。
+        </p>
+
+        <p>
+          我现在觉着答案是否定的，从产品角度来讲，模型能力变强的同时，对 harness 的需求反而会越来越高，因为现在模型能力已经完全超过了人类能力，Harness 诞生的意义更多的是想办法告诉人类，模型该怎么用，而不是在帮助模型去做事情；人类的进步速度缓慢，但模型的进步速度越来越快，它跟人类的能力 gap 只能越来越大，而这个时候，harness 就尤为重要了。
+        </p>
+
+        <p>
+          那反过来从模型训练的角度上来讲，harness 其实更为重要，因为它能够反推出两个模型训练中至关重要的点：
+        </p>
+
+        <ol>
+          <li>模型该如何被训练（看到哪些 pattern 的数据）</li>
+          <li>模型该如何 eval</li>
+        </ol>
+
+        <h2>一个例子：Opus 4.8 与 Workflows</h2>
+
+        <p>
+          我想拿今天（2026.5.28）Anthropic release 的新模型 Opus 4.8 以及 Claude Code 的新模式 ultracode + workflows 来举例；workflows，作为 Anthropic 新的模型工作流模式，我觉得是此次 Opus 4.8 release 最重要的点，因为 Anthropic 发布了一个使用模型的新方式，而 4.8 模型本身把这个新 pattern 训了进去，完全去激发这个新方式的潜力；但如果你用 Claude Code 试一下的话就知道，这个模式不是专属 4.8 的，任何模型都可以使用这个模式（甚至对家 OpenAI 的模型在 CC 里也可以用），但只有 4.8（以及未来的模型）能把它发挥得最好；所以我认为 harness（甚至是大家瞧不起的 prompt engineering）需要先被明确定义，再开始训练模型；Anthropic 一定是先定义了 agentic trace，才能从 0 到 1 地引领 agentic 时代的爆发。
+        </p>
+
+        <blockquote>
+          <p>再补充一个更有共识的例子：CoT 是先用在了非 reasoning 模型上，发现了明显的提点，再被内化到了模型内部，演化出了 reasoning 模型。</p>
+        </blockquote>
+
+        <h2>Evaluation 也该以 Harness 为基础</h2>
+
+        <p>
+          而另一方面我想提到的是 evaluation，现在 evaluation 跟 harness 或许有些脱轨（但并不完全脱轨）；evaluation 的设计一直以来是跳过 harness 这一步的，但我认为未来的 evaluation 也需要更多以 harness 为 foundation 来设计，这里分两点：
+        </p>
+
+        <ul>
+          <li>第一点要 eval 模型与 harness 的适配能力，比如 workflows 该如何给 subagent 分工效率更高；</li>
+          <li>另一方面是，evaluation 需要直接 eval 模型 + harness 的能力是怎么样的，就比如开不开 workflow，Opus 4.7 的任务完成能力是不一样的。</li>
+        </ul>
+
+        <div class="callout">
+          <p>综上所述，我想论证的其实是 harness 在这个时代有着非常特殊的重要性。对于模型公司来讲，harness 是需要一个核心团队来集中开发和定义的，harness 在模型研发上应该先行。</p>
+        </div>
+
+        <h2>另一方面：什么是“基础能力”？</h2>
+
+        <p>
+          另一方面是我对于基模能力的思考。什么是基础能力？如果你不确定产品形态，你甚至不知道基础能力是啥；我们不能以简单的智力来对基础能力做概括，因为智力这个词汇实在是太大了，它可以是知识面（MMLU）、reasoning 能力（BBH）、解决复杂 coding 问题的能力（SWE-bench）、创造力（creative writing）、学习能力（in-context learning、long horizon）、数学能力（AIME）、对话能力（Multi-Challenge）等等。
+        </p>
+
+        <figure class="figure">
+          <svg class="dgm" viewBox="0 0 500 430" role="img" aria-label="基础能力的多维雷达示意图">
+            <!-- grid rings -->
+            <polygon class="dgm-grid" points="250,85 367,142 396,268 315,370 185,370 104,268 133,142"/>
+            <polygon class="dgm-grid" points="250,136 327.4,173.3 346.5,257 292.9,324.2 207.1,324.2 153.5,257 172.6,173.3"/>
+            <polygon class="dgm-grid" points="250,185.5 288.7,204.1 298.3,246 271.5,279.6 228.5,279.6 201.7,246 211.3,204.1"/>
+            <!-- axes -->
+            <g class="dgm-axis">
+              <line x1="250" y1="235" x2="250" y2="85"/>
+              <line x1="250" y1="235" x2="367" y2="142"/>
+              <line x1="250" y1="235" x2="396" y2="268"/>
+              <line x1="250" y1="235" x2="315" y2="370"/>
+              <line x1="250" y1="235" x2="185" y2="370"/>
+              <line x1="250" y1="235" x2="104" y2="268"/>
+              <line x1="250" y1="235" x2="133" y2="142"/>
+            </g>
+            <!-- data polygon -->
+            <polygon class="dgm-area" points="250,107.5 355.5,150.8 388.9,266.7 302.1,343.1 204.4,329.6 140.3,260 173.8,174.2"/>
+            <g class="dgm-dot">
+              <circle cx="250" cy="107.5" r="3"/>
+              <circle cx="355.5" cy="150.8" r="3"/>
+              <circle cx="388.9" cy="266.7" r="3"/>
+              <circle cx="302.1" cy="343.1" r="3"/>
+              <circle cx="204.4" cy="329.6" r="3"/>
+              <circle cx="140.3" cy="260" r="3"/>
+              <circle cx="173.8" cy="174.2" r="3"/>
+            </g>
+            <!-- labels -->
+            <text class="t" x="250" y="72" text-anchor="middle" font-size="13" font-weight="500">知识面</text>
+            <text class="t" x="376" y="139" text-anchor="start" font-size="13" font-weight="500">推理</text>
+            <text class="t" x="405" y="272" text-anchor="start" font-size="13" font-weight="500">coding</text>
+            <text class="t" x="315" y="389" text-anchor="middle" font-size="13" font-weight="500">数学</text>
+            <text class="t" x="185" y="389" text-anchor="middle" font-size="13" font-weight="500">对话</text>
+            <text class="t" x="95" y="272" text-anchor="end" font-size="13" font-weight="500">学习能力</text>
+            <text class="t" x="124" y="139" text-anchor="end" font-size="13" font-weight="500">创造力</text>
+          </svg>
+          <figcaption>“智力”不是一个标量，而是一个高维向量：知识面（MMLU）、推理（BBH）、coding（SWE-bench）、数学（AIME）、对话（MultiChallenge）等等。有些维度互相依赖，有些则完全正交——不同的产品形态，会在不同维度上定义自己的“基础能力”。（此图仅为示意）</figcaption>
+        </figure>
+
+        <p>
+          这里有些能力是有 dependency 的，有些是完全正交的，你在确定整个模型、甚至产品、甚至公司的大概路线之前，可能没办法定义什么是智力、什么是基础能力；当然，我并不是说上面我列举的所有能力不是基础能力，它们是已经被验证的基础能力，如果要做到从零到一地引领，那就需要去定义（挖掘）更多基础能力。
+        </p>
+
+        <h2>回到本职：交互层与 “model as harness system”</h2>
+
+        <p>
+          最后我想落回到我自己的本职工作。我想思考的是 agent 交互层的重要性，语音 interaction model 在整个 agent 系统中的作用是什么。
+        </p>
+
+        <p>
+          首先我想确定一个假设，就是未来人类与虚拟世界的交互入口将会从各种 app / 网页 converge 成 agent；而 app 都将进化成 agent-native 的 application，人类不需要直接使用这些 app，由 agent 来帮你使用，人类直接与 agent 做交互就好；这件事我认为是未来必将发生的，因此 agent 与人类的交互模块将是未来至关重要的一个模块，也正是因此我坚信自己的领域，也就是语音大模型，将会在未来越来越重要；而这种 system1 — system2 的交互形式（即语音 agent 作为前端交互入口，帮助人类与后端 agent 交互）本质上其实是一种非常 natural 的 harness 形式；所以这里我想提到 model as harness system 这个概念，即前端 interactive agentic 模型变成 harness system 与后端大 agentic 模型交互，由模型来学会该如何 harness，而 harness 会彻底变为一个面向模型研发的中间态形式，一个交互模型会替代掉现在产品中的 harness system：产品 = agentic 模型 + interactive 模型，将是未来模型公司的范式。
+        </p>
+
+        <figure class="figure">
+          <svg class="dgm" viewBox="0 0 820 250" role="img" aria-label="model as harness system 的 system1 与 system2 结构图">
+            <!-- boxes -->
+            <rect class="dgm-box" x="20" y="92" width="120" height="66" rx="10"/>
+            <rect class="dgm-box accent" x="215" y="78" width="180" height="94" rx="12"/>
+            <rect class="dgm-box" x="470" y="78" width="180" height="94" rx="12"/>
+            <rect class="dgm-box" x="720" y="92" width="90" height="66" rx="10"/>
+
+            <!-- double arrows -->
+            <path class="dgm-line" d="M149,125 L206,125"/>
+            <polygon class="dgm-arrow" points="140,125 149,120 149,130"/>
+            <polygon class="dgm-arrow accent" points="215,125 206,120 206,130"/>
+
+            <path class="dgm-line accent" d="M404,125 L461,125"/>
+            <polygon class="dgm-arrow accent" points="395,125 404,120 404,130"/>
+            <polygon class="dgm-arrow" points="470,125 461,120 461,130"/>
+
+            <path class="dgm-line" d="M659,125 L711,125"/>
+            <polygon class="dgm-arrow" points="650,125 659,120 659,130"/>
+            <polygon class="dgm-arrow" points="720,125 711,120 711,130"/>
+
+            <!-- labels -->
+            <text class="t" x="80" y="122" text-anchor="middle" font-size="16" font-weight="600">人类</text>
+            <text class="t muted" x="80" y="141" text-anchor="middle" font-size="11">Human</text>
+
+            <text class="t accent" x="305" y="110" text-anchor="middle" font-size="16" font-weight="600">交互模型</text>
+            <text class="t muted" x="305" y="129" text-anchor="middle" font-size="11">前端 · System 1</text>
+            <text class="t muted" x="305" y="148" text-anchor="middle" font-size="11">快 / 对话 / 实时</text>
+
+            <text class="t" x="560" y="110" text-anchor="middle" font-size="16" font-weight="600">Agentic 模型</text>
+            <text class="t muted" x="560" y="129" text-anchor="middle" font-size="11">后端 · System 2</text>
+            <text class="t muted" x="560" y="148" text-anchor="middle" font-size="11">慢 / 推理 / 干活</text>
+
+            <text class="t" x="765" y="128" text-anchor="middle" font-size="15" font-weight="600">App / 世界</text>
+
+            <!-- brace annotation under interactive model -->
+            <path class="dgm-line accent" d="M215,190 L215,196 L301,196 M305,196 L305,202 M309,196 L395,196 L395,190" stroke-width="1.3"/>
+            <text class="t accent" x="305" y="222" text-anchor="middle" font-size="13" font-weight="600">= 一种“学出来的” Harness</text>
+          </svg>
+          <figcaption>前端交互模型 = 一种“学出来的 harness”：它替代了今天手写的 harness system，成为人类与后端 agentic 模型之间的接口。产品 = agentic 模型 + interactive 模型。</figcaption>
+        </figure>
+
+        <p>
+          对于前端 interactive agentic 模型，现在我们的探索还非常非常初步，近期 Thinking Machines Lab 和 OpenAI 的 GPT Realtime 2 都在对这个模式进行尝试，虽然非常初步，但还是振奋人心。我认为 Her 一定会在不久的将来到来，而它一定会成为我们与 AI 系统最主要的交互形式之一。
+        </p>
+
+        <p style="color:var(--muted);font-style:italic;margin-top:48px;text-align:right;">
+          — 2026.5.28
+        </p>
+
       </div>
-      <div class="post-tags">
-        <span class="post-tag">Agent</span>
-        <span class="post-tag">Harness</span>
-        <span class="post-tag">模型即产品</span>
-        <span class="post-tag">语音大模型</span>
-      </div>
-    </article>
-
-    <div class="post-content">
-
-      <p class="lead">
-        最近因为各个厂家的模型不断更新迭代，agent 爆发，我不断地产生了一些思考。在这里做一些随意的记录。
-      </p>
-
-      <h2>模型即产品，但 Harness 不可或缺</h2>
-
-      <p>
-        首先是，我非常认可现在模型即产品的思路，但从 Claude Code 的诞生中我们也明白了 harness 的重要性，产品 = 模型 + harness 逐渐形成了行业的共识；但 Claude Code 告诉我们，模型跟 harness 是不可分割的，如果我们只做 harness 不做模型，那就会陷入跟 Cursor 一样的境地，因为只做 harness 的公司不可能打得过知道自家模型怎么训练的公司。
-      </p>
-
-      <h2>推演顺序：产品 → Harness → 模型</h2>
-
-      <p>
-        但在这里我的想法更进了一步，我认为未来 AI 产品（模型）的推演思路一定是：产品先行，再去定义 Harness 与 Eval，最后才是训练模型。
-      </p>
-
-      <figure class="figure">
-        <svg class="dgm" viewBox="0 0 760 300" role="img" aria-label="产品到 Harness 与 Eval 再到模型的推演顺序图">
-          <!-- boxes -->
-          <rect class="dgm-box" x="30" y="120" width="130" height="60" rx="10"/>
-          <rect class="dgm-box accent" x="310" y="55" width="160" height="60" rx="10"/>
-          <rect class="dgm-box" x="310" y="185" width="160" height="60" rx="10"/>
-          <rect class="dgm-box" x="600" y="120" width="130" height="60" rx="10"/>
-
-          <!-- connectors out of product -->
-          <path class="dgm-line" d="M160,150 L235,150 M235,85 L235,215 M235,85 L301,85 M235,215 L301,215"/>
-          <polygon class="dgm-arrow accent" points="310,85 301,80 301,90"/>
-          <polygon class="dgm-arrow" points="310,215 301,210 301,220"/>
-
-          <!-- connectors into model -->
-          <path class="dgm-line" d="M470,85 L545,85 M470,215 L545,215 M545,85 L545,215 M545,150 L591,150"/>
-          <polygon class="dgm-arrow" points="600,150 591,145 591,155"/>
-
-          <!-- labels -->
-          <text class="t" x="95" y="146" text-anchor="middle" font-size="19" font-weight="600">产品</text>
-          <text class="t muted" x="95" y="166" text-anchor="middle" font-size="11">Product · 必须先行</text>
-
-          <text class="t accent" x="390" y="81" text-anchor="middle" font-size="19" font-weight="600">Harness</text>
-          <text class="t muted" x="390" y="101" text-anchor="middle" font-size="11">连接产品与模型的轴承</text>
-
-          <text class="t" x="390" y="211" text-anchor="middle" font-size="19" font-weight="600">Eval</text>
-          <text class="t muted" x="390" y="231" text-anchor="middle" font-size="11">评测，也应以 harness 为基础</text>
-
-          <text class="t" x="665" y="146" text-anchor="middle" font-size="19" font-weight="600">模型</text>
-          <text class="t muted" x="665" y="166" text-anchor="middle" font-size="11">Model</text>
-        </svg>
-        <figcaption>我认为未来的推演顺序是：产品先行，再去定义 Harness 与 Eval，最后才训练模型。Harness 是连接产品与模型的核心轴承。</figcaption>
-      </figure>
-
-      <p>
-        模型即产品的时代，产品还是必须先行；Claude 的成功就是因为他们参透了这件事情。Anthropic 早在两年甚至三四年前就开始布局 agent，一定不是说他们不小心训练出来个内部模型，有了 agent 能力，而是他们觉得未来 AI 想要展现其价值，必须要学会“干活”，而干活这方面，最直接的就是先学 coding，所以他们在 coding 上下了赌注，并开始布局 MCP、Claude Code、terminal use，最后引领了 agent 这个时代，反超了 OpenAI。
-      </p>
-
-      <h2>Harness 会被模型吞掉吗？</h2>
-
-      <p>
-        Harness，作为产品与模型的连接轴承，起到了重要的作用；其实之前我一直在思考，Harness Engineering 是不是也是一个中间产物，是不是因为模型还不够强，所以需要外界的辅助来完成任务，而未来模型会强大到把 harness 完全吞掉。
-      </p>
-
-      <p>
-        我现在觉着答案是否定的，从产品角度来讲，模型能力变强的同时，对 harness 的需求反而会越来越高，因为现在模型能力已经完全超过了人类能力，Harness 诞生的意义更多的是想办法告诉人类，模型该怎么用，而不是在帮助模型去做事情；人类的进步速度缓慢，但模型的进步速度越来越快，它跟人类的能力 gap 只能越来越大，而这个时候，harness 就尤为重要了。
-      </p>
-
-      <p>
-        那反过来从模型训练的角度上来讲，harness 其实更为重要，因为它能够反推出两个模型训练中至关重要的点：
-      </p>
-
-      <ol>
-        <li>模型该如何被训练（看到哪些 pattern 的数据）</li>
-        <li>模型该如何 eval</li>
-      </ol>
-
-      <h2>一个例子：Opus 4.8 与 Workflows</h2>
-
-      <p>
-        我想拿今天（2026.5.28）Anthropic release 的新模型 Opus 4.8 以及 Claude Code 的新模式 ultracode + workflows 来举例；workflows，作为 Anthropic 新的模型工作流模式，我觉得是此次 Opus 4.8 release 最重要的点，因为 Anthropic 发布了一个使用模型的新方式，而 4.8 模型本身把这个新 pattern 训了进去，完全去激发这个新方式的潜力；但如果你用 Claude Code 试一下的话就知道，这个模式不是专属 4.8 的，任何模型都可以使用这个模式（甚至对家 OpenAI 的模型在 CC 里也可以用），但只有 4.8（以及未来的模型）能把它发挥得最好；所以我认为 harness（甚至是大家瞧不起的 prompt engineering）需要先被明确定义，再开始训练模型；Anthropic 一定是先定义了 agentic trace，才能从 0 到 1 地引领 agentic 时代的爆发。
-      </p>
-
-      <blockquote>
-        <p>再补充一个更有共识的例子：CoT 是先用在了非 reasoning 模型上，发现了明显的提点，再被内化到了模型内部，演化出了 reasoning 模型。</p>
-      </blockquote>
-
-      <h2>Evaluation 也该以 Harness 为基础</h2>
-
-      <p>
-        而另一方面我想提到的是 evaluation，现在 evaluation 跟 harness 或许有些脱轨（但并不完全脱轨）；evaluation 的设计一直以来是跳过 harness 这一步的，但我认为未来的 evaluation 也需要更多以 harness 为 foundation 来设计，这里分两点：
-      </p>
-
-      <ul>
-        <li>第一点要 eval 模型与 harness 的适配能力，比如 workflows 该如何给 subagent 分工效率更高；</li>
-        <li>另一方面是，evaluation 需要直接 eval 模型 + harness 的能力是怎么样的，就比如开不开 workflow，Opus 4.7 的任务完成能力是不一样的。</li>
-      </ul>
-
-      <div class="callout">
-        <p>综上所述，我想论证的其实是 harness 在这个时代有着非常特殊的重要性。对于模型公司来讲，harness 是需要一个核心团队来集中开发和定义的，harness 在模型研发上应该先行。</p>
-      </div>
-
-      <h2>另一方面：什么是“基础能力”？</h2>
-
-      <p>
-        另一方面是我对于基模能力的思考。什么是基础能力？如果你不确定产品形态，你甚至不知道基础能力是啥；我们不能以简单的智力来对基础能力做概括，因为智力这个词汇实在是太大了，它可以是知识面（MMLU）、reasoning 能力（BBH）、解决复杂 coding 问题的能力（SWE-bench）、创造力（creative writing）、学习能力（in-context learning、long horizon）、数学能力（AIME）、对话能力（Multi-Challenge）等等。
-      </p>
-
-      <figure class="figure">
-        <svg class="dgm" viewBox="0 0 500 430" role="img" aria-label="基础能力的多维雷达示意图">
-          <!-- grid rings -->
-          <polygon class="dgm-grid" points="250,85 367,142 396,268 315,370 185,370 104,268 133,142"/>
-          <polygon class="dgm-grid" points="250,136 327.4,173.3 346.5,257 292.9,324.2 207.1,324.2 153.5,257 172.6,173.3"/>
-          <polygon class="dgm-grid" points="250,185.5 288.7,204.1 298.3,246 271.5,279.6 228.5,279.6 201.7,246 211.3,204.1"/>
-          <!-- axes -->
-          <g class="dgm-axis">
-            <line x1="250" y1="235" x2="250" y2="85"/>
-            <line x1="250" y1="235" x2="367" y2="142"/>
-            <line x1="250" y1="235" x2="396" y2="268"/>
-            <line x1="250" y1="235" x2="315" y2="370"/>
-            <line x1="250" y1="235" x2="185" y2="370"/>
-            <line x1="250" y1="235" x2="104" y2="268"/>
-            <line x1="250" y1="235" x2="133" y2="142"/>
-          </g>
-          <!-- data polygon -->
-          <polygon class="dgm-area" points="250,107.5 355.5,150.8 388.9,266.7 302.1,343.1 204.4,329.6 140.3,260 173.8,174.2"/>
-          <g class="dgm-dot">
-            <circle cx="250" cy="107.5" r="3"/>
-            <circle cx="355.5" cy="150.8" r="3"/>
-            <circle cx="388.9" cy="266.7" r="3"/>
-            <circle cx="302.1" cy="343.1" r="3"/>
-            <circle cx="204.4" cy="329.6" r="3"/>
-            <circle cx="140.3" cy="260" r="3"/>
-            <circle cx="173.8" cy="174.2" r="3"/>
-          </g>
-          <!-- labels -->
-          <text class="t" x="250" y="72" text-anchor="middle" font-size="13" font-weight="500">知识面</text>
-          <text class="t" x="376" y="139" text-anchor="start" font-size="13" font-weight="500">推理</text>
-          <text class="t" x="405" y="272" text-anchor="start" font-size="13" font-weight="500">coding</text>
-          <text class="t" x="315" y="389" text-anchor="middle" font-size="13" font-weight="500">数学</text>
-          <text class="t" x="185" y="389" text-anchor="middle" font-size="13" font-weight="500">对话</text>
-          <text class="t" x="95" y="272" text-anchor="end" font-size="13" font-weight="500">学习能力</text>
-          <text class="t" x="124" y="139" text-anchor="end" font-size="13" font-weight="500">创造力</text>
-        </svg>
-        <figcaption>“智力”不是一个标量，而是一个高维向量：知识面（MMLU）、推理（BBH）、coding（SWE-bench）、数学（AIME）、对话（MultiChallenge）等等。有些维度互相依赖，有些则完全正交——不同的产品形态，会在不同维度上定义自己的“基础能力”。（此图仅为示意）</figcaption>
-      </figure>
-
-      <p>
-        这里有些能力是有 dependency 的，有些是完全正交的，你在确定整个模型、甚至产品、甚至公司的大概路线之前，可能没办法定义什么是智力、什么是基础能力；当然，我并不是说上面我列举的所有能力不是基础能力，它们是已经被验证的基础能力，如果要做到从零到一地引领，那就需要去定义（挖掘）更多基础能力。
-      </p>
-
-      <h2>回到本职：交互层与 “model as harness system”</h2>
-
-      <p>
-        最后我想落回到我自己的本职工作。我想思考的是 agent 交互层的重要性，语音 interaction model 在整个 agent 系统中的作用是什么。
-      </p>
-
-      <p>
-        首先我想确定一个假设，就是未来人类与虚拟世界的交互入口将会从各种 app / 网页 converge 成 agent；而 app 都将进化成 agent-native 的 application，人类不需要直接使用这些 app，由 agent 来帮你使用，人类直接与 agent 做交互就好；这件事我认为是未来必将发生的，因此 agent 与人类的交互模块将是未来至关重要的一个模块，也正是因此我坚信自己的领域，也就是语音大模型，将会在未来越来越重要；而这种 system1 — system2 的交互形式（即语音 agent 作为前端交互入口，帮助人类与后端 agent 交互）本质上其实是一种非常 natural 的 harness 形式；所以这里我想提到 model as harness system 这个概念，即前端 interactive agentic 模型变成 harness system 与后端大 agentic 模型交互，由模型来学会该如何 harness，而 harness 会彻底变为一个面向模型研发的中间态形式，一个交互模型会替代掉现在产品中的 harness system：产品 = agentic 模型 + interactive 模型，将是未来模型公司的范式。
-      </p>
-
-      <figure class="figure">
-        <svg class="dgm" viewBox="0 0 820 250" role="img" aria-label="model as harness system 的 system1 与 system2 结构图">
-          <!-- boxes -->
-          <rect class="dgm-box" x="20" y="92" width="120" height="66" rx="10"/>
-          <rect class="dgm-box accent" x="215" y="78" width="180" height="94" rx="12"/>
-          <rect class="dgm-box" x="470" y="78" width="180" height="94" rx="12"/>
-          <rect class="dgm-box" x="720" y="92" width="90" height="66" rx="10"/>
-
-          <!-- double arrows -->
-          <path class="dgm-line" d="M149,125 L206,125"/>
-          <polygon class="dgm-arrow" points="140,125 149,120 149,130"/>
-          <polygon class="dgm-arrow accent" points="215,125 206,120 206,130"/>
-
-          <path class="dgm-line accent" d="M404,125 L461,125"/>
-          <polygon class="dgm-arrow accent" points="395,125 404,120 404,130"/>
-          <polygon class="dgm-arrow" points="470,125 461,120 461,130"/>
-
-          <path class="dgm-line" d="M659,125 L711,125"/>
-          <polygon class="dgm-arrow" points="650,125 659,120 659,130"/>
-          <polygon class="dgm-arrow" points="720,125 711,120 711,130"/>
-
-          <!-- labels -->
-          <text class="t" x="80" y="122" text-anchor="middle" font-size="16" font-weight="600">人类</text>
-          <text class="t muted" x="80" y="141" text-anchor="middle" font-size="11">Human</text>
-
-          <text class="t accent" x="305" y="110" text-anchor="middle" font-size="16" font-weight="600">交互模型</text>
-          <text class="t muted" x="305" y="129" text-anchor="middle" font-size="11">前端 · System 1</text>
-          <text class="t muted" x="305" y="148" text-anchor="middle" font-size="11">快 / 对话 / 实时</text>
-
-          <text class="t" x="560" y="110" text-anchor="middle" font-size="16" font-weight="600">Agentic 模型</text>
-          <text class="t muted" x="560" y="129" text-anchor="middle" font-size="11">后端 · System 2</text>
-          <text class="t muted" x="560" y="148" text-anchor="middle" font-size="11">慢 / 推理 / 干活</text>
-
-          <text class="t" x="765" y="128" text-anchor="middle" font-size="15" font-weight="600">App / 世界</text>
-
-          <!-- brace annotation under interactive model -->
-          <path class="dgm-line accent" d="M215,190 L215,196 L301,196 M305,196 L305,202 M309,196 L395,196 L395,190" stroke-width="1.3"/>
-          <text class="t accent" x="305" y="222" text-anchor="middle" font-size="13" font-weight="600">= 一种“学出来的” Harness</text>
-        </svg>
-        <figcaption>前端交互模型 = 一种“学出来的 harness”：它替代了今天手写的 harness system，成为人类与后端 agentic 模型之间的接口。产品 = agentic 模型 + interactive 模型。</figcaption>
-      </figure>
-
-      <p>
-        对于前端 interactive agentic 模型，现在我们的探索还非常非常初步，近期 Thinking Machines Lab 和 OpenAI 的 GPT Realtime 2 都在对这个模式进行尝试，虽然非常初步，但还是振奋人心。我认为 Her 一定会在不久的将来到来，而它一定会成为我们与 AI 系统最主要的交互形式之一。
-      </p>
-
-      <p style="color:var(--muted);font-style:italic;margin-top:48px;text-align:right;">
-        — 2026.5.28
-      </p>
-
-    </div>
-
-    <div class="foot">
-      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
-    </div>
   </main>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // 主题切换功能
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-    const html = document.documentElement;
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      html.setAttribute('data-theme', savedTheme);
-      updateThemeButton(savedTheme);
-    } else {
-      // 默认使用 light 主题
-      html.setAttribute('data-theme', 'light');
-      updateThemeButton('light');
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeButton(newTheme);
-    });
-
-    function updateThemeButton(theme) {
-      if (theme === 'dark') {
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'light';
-      } else {
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'dark';
-      }
-    }
-  </script>
+  <footer class="colophon post-sheet" style="grid-template-columns:1fr">
+    <div class="col" style="grid-column:1">
+      <p class="foot">© <span id="year"></span> Yichen (Eason) Lu</p>
+    </div>
+  </footer>
 </body>
 </html>

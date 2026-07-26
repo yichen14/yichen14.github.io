@@ -1,154 +1,84 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>随笔 2025.11.01 - Yichen (Eason) Lu</title>
   <meta name="description" content="关于成长、自洽与热爱的思考" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{ --bg:#fff; --fg:#111827; --muted:#6b7280; --line:#e5e7eb; --link:#2563eb; }
-    [data-theme="dark"]{ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; }
-    @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#0b0f1a; --fg:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --link:#60a5fa; } }
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif,"Noto Sans SC","Microsoft YaHei",sans-serif;line-height:1.8;transition:background 0.3s,color 0.3s}
-    a{color:var(--link);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .topbar{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:10}
-    .topbar-inner{max-width:980px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
-    .nav{display:flex;align-items:center}
-    .nav a{margin-left:18px;color:var(--fg)}
-    .theme-toggle{margin-left:18px;background:none;border:1px solid var(--line);border-radius:6px;padding:4px 12px;color:var(--fg);cursor:pointer;font-size:14px;display:flex;align-items:center;gap:4px;transition:all 0.2s}
-    .theme-toggle:hover{background:var(--line)}
-    .wrap{max-width:720px;margin:0 auto;padding:24px 20px}
-    .back-link{color:var(--muted);margin-bottom:20px;display:inline-block}
-    .post-header{margin-bottom:40px}
-    .post-title{font-size:2.5rem;font-weight:700;line-height:1.2;margin:0 0 16px 0}
-    .post-meta{color:var(--muted);font-size:0.95rem;margin-bottom:16px}
-    .post-tags{display:flex;gap:8px;flex-wrap:wrap}
-    .post-tag{background:var(--line);color:var(--fg);padding:4px 10px;border-radius:4px;font-size:0.85rem}
-    .post-content{font-size:1.05rem;line-height:1.8}
-    .post-content h2{margin-top:40px;margin-bottom:16px;font-size:1.75rem}
-    .post-content h3{margin-top:32px;margin-bottom:12px;font-size:1.4rem}
-    .post-content p{margin:24px 0}
-    .post-content code{background:var(--line);padding:2px 6px;border-radius:3px;font-size:0.9em}
-    .post-content pre{background:var(--line);padding:16px;border-radius:6px;overflow-x:auto;line-height:1.5}
-    .post-content blockquote{border-left:4px solid var(--link);padding-left:20px;margin:20px 0;color:var(--muted);font-style:italic}
-    .post-content img{max-width:100%;height:auto;border-radius:8px;margin:20px 0}
-    .foot{margin:50px 0 20px;text-align:center;color:var(--muted);font-size:14px}
-  </style>
+  <link rel="stylesheet" href="../assets/zine.css" />
+  <script src="../assets/zine.js"></script>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div><strong>Yichen (Eason) Lu</strong></div>
+  <header class="masthead-bar">
+    <div class="sheet">
+      <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
       <nav class="nav">
         <a href="../index.html">Home</a>
         <a href="../publications.html">Publications</a>
-        <a href="../blog.html">Blog</a>
-        <button class="theme-toggle" id="themeToggle">
-          <span id="themeIcon">🌙</span>
-          <span id="themeText">dark</span>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span id="themeIcon">☾</span> <span id="themeText">press</span>
         </button>
       </nav>
     </div>
-  </div>
+  </header>
 
-  <main class="wrap">
-    <a href="../blog.html" class="back-link">← 返回博客</a>
+  <main class="post-sheet">
+  <a href="../blog.html" class="back-link">← 返回博客</a>
     
-    <article class="post-header">
-      <h1 class="post-title">随笔 2025.11.01</h1>
-      <div class="post-meta">
-        <span>2025年11月1日</span> · <span>10 min read</span>
+      <article class="post-header">
+        <h1 class="post-title">随笔 2025.11.01</h1>
+        <div class="post-meta">
+          <span>2025年11月1日</span> · <span>10 min read</span>
+        </div>
+        <div class="post-tags">
+          <span class="post-tag">个人随笔</span>
+          <span class="post-tag">成长</span>
+          <span class="post-tag">自我认知</span>
+          <span class="post-tag">热爱</span>
+        </div>
+      </article>
+
+      <div class="post-content">
+        <p>
+          很久没有写点什么了，但又一直以来想写些什么。感觉可能是有的时候会不自觉地给自己一些压力，比如写出来的东西完全没眼看怎么办什么的。但又仔细想想，本来写点什么这件事情对于我来说，主要目的是抒发自己的一些情绪和思想，做一些记录，按理来说是完完全全写给自己的。但可能人就是这样，很多事情本该是为自己而做，却永远逃不开别人的目光，甚至来自自己未来的目光也像别人的目光一样审视着现在的文字，所以说还是会有些压力；但总不能不写，因为我享受写点什么的过程，即使可能未来的自己看到这些会说："怎么我还能这么矫情"，但对于当下的我来讲，能够随心所欲地写些东西还是一件蛮享受的事情；因此这份随笔便是我在飞机上随心所欲而写下的。
+        </p>
+
+        <p>
+          算了算自己已经有大概四年半没有回国了，感觉是个很长的时间，但一想到这四年半自己做了那么多事情，就又会觉着："才四年半啊"，这种感觉。因此也非常感谢自己这些年的努力吧。说回最近，25年是我工作的第一年，本来想着是要去读博的，可没想到自己这么幸运的得到了一个对我来说非常契合的offer，那肯定就毅然决然选择来湾区了。而感觉工作以后最大的变化就是，终于有了些源自自己"内心"的力量；不仅仅是说我终于可以经济独立了（当然这毫无疑问也是很重要的），更多是说有了一种自洽的感觉。对自己的了解清晰了一些，对我在这个世界的位置，和我能提供的价值，也有了更多的认知。说白了："我没有自己想象的那么菜，也没有自己想象的那么强"，那我到底大概是什么样的，我大概有了更多的了解；我认为逐步了解自己就是人逐渐自洽的过程，而逐渐自洽的过程便是成长的过程。所以看起来我成长了一些，因此还是很满意的。但也在时刻警醒自己，不要对自己太自信：具体是指，不要以为自己真的很了解自己了，了解自己本身就是一生的课题。
+        </p>
+
+        <p>
+          在这里还是想分享点有趣而实际的一些东西来佐证一些我对自己的认知。蔡哥成立我司的时候说要找到那1%的天才来跟他一起做公司，于是我拿到我们公司offer的时候扪心自问了一下，我是1%的天才吗？ 那很明显不是的 ，我觉得自己不差，但离天才差距甚远，毕竟我可是从小在海淀卷，但怎么也没办法把自己卷进市重点的人。这个门槛不高，所以足以证明我跟天才这二字相差甚远。但我可能成为1%的天才吗，我觉着说不定有可能。之所以这样讲是因为对于"1%的天才"这个群体的定义可能是不一样的，如果纯粹按天生智商来排队，那可能不必多说；但我觉着蔡哥说的可能不是这样定义，或者说我觉得能够跟他一起把事情做出来的人不仅仅是那些拥有超凡智商的人。而我觉着我具备着一个可以潜在成为1%天才的重要要素"热爱"；这个热爱并不是说热爱现在手头上干的活，而是一种热爱的能力，是一种不断能够给自己设立目标，付出努力的动力；热爱的目标可以随着时间的积累不断调整，但能够有能力去"热爱"本身，是我一直认为自己的最大优势。
+        </p>
+
+        <p>
+          在这里可以举一个不恰当的例子，如果人脑是个语言模型，基因带来了pretrain的知识，教育带来了SFT的知识，那学会热爱就是学会给自己做RL。你需要让自己往某些范式上做优化，你需要有方向和动力。这么多年我觉得我最大的优势就是于此；我在每个阶段都知道自己大概想要什么，大概知道自己喜欢什么，做什么会让自己兴奋。也可以说我兴奋的阈值很低，其实有很多很多事情是我觉得做起来非常exciting的，因此这么多年我经常挖了很多很多坑，苦于的其实是自己没有精力或者没有能力把很多令我兴奋的项目填上。我感觉这就是我的天赋，因为我从小如此，甚至能追溯到我小学一二年级的时光（再往前记忆可能就太不清晰了）。但即使如此，我在逐步自洽的过程中也经历了非常多的磨难，有个很大的课题一直困扰着高中和大学时期的我："我热爱的这些东西，真的有用吗？我是不是在自我欺骗？它们是否真的有价值呢？"其实有这样的质疑非常合理，原因也异常简单，这些事跟学生时期的普世价值并不相关。我做这些事情，不会让自己考试分数变好（甚至可能变差），不会获得什么竞赛奖励，更不会帮助我的升学（这里我之前以为是有帮助的，因此才决定的出国留学，但后来发现帮助还是微乎其微），到了大学也不会变成更好的GPA，甚至不如一些普通的兴趣爱好做得好还能获得身边同学的认可。所以之前的那么多年我非常痛苦，一方面我坚持着自己觉着对的事情"保持热爱"，另一方面其实只有我自己一个人在认可着这件事，而这份认可也是非常弱小的，随便一些挫折便会让我不断加强自己的怀疑。
+        </p>
+
+        <p>
+          幸运的是我坚持下来了，而我也证明了我自己的坚持是对的。从初中，到高中，到大学，到现在开始工作，我发现我的热爱和普世的价值，在慢慢converge，而最终，在2025年工作这年，两个方向合二为一，形成了我的自洽。这件事情感觉非常神奇，但又顺理成章，因为我的热爱的力量，让我有意无意的将这两条看似平行的线路开始了合并。就比如举个非常小的例子（这样的事情这么多年发生了很多）：因为我要做字幕组，所以我开始做AI翻译，所以我接触了语音，进入了Shinji的lab。这些看似都是偶然，但又完完全全是必然。
+        </p>
+
+        <p>
+          那说回1%的天才，我明显没有这么高的智商天赋，但老天好像给了我另一本秘籍，是一种完全不同的修炼功法，让我说不定有一天，也会成为那个1%。这件事不一定，但有这份可能性便足矣了。
+        </p>
+
+        <p style="text-align:center;margin-top:40px">
+          <strong>感谢这一切</strong><br>
+          <strong>我何其幸运</strong>
+        </p>
+
+        <p style="color:var(--muted);font-style:italic;margin-top:40px;text-align:right;">
+          — 2025.11.1 于横跨太平洋飞往北京的波音777上
+        </p>
       </div>
-      <div class="post-tags">
-        <span class="post-tag">个人随笔</span>
-        <span class="post-tag">成长</span>
-        <span class="post-tag">自我认知</span>
-        <span class="post-tag">热爱</span>
-      </div>
-    </article>
-
-    <div class="post-content">
-      <p>
-        很久没有写点什么了，但又一直以来想写些什么。感觉可能是有的时候会不自觉地给自己一些压力，比如写出来的东西完全没眼看怎么办什么的。但又仔细想想，本来写点什么这件事情对于我来说，主要目的是抒发自己的一些情绪和思想，做一些记录，按理来说是完完全全写给自己的。但可能人就是这样，很多事情本该是为自己而做，却永远逃不开别人的目光，甚至来自自己未来的目光也像别人的目光一样审视着现在的文字，所以说还是会有些压力；但总不能不写，因为我享受写点什么的过程，即使可能未来的自己看到这些会说："怎么我还能这么矫情"，但对于当下的我来讲，能够随心所欲地写些东西还是一件蛮享受的事情；因此这份随笔便是我在飞机上随心所欲而写下的。
-      </p>
-
-      <p>
-        算了算自己已经有大概四年半没有回国了，感觉是个很长的时间，但一想到这四年半自己做了那么多事情，就又会觉着："才四年半啊"，这种感觉。因此也非常感谢自己这些年的努力吧。说回最近，25年是我工作的第一年，本来想着是要去读博的，可没想到自己这么幸运的得到了一个对我来说非常契合的offer，那肯定就毅然决然选择来湾区了。而感觉工作以后最大的变化就是，终于有了些源自自己"内心"的力量；不仅仅是说我终于可以经济独立了（当然这毫无疑问也是很重要的），更多是说有了一种自洽的感觉。对自己的了解清晰了一些，对我在这个世界的位置，和我能提供的价值，也有了更多的认知。说白了："我没有自己想象的那么菜，也没有自己想象的那么强"，那我到底大概是什么样的，我大概有了更多的了解；我认为逐步了解自己就是人逐渐自洽的过程，而逐渐自洽的过程便是成长的过程。所以看起来我成长了一些，因此还是很满意的。但也在时刻警醒自己，不要对自己太自信：具体是指，不要以为自己真的很了解自己了，了解自己本身就是一生的课题。
-      </p>
-
-      <p>
-        在这里还是想分享点有趣而实际的一些东西来佐证一些我对自己的认知。蔡哥成立我司的时候说要找到那1%的天才来跟他一起做公司，于是我拿到我们公司offer的时候扪心自问了一下，我是1%的天才吗？ 那很明显不是的 ，我觉得自己不差，但离天才差距甚远，毕竟我可是从小在海淀卷，但怎么也没办法把自己卷进市重点的人。这个门槛不高，所以足以证明我跟天才这二字相差甚远。但我可能成为1%的天才吗，我觉着说不定有可能。之所以这样讲是因为对于"1%的天才"这个群体的定义可能是不一样的，如果纯粹按天生智商来排队，那可能不必多说；但我觉着蔡哥说的可能不是这样定义，或者说我觉得能够跟他一起把事情做出来的人不仅仅是那些拥有超凡智商的人。而我觉着我具备着一个可以潜在成为1%天才的重要要素"热爱"；这个热爱并不是说热爱现在手头上干的活，而是一种热爱的能力，是一种不断能够给自己设立目标，付出努力的动力；热爱的目标可以随着时间的积累不断调整，但能够有能力去"热爱"本身，是我一直认为自己的最大优势。
-      </p>
-
-      <p>
-        在这里可以举一个不恰当的例子，如果人脑是个语言模型，基因带来了pretrain的知识，教育带来了SFT的知识，那学会热爱就是学会给自己做RL。你需要让自己往某些范式上做优化，你需要有方向和动力。这么多年我觉得我最大的优势就是于此；我在每个阶段都知道自己大概想要什么，大概知道自己喜欢什么，做什么会让自己兴奋。也可以说我兴奋的阈值很低，其实有很多很多事情是我觉得做起来非常exciting的，因此这么多年我经常挖了很多很多坑，苦于的其实是自己没有精力或者没有能力把很多令我兴奋的项目填上。我感觉这就是我的天赋，因为我从小如此，甚至能追溯到我小学一二年级的时光（再往前记忆可能就太不清晰了）。但即使如此，我在逐步自洽的过程中也经历了非常多的磨难，有个很大的课题一直困扰着高中和大学时期的我："我热爱的这些东西，真的有用吗？我是不是在自我欺骗？它们是否真的有价值呢？"其实有这样的质疑非常合理，原因也异常简单，这些事跟学生时期的普世价值并不相关。我做这些事情，不会让自己考试分数变好（甚至可能变差），不会获得什么竞赛奖励，更不会帮助我的升学（这里我之前以为是有帮助的，因此才决定的出国留学，但后来发现帮助还是微乎其微），到了大学也不会变成更好的GPA，甚至不如一些普通的兴趣爱好做得好还能获得身边同学的认可。所以之前的那么多年我非常痛苦，一方面我坚持着自己觉着对的事情"保持热爱"，另一方面其实只有我自己一个人在认可着这件事，而这份认可也是非常弱小的，随便一些挫折便会让我不断加强自己的怀疑。
-      </p>
-
-      <p>
-        幸运的是我坚持下来了，而我也证明了我自己的坚持是对的。从初中，到高中，到大学，到现在开始工作，我发现我的热爱和普世的价值，在慢慢converge，而最终，在2025年工作这年，两个方向合二为一，形成了我的自洽。这件事情感觉非常神奇，但又顺理成章，因为我的热爱的力量，让我有意无意的将这两条看似平行的线路开始了合并。就比如举个非常小的例子（这样的事情这么多年发生了很多）：因为我要做字幕组，所以我开始做AI翻译，所以我接触了语音，进入了Shinji的lab。这些看似都是偶然，但又完完全全是必然。
-      </p>
-
-      <p>
-        那说回1%的天才，我明显没有这么高的智商天赋，但老天好像给了我另一本秘籍，是一种完全不同的修炼功法，让我说不定有一天，也会成为那个1%。这件事不一定，但有这份可能性便足矣了。
-      </p>
-
-      <p style="text-align:center;margin-top:40px">
-        <strong>感谢这一切</strong><br>
-        <strong>我何其幸运</strong>
-      </p>
-
-      <p style="color:var(--muted);font-style:italic;margin-top:40px;text-align:right;">
-        — 2025.11.1 于横跨太平洋飞往北京的波音777上
-      </p>
-    </div>
-
-    <div class="foot">
-      <div>Copyright © <span id="year"></span> Yichen (Eason) Lu</div>
-    </div>
   </main>
-  
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 主题切换功能
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const themeText = document.getElementById('themeText');
-    const html = document.documentElement;
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      html.setAttribute('data-theme', savedTheme);
-      updateThemeButton(savedTheme);
-    } else {
-      // 默认使用 light 主题
-      html.setAttribute('data-theme', 'light');
-      updateThemeButton('light');
-    }
-
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      updateThemeButton(newTheme);
-    });
-
-    function updateThemeButton(theme) {
-      if (theme === 'dark') {
-        themeIcon.textContent = '☀️';
-        themeText.textContent = 'light';
-      } else {
-        themeIcon.textContent = '🌙';
-        themeText.textContent = 'dark';
-      }
-    }
-  </script>
+  <footer class="colophon post-sheet" style="grid-template-columns:1fr">
+    <div class="col" style="grid-column:1">
+      <p class="foot">© <span id="year"></span> Yichen (Eason) Lu</p>
+    </div>
+  </footer>
 </body>
 </html>
-
