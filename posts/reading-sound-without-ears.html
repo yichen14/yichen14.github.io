@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reading Sound Without Ears · 不用耳朵读声音 — Yichen (Eason) Lu</title>
+  <meta name="description" content="Language models answer an audio benchmark from spectrograms alone: they read when things happen, not how they sound. 只给频谱图，语言模型能读出声音何时发生，却读不出声音听起来是什么样。" />
+  <link rel="stylesheet" href="../assets/zine.css" />
+  <script src="../assets/zine.js"></script>
+</head>
+<body data-title-zh="不用耳朵读声音 — Yichen (Eason) Lu" data-title-en="Reading Sound Without Ears — Yichen (Eason) Lu">
+  <header class="masthead-bar">
+    <div class="sheet">
+      <div class="sigil">Yichen&nbsp;(Eason)&nbsp;Lu</div>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../publications.html">Publications</a>
+        <a href="../blog.html" aria-current="page">Blog</a>
+        <button class="lang-toggle" id="langToggle" type="button">中 / EN</button>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+          <span id="themeIcon">☾</span> <span id="themeText">press</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="post-sheet">
+    <a href="../blog.html" class="back-link">
+      <span data-i18n="zh" lang="zh-Hans">← 返回博客</span>
+      <span data-i18n="en" lang="en">← Back to blog</span>
+    </a>
+
+    <article class="post-header">
+      <span class="post-kind">
+        <span data-i18n="zh" lang="zh-Hans">技术</span>
+        <span data-i18n="en" lang="en">Technical</span>
+      </span>
+      <h1 class="post-title">
+        <span data-i18n="zh" lang="zh-Hans">不用耳朵读声音</span>
+        <span data-i18n="en" lang="en">Reading Sound Without Ears</span>
+      </h1>
+      <div class="post-meta">
+        <span data-i18n="zh" lang="zh-Hans">2026年11月20日 · 约 25 分钟阅读</span>
+        <span data-i18n="en" lang="en">20 November 2026 · 25 min read</span>
+      </div>
+      <div class="post-tags">
+        <span data-i18n="zh" lang="zh-Hans">
+          <span class="post-tag">音频理解</span>
+          <span class="post-tag">多模态</span>
+          <span class="post-tag">评测</span>
+        </span>
+        <span data-i18n="en" lang="en">
+          <span class="post-tag">Audio understanding</span>
+          <span class="post-tag">Multimodal</span>
+          <span class="post-tag">Evaluation</span>
+        </span>
+      </div>
+    </article>
+
+    <div class="post-content">
+
+      <p class="lead">
+        <span data-i18n="zh" lang="zh-Hans">只给声音的"图片"、完全不给音频，前沿语言模型在一个音频基准上离人类听众只差不到三个百分点。但它们从图里读出来的，主要是声音<i>什么时候</i>发生，而不是声音<i>听起来是什么样</i>。这正是它们最终仍然需要"听"的原因。</span>
+        <span data-i18n="en" lang="en">Given pictures of sound and no audio at all, frontier language models come within three points of human listeners on an audio benchmark. What they read from the pictures is mostly <i>when</i> things happen, not <i>how</i> they sound, and that is why they will still need to hear.</span>
+      </p>
+
+      <div class="callout">
+        <p>
+          <span data-i18n="zh" lang="zh-Hans"><strong>要点。</strong>我们不给两个前沿大模型（Claude Fable 5.2 和 Claude Opus 5.5）任何音频，让它们回答 MMAU test-mini 的全部 1,000 道题。它们拿到的是频谱图、可用工具查询的数值频谱、Whisper 转写，或者什么都没有。<strong>频谱图 + 转写达到 79.4%</strong>，高于大多数公开了成绩的端到端音频模型（包括 Gemini 3.0 Pro 的 78.4%），比人类（82.2%）低 2.8 个点。<strong>但模型读到的是时间。</strong>在问声音<i>何时</i>发生的题上，图片让 Fable 多对 25 个点（46% &rarr; 70%）；在问声音<i>听起来怎样</i>的题上（旋律、和声、音色、织体、曲风、情绪，共 266 题），同样的图反而让两个模型都<i>少对</i> 8&ndash;10 个点。<strong>我们的结论：声音的图片给语言模型的是一条节拍轨，不是耳朵。</strong>它足以让剪辑点踩在鼓点上，却不足以跟上旋律、和声和人声。要理解更细腻的声学特征，模型终究需要音频本身、或者学习得到的音频特征作为输入。</span>
+          <span data-i18n="en" lang="en"><strong>TL;DR.</strong> We gave two frontier LLMs (Claude Fable 5.2 and Claude Opus 5.5) <strong>no audio at all</strong> and asked them all 1,000 questions of MMAU test-mini. Instead of sound they got a spectrogram picture, a numeric spectrogram they could query with a tool, a Whisper transcript, or nothing. <strong>Spectrogram + transcript reaches 79.4%</strong>, above most audio-native models with published scores (including Gemini 3.0 Pro at 78.4%) and 2.8 points below human listeners (82.2%). <strong>But what the models read is timing.</strong> On questions about <i>when</i> things happen, the picture adds 25 points for Fable (46% &rarr; 70%); on questions about <i>how</i> something sounds (melody, harmony, timbre, texture, genre, emotion; 266 questions) the same picture <i>costs</i> both models 8&ndash;10 points. <strong>Our argument: a picture of sound gives a language model a beat track, not ears.</strong> That is enough to cut a music video on the drum hits, and not enough to follow the melody, the harmony or the voice. To understand finer acoustic detail, models will need audio itself, or learned audio features, as input.</span>
+        </p>
+      </div>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">下面每个例子都可以直接听：点播放，或者在频谱图上拖动来定位。代码、提示词、每一条模型原始回复和逐题分数都在 <a href="https://github.com/yichen14/reading-sound-without-ears">GitHub</a> 上。</span>
+        <span data-i18n="en" lang="en">Listen to every example below: press play, or drag across the spectrogram to scrub. The code, prompts, every raw model response and the per-question scores are on <a href="https://github.com/yichen14/reading-sound-without-ears">GitHub</a>.</span>
+      </p>
+
+      <figure>
+        <div class="spec-ex" data-id="mini_0054"></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 1：题目问四种声音的先后顺序。只看题目时两个模型都答错了；有了频谱图，两个都答对了。蓝色标记是这四个事件，位置取自模型自己写下的时间；在图上拖动可以逐个听。</span>
+          <span data-i18n="en" lang="en">Figure 1: Asked for the order of four sounds, both models answered wrongly from the question alone. With the spectrogram both got it right. The blue marks are the four events, placed at the times the models wrote down; drag across the picture to hear each one.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">现在的大语言模型已经很会看图，但大多数仍然不能直接接收音频。频谱图把声音变成图像，于是一个很自然的问题是：一个视觉语言模型光靠"看"，能解决多少音频任务？以往的尝试结论不一。GPT-4o 从频谱图上识别 10 类环境声能达到 59% <a class="cite-ref" href="#ref-1">[1]</a>，而在单词级的语音频谱图上，视觉模型几乎没有超过随机水平 <a class="cite-ref" href="#ref-2">[2]</a>。我们想要一个更干净的测量：完整的公开基准、当前最强的模型，以及能把"图片带来的信息"和"模型本来就知道的东西"分开的对照组。</span>
+        <span data-i18n="en" lang="en">Large language models now read images well, but most of them still cannot take audio as input. A spectrogram turns sound into an image, so a natural question is how much of an audio task a vision-language model can solve just by looking. Earlier attempts gave mixed answers. GPT-4o reached 59% on a 10-class environmental-sound task from spectrograms <a class="cite-ref" href="#ref-1">[1]</a>, while on word-level speech spectrograms vision models rarely performed above chance <a class="cite-ref" href="#ref-2">[2]</a>. We wanted a cleaner measurement: a full public benchmark, the strongest current models, and controls that separate what the picture adds from what the model already knows.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">这篇文章的前半部分是那个出人意料的发现：光靠"读"能走多远，以及模型到底读到了什么。后半部分是它引出的论点：图片带来的几乎全部收益都关于声音<i>何时</i>发生；关于声音<i>听起来怎样</i>的题反而变差了。这个落差，正是应该给模型真正音频输入的理由。</span>
+        <span data-i18n="en" lang="en">The first half of this post is the surprising part: how far reading alone goes, and what exactly the models read. The second half is the argument it leads to. Almost everything the pictures add is about <i>when</i> sounds happen; the questions about <i>how</i> they sound get worse, and that gap is the case for giving models real audio input.</span>
+      </p>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">实验设置</span>
+        <span data-i18n="en" lang="en">Setup</span>
+      </h2>
+      <ul>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>基准：</strong>MMAU test-mini <a class="cite-ref" href="#ref-3">[3]</a>，全部 1,000 道选择题（声音 333、音乐 334、语音 333），涵盖从事件计数到和弦识别的 27 个子技能。片段大多 10&ndash;30 秒。</span>
+          <span data-i18n="en" lang="en"><strong>Benchmark:</strong> MMAU test-mini <a class="cite-ref" href="#ref-3">[3]</a>, all 1,000 multiple-choice questions (333 sound, 334 music, 333 speech), 27 sub-skills from event counting to chord recognition. Clips are mostly 10&ndash;30 s.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>模型：</strong>通过 API 调用 Claude Fable 5.2 和 Claude Opus 5.5，自适应思考，effort 设为 <code>high</code>，每道题一次独立请求。没有拒答时的模型兜底，所以每个答案都来自所标注的模型。</span>
+          <span data-i18n="en" lang="en"><strong>Models:</strong> Claude Fable 5.2 and Claude Opus 5.5 through the API, adaptive thinking, effort <code>high</code>, one independent request per question. No refusal fallback, so every answer comes from the named model.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>模型拿到什么</strong>（每次运行一种条件，6 种条件 &times; 2 个模型 &times; 1,000 题）：<strong>A</strong> 只有题目和选项 · <strong>L</strong> A + 片段时长（秒） · <strong>B</strong> L + 两张频谱图（0&ndash;8&nbsp;kHz 和 0&ndash;2&nbsp;kHz 放大） · <strong>E</strong> L + 一个查询数值频谱的 <code>query_spectrogram</code> 工具（没有图） · <strong>D</strong> L + Whisper-small 转写 <a class="cite-ref" href="#ref-4">[4]</a> · <strong>C</strong> B + D。</span>
+          <span data-i18n="en" lang="en"><strong>What the model gets</strong> (one condition per run, 6 conditions &times; 2 models &times; 1,000 questions): <strong>A</strong> question and options only · <strong>L</strong> A + the clip length in seconds · <strong>B</strong> L + two spectrogram images (0&ndash;8&nbsp;kHz and a 0&ndash;2&nbsp;kHz zoom) · <strong>E</strong> L + a <code>query_spectrogram</code> tool over the numeric spectrogram (no image) · <strong>D</strong> L + a Whisper-small transcript <a class="cite-ref" href="#ref-4">[4]</a> · <strong>C</strong> B + D.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>不允许：</strong>任何音频输入、任何音频编码器、任何音频描述模型。唯一学习得到的音频组件是 C 和 D 里的 Whisper。</span>
+          <span data-i18n="en" lang="en"><strong>Not allowed:</strong> any audio input, any audio encoder, any caption model. The only learned audio component is Whisper in C and D.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>评分：</strong>模型必须按 JSON schema 返回 <code>{"answer": "&lt;字母&gt;"}</code>，不需要解析答案。标准答案只由评分脚本读取。成对比较在同样的 1,000 道题上使用 McNemar 检验 <a class="cite-ref" href="#ref-5">[5]</a>（含连续性校正）。</span>
+          <span data-i18n="en" lang="en"><strong>Scoring:</strong> the model must return <code>{"answer": "&lt;letter&gt;"}</code> under a JSON schema, so there is no answer parsing. The answer key is read only by the scorer. Paired comparisons use McNemar's test <a class="cite-ref" href="#ref-5">[5]</a> (with continuity correction) on the same 1,000 questions.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>成本：</strong>本文全部实验共 $249，其中三分之二花在 Fable 的工具调用实验上。</span>
+          <span data-i18n="en" lang="en"><strong>Cost:</strong> $249 for everything on this page, two thirds of it Fable's tool-use runs.</span>
+        </li>
+      </ul>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">主要结果</span>
+        <span data-i18n="en" lang="en">Headline results</span>
+      </h2>
+      <figure>
+        <div class="fig-plate" id="fig-main"></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 2：全部 1,000 题上的正确率。虚线分别是随机猜测（25.5%）和人类听众（82.2%）。鼠标悬停在条上可看具体数字。</span>
+          <span data-i18n="en" lang="en">Figure 2: Accuracy on all 1,000 questions. The dashed lines mark random guessing (25.5%) and human listeners (82.2%). Hover a bar for exact numbers.</span>
+        </figcaption>
+      </figure>
+      <figure>
+        <div class="fig-plate" id="fig-tasks"></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 3：按领域拆分。频谱图（B）帮助声音题，转写（D）撑起语音题，而在音乐题上没有任何条件胜过只看题目。</span>
+          <span data-i18n="en" lang="en">Figure 3: The same results split by domain. Spectrograms (B) help sound, transcripts (D) carry speech, and nothing beats the text-only prior on music.</span>
+        </figcaption>
+      </figure>
+
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">有四点值得注意。第一，<strong>只看题目的基线就已经很高</strong>：Opus 62.9%，Fable 66.9%，完全不含任何音频信息。第二，<strong>片段时长是一个真实的信号</strong>（从 A 到 L：Opus 62.9% &rarr; 65.1%，Fable 66.9% &rarr; 69.6%，两者都在 p&nbsp;&lt;&nbsp;0.05 下显著）：片段越长，事件越多、词越多。以它为对照，图片在总体上让 Fable 多 0.7 个点、让 Opus 少 0.8 个点。第三，这个接近零的总数掩盖了按领域的分化：对 Fable，图片在声音题上加 11.4 个点（p&nbsp;&lt;&nbsp;0.001），在音乐题上减 5.3 个点（p&nbsp;&lt;&nbsp;0.05），在语音题上减 3.9 个点。第四，<strong>最好的配置 C 已经能和端到端音频模型竞争</strong>。</span>
+        <span data-i18n="en" lang="en">Four things stand out. First, <strong>the text-only baseline is already high</strong>: 62.9% for Opus and 66.9% for Fable, with no information about the audio at all. Second, <strong>the clip length is a real signal</strong> (Opus 62.9% &rarr; 65.1%, Fable 66.9% &rarr; 69.6% from A to L, both significant at p&nbsp;&lt;&nbsp;0.05): long clips mean more events and more words. Against that control, the images add 0.7 points for Fable and lose 0.8 for Opus overall. Third, that near-zero total hides a split by domain: for Fable, images add 11.4 points on sound (p&nbsp;&lt;&nbsp;0.001), cost 5.3 on music (p&nbsp;&lt;&nbsp;0.05) and 3.9 on speech. Fourth, <strong>the best configuration, C, is competitive with audio-native models</strong>.</span>
+      </p>
+
+      <div class="fig-tablewrap">
+      <table>
+        <thead><tr>
+          <th><span data-i18n="zh" lang="zh-Hans">系统</span><span data-i18n="en" lang="en">System</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">听音频？</span><span data-i18n="en" lang="en">Hears audio?</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">平均</span><span data-i18n="en" lang="en">Avg</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">声音</span><span data-i18n="en" lang="en">Sound</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">音乐</span><span data-i18n="en" lang="en">Music</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">语音</span><span data-i18n="en" lang="en">Speech</span></th>
+          <th><span data-i18n="zh" lang="zh-Hans">来源</span><span data-i18n="en" lang="en">Source</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span data-i18n="zh" lang="zh-Hans">人类听众</span><span data-i18n="en" lang="en">Human listeners</span></td><td>✓</td><td>82.2</td><td>86.3</td><td>78.2</td><td>82.2</td><td><a class="cite-ref" href="#ref-3">[3]</a></td></tr>
+          <tr><td>Qwen3.5-Omni-Plus <span data-i18n="zh" lang="zh-Hans">（厂商自报）</span><span data-i18n="en" lang="en">(vendor)</span></td><td>✓</td><td>81.9</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite-ref" href="#ref-6">[6]</a></td></tr>
+          <tr><td>Qwen3.8-Omni-Flash <span data-i18n="zh" lang="zh-Hans">（厂商自报）</span><span data-i18n="en" lang="en">(vendor)</span></td><td>✓</td><td>81.8</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite-ref" href="#ref-6">[6]</a></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Fable 5.2，频谱图 + 转写 (C)</span><span data-i18n="en" lang="en">Fable 5.2, spectrogram + transcript (C)</span></td><td>&ndash;</td><td>79.4</td><td>80.2</td><td>72.2</td><td>85.9</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr><td>Gemini 3.0 Pro <span data-i18n="zh" lang="zh-Hans">（第三方）</span><span data-i18n="en" lang="en">(3rd party)</span></td><td>✓</td><td>78.4</td><td>79.6</td><td>72.2</td><td>83.5</td><td><a class="cite-ref" href="#ref-7">[7]</a></td></tr>
+          <tr><td>Step-Audio 2 (32B)</td><td>✓</td><td>77.6</td><td>84.0</td><td>73.6</td><td>75.2</td><td><a class="cite-ref" href="#ref-7">[7]</a>, <a class="cite-ref" href="#ref-8">[8]</a></td></tr>
+          <tr><td>Gemini 3.8 Flash <span data-i18n="zh" lang="zh-Hans">（引自 Qwen 报告）</span><span data-i18n="en" lang="en">(via Qwen report)</span></td><td>✓</td><td>76.9</td><td>&ndash;</td><td>&ndash;</td><td>&ndash;</td><td><a class="cite-ref" href="#ref-6">[6]</a></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Fable 5.2，只看转写 (D)</span><span data-i18n="en" lang="en">Fable 5.2, transcript only (D)</span></td><td>&ndash;</td><td>75.8</td><td>70.6</td><td>71.6</td><td>85.3</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Opus 5.5，频谱图 + 转写 (C)</span><span data-i18n="en" lang="en">Opus 5.5, spectrogram + transcript (C)</span></td><td>&ndash;</td><td>74.7</td><td>74.2</td><td>64.1</td><td>85.9</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr><td><span data-i18n="zh" lang="zh-Hans">SAR-LM（Gemini 2.5 Pro + 符号化音频特征）</span><span data-i18n="en" lang="en">SAR-LM (Gemini 2.5 Pro + symbolic audio features)</span></td><td>&ndash;</td><td>73.5</td><td>73.3</td><td>65.0</td><td>82.3</td><td><a class="cite-ref" href="#ref-9">[9]</a></td></tr>
+          <tr><td>Gemini 2.5 Pro</td><td>✓</td><td>71.6</td><td>75.1</td><td>68.3</td><td>71.5</td><td><a class="cite-ref" href="#ref-7">[7]</a></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Fable 5.2，只看频谱图 (B)</span><span data-i18n="en" lang="en">Fable 5.2, spectrogram only (B)</span></td><td>&ndash;</td><td>70.3</td><td>80.2</td><td>69.8</td><td>61.0</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Fable 5.2，题目 + 时长 (L)</span><span data-i18n="en" lang="en">Fable 5.2, question + clip length (L)</span></td><td>&ndash;</td><td>69.6</td><td>68.8</td><td>75.1</td><td>64.9</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr class="is-ours"><td><span data-i18n="zh" lang="zh-Hans">Fable 5.2，只看题目 (A)</span><span data-i18n="en" lang="en">Fable 5.2, question only (A)</span></td><td>&ndash;</td><td>66.9</td><td>66.1</td><td>72.5</td><td>62.2</td><td><span data-i18n="zh" lang="zh-Hans">本文</span><span data-i18n="en" lang="en">ours</span></td></tr>
+          <tr><td>GPT-4o Audio</td><td>✓</td><td>62.5</td><td>64.6</td><td>56.3</td><td>66.7</td><td><a class="cite-ref" href="#ref-7">[7]</a></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="fig-note">
+        <span data-i18n="zh" lang="zh-Hans">外部数字来自厂商报告 <a class="cite-ref" href="#ref-6">[6]</a>、第三方排行榜 <a class="cite-ref" href="#ref-7">[7]</a> 和论文，可能用了不同版本的 MMAU 或不同的答案匹配方式；1&ndash;2 个点的差距应视为噪声。标为"本文"的行来自本文实验。</span>
+        <span data-i18n="en" lang="en">External numbers come from vendor reports <a class="cite-ref" href="#ref-6">[6]</a>, a third-party leaderboard <a class="cite-ref" href="#ref-7">[7]</a> and papers, and may use a different MMAU revision or a different answer matcher; treat gaps of 1&ndash;2 points as noise. Rows marked "ours" are from this post.</span>
+      </p>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">模型到底读到了什么</span>
+        <span data-i18n="en" lang="en">What the models actually read</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">正确率只能告诉我们图片<i>有</i>帮助，却说不清<i>怎么</i>帮的。为此，我们挑了 32 道有代表性的题重新跑了一遍，要求模型在作答前写下它用到的具体证据，包括时间和频率。然后我们拿这些读数去对照音频本身，以及数值频谱给出的独立测量。下面例子里的蓝色标注，正是放在模型说它看到东西的位置上；你可以把标注关掉自己检查。</span>
+        <span data-i18n="en" lang="en">Accuracy tells us <i>that</i> the picture helps, not <i>how</i>. To find out, we re-ran 32 representative questions and asked each model to write down the concrete evidence it used, with times and frequencies, before answering. We then checked those readings against the audio and against independent measurements from the numeric spectrogram. In the examples below, the blue overlays are placed exactly where the models said they saw something. Toggle them off to check for yourself.</span>
+      </p>
+      <p class="fig-note">
+        <span data-i18n="zh" lang="zh-Hans">操作：在频谱图上点击或拖动来定位；图获得焦点时按空格播放/暂停，按 &larr;/&rarr; 每次移动 0.5 秒。放大视图显示 0&ndash;2&nbsp;kHz，也就是人声音高所在的频段。按本站风格，频谱图以灰度显示：越亮表示越响。</span>
+        <span data-i18n="en" lang="en">Controls: click or drag on a spectrogram to seek, Space to play or pause when it has focus, &larr;/&rarr; to step 0.5 s. The zoom view shows 0&ndash;2&nbsp;kHz, where voice pitch lives. In keeping with this site, spectrograms are shown in grayscale: brighter means louder.</span>
+      </p>
+
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">1. 数事件、排顺序</span>
+        <span data-i18n="en" lang="en">1. Counting and ordering events</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">这是最大的一项收益。MMAU 的"时序事件推理"题问的是某件事发生了几次、按什么顺序、哪个声音持续最久。只看题目时模型比随机好不了多少（Fable 31%，Opus 40%），知道时长也只有一点帮助（42% 和 56%）。有了频谱图，Fable 达到 75%。Opus 从图上获益较少（58%），但能用数值查询起音时间时达到 71%。离散事件很容易看：每一下敲击、每一声喇叭或牛叫，都是一块独立的亮斑，周围是暗色的间隙。</span>
+        <span data-i18n="en" lang="en">This is the single biggest win. MMAU's "temporal event reasoning" questions ask how many times something happens, in what order, or which sound lasts longest. From the question alone the models do little better than chance (Fable 31%, Opus 40%), and knowing the clip length helps only a little (42% and 56%). With a spectrogram, Fable reaches 75%. Opus gains less from the picture (58%) but reaches 71% when it can query onset times numerically. Discrete events are easy to see: each tap, horn or moo is a separate bright block with dark gaps around it.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0061"></div>
+      <div class="spec-ex" data-id="mini_0080"></div>
+      <div class="spec-ex" data-id="mini_0068"></div>
+
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">2. 频谱指纹</span>
+        <span data-i18n="en" lang="en">2. Spectral fingerprints</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">对于"这是什么声音"的题，模型会描述受过训练的听者能认出的形状：停在一个频率上的窄音、随电机转速上下滑动的谐波、每七秒涌起一次的宽带噪声。然后它们从形状推理到声源，逐个排除选项。</span>
+        <span data-i18n="en" lang="en">For "what is this sound" questions, the models describe shapes a trained listener would recognize: a narrow tone held at one frequency, harmonics gliding up and down with a motor, broadband noise that swells every seven seconds. They then reason from those shapes to a source, ruling options out one by one.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0854"></div>
+      <div class="spec-ex" data-id="mini_0864"></div>
+      <div class="spec-ex" data-id="mini_0825"></div>
+
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">3. 把音高当尺子</span>
+        <span data-i18n="en" lang="en">3. Pitch as a ruler</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">0&ndash;2&nbsp;kHz 的放大图很关键。两个模型都会用像素量谐波间距、换算成赫兹，再把基频当作证据：约 220&nbsp;Hz 像成年女性，约 100&nbsp;Hz 像男性。读数是近似的（放大图里一个像素约 8&nbsp;Hz，下面第一个例子偏差约 50&nbsp;Hz），但常常够用。同一把尺子还能区分大提琴和小提琴，以及分辨对话里的不同说话人。</span>
+        <span data-i18n="en" lang="en">The 0&ndash;2&nbsp;kHz zoom turns out to matter. Both models measure the spacing between harmonics in pixels, convert it to hertz, and use the fundamental frequency as evidence: about 220&nbsp;Hz suggests an adult woman, about 100&nbsp;Hz a man. The readings are approximate (one pixel in the zoom is about 8&nbsp;Hz, and the first example below is off by about 50&nbsp;Hz), but often good enough. The same ruler separates a cello from a violin and tells speakers apart in a conversation.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0001"></div>
+      <div class="spec-ex" data-id="mini_0145"></div>
+      <div class="spec-ex" data-id="mini_0352"></div>
+      <div class="spec-ex" data-id="mini_0391"></div>
+
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">4. 一个警示：是语音密度，还是只是时长？</span>
+        <span data-i18n="en" lang="en">4. A cautionary example: speech density, or just duration?</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">有些语音题的选项彼此相差两倍以上，比如"有多少个词包含重读音素：3、11、15 还是 32"。没有文字时，模型从浊音簇的密度估计音节数，再乘以一个典型语速。解释听上去合理，答案也对。但对照组 L 表明根本不需要图：只给时长，两个模型就选了同一个答案。语音题上大部分图片"收益"都是这种模式，这也是为什么我们拿图片和 L 比，而不是和光秃秃的题目比。</span>
+        <span data-i18n="en" lang="en">Some speech questions have answer options that differ by a factor of two or more, such as "how many words contain a stressed phoneme: 3, 11, 15 or 32". Without the words, the models estimate the number of syllables from the density of voiced bursts and multiply by a typical speaking rate. The explanation is plausible and the answer is right. But the L control shows the picture was not needed: the clip length alone leads both models to the same answer. This is the pattern behind most of the image "gains" on speech, and it is why we compare images against L rather than against the bare question.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0174"></div>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">读图在哪里失灵</span>
+        <span data-i18n="en" lang="en">Where reading breaks</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">失败的例子和成功的一样有启发性。大多数失败里，测量是对的，推断是错的。</span>
+        <span data-i18n="en" lang="en">The failures are as instructive as the wins. In most of them the measurement is right and the inference is wrong.</span>
+      </p>
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">音高测对了，概念用错了</span>
+        <span data-i18n="en" lang="en">Correct pitch, wrong concept</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">有五道"是什么样的歌手"的音乐题，两个模型只看题目都答对了，看了频谱图都答错了。其中四道，两个模型都在标准答案是男声时选了"女声"，解释里也说明了原因：它们测到了很高的基频。可是流行和摇滚歌手唱歌时，基频经常在 300&ndash;700&nbsp;Hz。适用于说话声的音高尺子，搬到唱歌上就不成立了，而模型并不知道这一点。我们独立的音高追踪也证实了这个读数（这里约 730&nbsp;Hz），所以这是推理错误，不是视觉错误。</span>
+        <span data-i18n="en" lang="en">Five "what kind of vocalist" music questions were answered correctly by both models from the text alone and wrongly by both with the spectrogram. In four of them both models picked "female" where the key says male, and the explanations say why: they measured a high fundamental. Pop and rock singers, however, routinely sing with a fundamental of 300&ndash;700&nbsp;Hz. The pitch ruler that works for speaking voices does not transfer to singing, and the models do not know that. Our independent pitch tracker confirms the reading (around 730&nbsp;Hz here), so this is a reasoning error, not a vision error.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0542"></div>
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">和弦低于图片的分辨率</span>
+        <span data-i18n="en" lang="en">Chords are below the resolution of the picture</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">和弦题问的是某个时间窗里响的是哪个和弦，有时标签形如 <code>E:9(*1)/3</code>。要读出来，需要把单个音的频率精确到几赫兹以内。模型确实老老实实地尝试了，把像素行换算成音名，但在每像素 8&nbsp;Hz 的分辨率下，低音区相邻半音只差一两个像素。这里两个模型选了同一个错误的时间窗，推理几乎一模一样。数字能救这个例子：在条件 E 里用 <code>chroma</code> 命令，两个模型都逐窗请求了音级分布，选对了答案，另一道和弦时间窗题（mini_0385）也一样。不过在所有音乐"时间推理"题上，工具（46&ndash;45%）只部分缩小了与只看题目（52&ndash;50%）之间的差距。</span>
+        <span data-i18n="en" lang="en">Chord questions ask which chord sounds in a time window, sometimes with labels like <code>E:9(*1)/3</code>. Reading this needs individual note frequencies within a few hertz. The models honestly attempt it, converting pixel rows to note names, but at 8&nbsp;Hz per pixel neighbouring semitones in the bass are one or two pixels apart. Both models picked the same wrong window here, with near-identical reasoning. Numbers fix this case: with the <code>chroma</code> command in condition E, both models asked for pitch-class profiles window by window and picked the right answer, here and on a second chord-window question (mini_0385). Across all music "temporal reasoning" questions, though, the tool (46&ndash;45%) only partly closes the gap to the text-only answer (52&ndash;50%).</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0423"></div>
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">含糊的纹理</span>
+        <span data-i18n="en" lang="en">Ambiguous textures</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">风和雨在图上都像宽带噪声。Opus 把短的竖向条纹读成雨滴；Fable 把一阵一阵的电平变化读成风。只能有一个是对的，而且哪个胜出可能每次运行都不一样。</span>
+        <span data-i18n="en" lang="en">Wind and rain both look like broadband noise. Opus reads short vertical streaks as raindrops; Fable reads the gusty level changes as wind. Only one can be right, and which one wins can change between runs.</span>
+      </p>
+      <div class="spec-ex" data-id="mini_0711"></div>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">看图与查数</span>
+        <span data-i18n="en" lang="en">Pictures versus numbers</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">条件 E 用一个工具代替图片，它从数值频谱里计算各种测量值：随时间变化的频带电平、频谱峰、音高追踪、起音检测、chroma 和原始数值。问什么由模型自己决定。Opus 平均每题调用 3.4 次，Fable 调用 6.8 次。</span>
+        <span data-i18n="en" lang="en">Condition E replaces the images with a tool that computes measurements from the numeric spectrogram: band levels over time, spectral peaks, a pitch tracker, onset detection, chroma and raw values. The model decides what to ask. Opus calls the tool 3.4 times per question on average, Fable 6.8 times.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">两种方式在总体上很接近（Opus：E 66.6% 对 B 64.3%；Fable：E 69.8% 对 B 70.3%），但失败的方式不同。<strong>精确的数字会暴露一个正确答案有多脆弱。</strong>以第 3 节的说话人题为例，工具报告了一组干净的谐波：173、351、524 和 700&nbsp;Hz，说话人的基频约 175&nbsp;Hz，属于男女声重叠区间里偏低的女声。两个模型用工具都测对了，套用教科书阈值后回答"成年男性"，答错了。而从图上它们估的是 200&ndash;250&nbsp;Hz（粗糙的像素读数导致高估），回答"女性"，答对了。读图条件答对这道题，部分是出于错误的理由。<strong>在计数题上数字更胜一筹</strong>：<code>onsets</code> 返回精确时间，在时序声音题上，用工具的 Opus 胜过看图的 Opus（71% 对 58%）。</span>
+        <span data-i18n="en" lang="en">The two approaches end up close on aggregate (Opus: E 66.6% vs B 64.3%; Fable: E 69.8% vs B 70.3%), but they fail differently. <strong>Precise numbers can expose how fragile a correct answer was.</strong> On the speaker question from section 3, the tool reports a clean harmonic series at 173, 351, 524 and 700&nbsp;Hz: the speaker's fundamental is about 175&nbsp;Hz, a low female voice inside the range where male and female voices overlap. Both models measured this correctly with the tool, applied a textbook threshold and answered "adult man", which is wrong. From the picture they had estimated 200&ndash;250&nbsp;Hz, an overestimate from coarse pixel reading, and answered "woman", which is right. The image condition got this question right for a partly wrong reason. <strong>Numbers win when the question is about counting</strong>: <code>onsets</code> returns exact times, and Opus with the tool beats Opus with the picture on temporal sound questions (71% vs 58%).</span>
+      </p>
+      <pre class="fig-trace" id="fig-trace-0001"></pre>
+      <figure>
+        <div class="fig-plate" id="fig-tools"></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 4：条件 E 中按模型自选的工具调用次数分组的正确率。调用越多，正确率越低：证据不明朗时模型会一直查下去，所以长搜索标志的是难题，而不是买来了更好的答案。Opus 有 191 道题完全没有调用工具就作答了。</span>
+          <span data-i18n="en" lang="en">Figure 4: Accuracy in condition E by the number of tool calls the model chose to make. Accuracy falls as calls rise: the models keep querying when the evidence stays unclear, so long searches mark hard questions rather than buy better answers. Opus answered 191 questions without calling the tool at all.</span>
+        </figcaption>
+      </figure>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">一条节拍轨，而不是耳朵</span>
+        <span data-i18n="en" lang="en">A beat track, not ears</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">把成功和失败放在一起看，一个模式就能解释其中大部分。我们按"题目真正需要从音频里得到什么"给 MMAU 的子技能分组。<strong>时间类</strong>题问的是某件事何时发生、按什么顺序、发生了几次。<strong>音质类</strong>题问的是某个东西听起来怎样：旋律、和声、乐器、织体、曲风、人声里的情绪。然后我们测量图片（B）和数值工具（E）相对"只给时长"对照组带来的变化。</span>
+        <span data-i18n="en" lang="en">Put the wins and the failures side by side and a single pattern explains most of them. We grouped MMAU's sub-skills by what the question actually needs from the audio. <strong>Timing</strong> questions ask when something happens, in what order, or how many times. <strong>Sound-quality</strong> questions ask what something sounds like: the melody, the harmony, the instrument, the texture, the genre, the emotion in a voice. Then we measured what the picture (B) and the numeric tool (E) add over the clip-length control.</span>
+      </p>
+      <figure>
+        <div class="fig-plate" id="fig-split"></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 5：相对"只给时长"对照组（L）的正确率变化，单位为百分点，分三组子技能。"声音何时发生"是声音时序事件推理加语音计数（77 题）；"听起来是什么样"合并了旋律、和声、乐器、织体、曲风、情绪方面的八个音乐与语音子技能（266 题）。标签给出前后正确率；p 值来自同一组题上的 McNemar 检验。悬停可看具体题数。</span>
+          <span data-i18n="en" lang="en">Figure 5: Change in accuracy over the clip-length control (L), in percentage points, for three groups of sub-skills. "When things happen" is sound temporal-event reasoning plus speech counting (77 questions); "How it sounds" pools eight music and speech sub-skills on melody, harmony, instrumentation, texture, genre and emotion (266 questions). Labels give the accuracy before and after; p values from McNemar's test on the same questions. Hover a bar for the counts.</span>
+        </figcaption>
+      </figure>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">分化非常明显。在时间类题上，图片是我们试过的最好的证据：Fable 多对 25 个点（p&nbsp;&lt;&nbsp;0.001），Opus 能用数值查询起音时间时多对 13 个点（在这个样本量下不显著）。在音质类题上，同样的图片<strong>比什么都不给还差</strong>：和只看题目加时长相比，Opus 少对 10 个点（p&nbsp;&lt;&nbsp;0.001），Fable 少对 8 个点（p&nbsp;&lt;&nbsp;0.01）。模型在这些题上并没有忽略图片。它们读了图，找到一些看似证据的东西（一条高谐波、一片密集的纹理、一条滑动的线），然后说服自己放弃了凭先验本会给出的答案。旋律是最极端的例子：Fable 在旋律结构题上从 76% 跌到 48%。</span>
+        <span data-i18n="en" lang="en">The split is sharp. For timing, the picture is the best evidence we tried: Fable gains 25 points (p&nbsp;&lt;&nbsp;0.001), and Opus gains 13 when it can query onset times numerically (not significant at this sample size). For sound quality, the same picture is <strong>worse than nothing</strong>: Opus loses 10 points (p&nbsp;&lt;&nbsp;0.001) and Fable 8 (p&nbsp;&lt;&nbsp;0.01) compared with answering from the question and the clip length alone. The models do not ignore the picture on these questions. They read it, find something that looks like evidence (a high harmonic, a dense texture, a gliding line), and talk themselves out of the answer their priors would have given. Melody is the extreme case: Fable drops from 76% to 48% on melodic-structure questions.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">节奏介于两者之间。鼓点在图上是一条明亮的竖线，正是模型擅长数的那类事件，图片也帮助了 Opus 的节奏题（52% &rarr; 65%，不显著）。但把鼓点变成速度比看上去难。在 15 道明确问速度或 BPM 的题上，模型在条件 E 里至少有 13 道调用了起音检测，最后也只答对了 6 道（Opus）和 6 道（Fable）。半速和倍速的读法、摇摆节奏、速度术语，都叠加在原始起音时间之上。</span>
+        <span data-i18n="en" lang="en">Rhythm sits in between. A drum hit is a bright vertical stripe, exactly the kind of event the models count well, and the picture helps Opus on rhythm questions (52% &rarr; 65%, not significant). But turning hits into a tempo is harder than it looks. On the 15 questions that ask for an explicit tempo or BPM, the models called the onset detector on at least 13 of them in condition E and still answered only 6 (Opus) and 6 (Fable) correctly. Half-time and double-time readings, swing and tempo-marking vocabulary all sit on top of the raw onset times.</span>
+      </p>
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">落到实践里：做 MV</span>
+        <span data-i18n="en" lang="en">What this looks like in practice: music videos</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">这个能力画像和我们让 Claude 根据一首歌的频谱图或波形剪 MV 时看到的一致。它能可靠地找到底鼓和军鼓的位置并把剪辑点放上去，因为这些是离散的、高对比的事件：和它在 MMAU 上数得很好的东西是同一类。它从图上做不到的，是跟上观众真正能感受到的部分：旋律在哪里扬起、和声在哪里转折、歌手的声音在哪里破音或变轻。这些都藏在精细的音高关系和频谱细节里，而图片恰恰把它们模糊掉了，这也正是图 5 里正确率下降的地方。结果是一支踩在节拍上、却没有跟着音乐走的视频。</span>
+        <span data-i18n="en" lang="en">This profile matches what we see when Claude edits a music video from a spectrogram or a waveform of the track. It reliably finds the kick and snare hits and places cuts on them, because those are discrete, high-contrast events: the same thing it counts so well on MMAU. What it cannot do from the picture is follow the parts of the song a viewer actually feels: where the melody lifts, when the harmony turns, when the singer's voice breaks or softens. Those live in fine pitch relationships and spectral detail that the picture blurs, which is exactly where accuracy falls in Figure 5. The result is a video that is on the beat but not with the music.</span>
+      </p>
+      <h3>
+        <span data-i18n="zh" lang="zh-Hans">为什么"读"补不上这个差距</span>
+        <span data-i18n="en" lang="en">Why reading cannot close the gap</span>
+      </h3>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">一部分损失来自分辨率。在 0&ndash;2&nbsp;kHz 放大图里一个像素约 8&nbsp;Hz，低音区相邻半音只差一两个像素；全频视图里一个像素跨几十赫兹。音色藏在频谱包络的形状和只有几毫秒长的起振瞬态里，这低于一张 1,000 像素宽、表示 10 秒片段的图所能展示的细节。更好的图能在边际上有帮助，更好的工具能解决特定的题（<code>chroma</code> 命令修好了上面两道和弦时间窗题）。但每个修补都是为一类题手工打造的特征，而且在音乐题整体上，连数值工具都没能胜过只看题目（Fable 相对 L：多对 28 题，多错 47 题）。</span>
+        <span data-i18n="en" lang="en">Some of the loss is resolution. In the 0&ndash;2&nbsp;kHz zoom one pixel is about 8&nbsp;Hz, so neighbouring semitones in the bass are one or two pixels apart; in the full view a pixel spans tens of hertz. Timbre lives in the shape of the spectral envelope and in attack transients a few milliseconds long, below what a 1,000-pixel-wide picture of a 10-second clip can show. Better pictures help at the margin, and better tools help with specific questions (the <code>chroma</code> command fixed both chord-window questions above). But each fix is a hand-built feature for one question type, and on music overall even the numeric tool does not beat answering from the question (Fable: 28 gained, 47 lost against L).</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">另一部分是：模型从文本里学会的是<i>推理</i>声音，而不是<i>感知</i>声音。"基频高就是女声"是一条教科书规则，对说话成立，对唱歌不成立；真正的听者绝不会犯这个错误，因为他们听到的是声音，不是一个数字。转写实验从另一面说明了同一件事：一旦把说的话以文本形式给出，语音正确率就跳到 85.9%，因为难点一直在感知，推理能力本来就在。</span>
+        <span data-i18n="en" lang="en">The rest is that the models have learned to <i>reason about</i> sound from text, not to <i>perceive</i> it. "High fundamental means female" is a textbook rule that is right for speech and wrong for singing; a listener would never make that mistake, because they hear the voice, not a number. The transcript experiments make the same point from the other side: once the words are given as text, speech accuracy jumps to 85.9%, because the hard part was always perception and the reasoning was already there.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">在 MMAU-Pro <a class="cite-ref" href="#ref-10">[10]</a> 上的一个小规模试验指向同一方向，这是一个片段更长、更难仅凭文本作答的基准。在 27 道题上，频谱图相对"只给时长"最多只让任一模型多对一道，而转写让两者都多对了八道。<sup>*</sup>读声音的图片是一种真实的能力，在时间信息上还很强。但凡是取决于声音实际听起来怎样的东西，模型都需要真正去听。</span>
+        <span data-i18n="en" lang="en">A small pilot on MMAU-Pro <a class="cite-ref" href="#ref-10">[10]</a>, a harder benchmark with longer clips and fewer questions answerable from text, points the same way. On 27 questions, the spectrogram added at most one correct answer over the clip-length control for either model, while a transcript added eight.<sup>*</sup> Reading pictures of sound is a real capability, and for timing it is a strong one. For everything that depends on how a sound actually sounds, a model will need to hear it.</span>
+      </p>
+      <p class="fig-note">
+        <span data-i18n="zh" lang="zh-Hans"><sup>*</sup>我们抽了 30 道 MMAU-Pro 题，去掉了 3 道公开版本中音频已损坏的题：数据集里所有约 10 分钟长的声音片段（205 道题）大部分是左右声道完全相同、约 &minus;6.5&nbsp;dBFS 的白噪声，只有约 30 秒真实音频。我们用压缩包里的 CRC32 校验核对过解压出的文件。</span>
+        <span data-i18n="en" lang="en"><sup>*</sup>We sampled 30 MMAU-Pro questions and dropped 3 whose audio is corrupted in the public release: every ~10-minute sound clip in the dataset (205 questions) is mostly identical-channel white noise at &minus;6.5&nbsp;dBFS, with about 30&nbsp;s of real audio. We verified the extracted files against the archive's CRC32 checksums.</span>
+      </p>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">更多发现</span>
+        <span data-i18n="en" lang="en">More findings</span>
+      </h2>
+      <ol>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>片段时长是一个廉价但真实的信号，也是必要的对照。</strong>只多给一个数字（时长），Opus 正确率提高 2.2 个点，Fable 提高 2.7 个点（都在 p&nbsp;&lt;&nbsp;0.05 下显著）。提升集中在音素重音词数和事件计数题上，片段越长，答案往往越大。如果和光秃秃的题目比，频谱图看起来总体能提升 1.4&ndash;3.4 个点；和 L 比，总体提升消失，只剩声音领域的提升。</span>
+          <span data-i18n="en" lang="en"><strong>Clip length is a cheap, real signal, and a necessary control.</strong> Adding a single number (the duration) raises accuracy by 2.2 points for Opus and 2.7 for Fable (both p&nbsp;&lt;&nbsp;0.05). The gains concentrate in phonemic-stress word counts and event counting, where longer clips simply mean bigger answers. Judged against the bare question, spectrograms look like a 1.4&ndash;3.4 point overall win; judged against L, the overall win disappears and only the sound-domain gain survives.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>MMAU 的纯文本下限很高。</strong>永远选"A"就能得 39.5%，因为在四选项题里正确答案是第一个选项的比例达 38%。两个模型只看题目时也有同样的偏好（35&ndash;37% 的时候选 A），不听任何音频就能拿到 63&ndash;67%。低于这个下限的基准提升，说明不了任何"听"的能力。</span>
+          <span data-i18n="en" lang="en"><strong>MMAU has a strong text-only floor.</strong> Always answering "A" scores 39.5%, because the correct option is the first one 38% of the time in four-option questions. Both models' text-only answers follow the same skew (A chosen 35&ndash;37% of the time) and they score 63&ndash;67% without any audio. Benchmark gains below this floor say nothing about hearing.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>语音题几乎全靠转写。</strong>C 和 D 在语音上打平（85.9% 对 85.3&ndash;85.9%）。有了转写，说话人角色对应从 22% 跳到 100%。图片对语音毫无帮助，但在转写之上，它们仍让 Fable 的声音题多对 9.6 个点（p&nbsp;&lt;&nbsp;0.001）。</span>
+          <span data-i18n="en" lang="en"><strong>The transcript does almost all of the work on speech.</strong> C and D are tied on speech (85.9% vs 85.3&ndash;85.9%). Speaker-role mapping jumps from 22% to 100% with a transcript. Images add nothing for speech, but on top of a transcript they still add 9.6 points on sound questions for Fable (p&nbsp;&lt;&nbsp;0.001).</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>Fable 读图更强；Opus 从工具里获益更多。</strong>Fable 在每个条件下都胜过 Opus，看图时领先 6.0 个点（p&nbsp;&lt;&nbsp;0.001），看图加转写时领先 4.7 个点。Opus 读音乐频谱较弱，图片让它的音乐题少对 6.3 个点（p&nbsp;&lt;&nbsp;0.05）；用数值工具时损失较小。</span>
+          <span data-i18n="en" lang="en"><strong>Fable reads pictures better; Opus gains more from the tool.</strong> Fable beats Opus on every condition, by 6.0 points with images (p&nbsp;&lt;&nbsp;0.001) and 4.7 with transcripts and images. Opus's spectrogram reading is weaker on music, where images cost it 6.3 points (p&nbsp;&lt;&nbsp;0.05); with the numeric tool it loses less.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>不同的证据修好不同的题。</strong>对 Fable，92.0% 的题至少在五个条件之一下答对了，但对 B、C、D、E 做多数投票只能达到 80.6%（比 C 高 1.2）。知道每道题该相信<i>哪种</i>证据，才是悬而未决的问题。</span>
+          <span data-i18n="en" lang="en"><strong>Different evidence fixes different questions.</strong> For Fable, at least one of the five conditions is right on 92.0% of questions, but a majority vote over B, C, D and E reaches only 80.6% (+1.2 over C). Knowing <i>which</i> evidence to trust per question is the open problem.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>在难题上，只看图就不再有用。</strong>在 MMAU 的"难"档题上，Fable 只看题目 62%，看频谱图 62%，加上转写后 77%。在"中"和"易"档题上，单是频谱图就值 3&ndash;5 个点。</span>
+          <span data-i18n="en" lang="en"><strong>On hard questions, pictures alone stop helping.</strong> On MMAU's "hard" tier Fable scores 62% with the question only, 62% with spectrograms and 77% once the transcript is added. On "medium" and "easy" questions the spectrogram alone is worth 3&ndash;5 points.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>读数在不同运行之间有噪声。</strong>要求附带解释、把同样 32 道题重问一遍后，模型&ndash;题目组合中 64 组中有 9 组（14%） 的答案变了。单次运行下条件之间一两个点的差别不应过度解读；显著的差异上文都已标出。</span>
+          <span data-i18n="en" lang="en"><strong>Readings are noisy run to run.</strong> Re-asking the same 32 questions with an explanation request changed the answer in 9 of 64 (14%) of model&ndash;question pairs. Single-run differences of one or two points between conditions should not be over-read; the significant ones are marked above.</span>
+        </li>
+      </ol>
+      <figure>
+        <div class="fig-plate"><div class="fig-tablewrap"><table class="fig-heat" id="fig-heat"></table></div></div>
+        <figcaption class="fig-note">
+          <span data-i18n="zh" lang="zh-Hans">图 6：按子技能的正确率变化（百分点），只列出题数不少于 20 的 26 个子技能，按 Fable 图片相对时长对照的收益排序。第一列是时长本身带来的变化；接下来四列是图片（B）和数值工具（E）在时长之上的增减；最后一列是图片在转写之上的增减。蓝色表示证据有帮助，深灰表示有害。悬停可看具体正确率。</span>
+          <span data-i18n="en" lang="en">Figure 6: Change in accuracy (percentage points) by sub-skill, for the 26 sub-skills with at least 20 questions, sorted by Fable's image gain over the clip-length control. The first column is what the clip length alone adds; the next four are what images (B) and the numeric tool (E) add on top of it; the last is what images add on top of a transcript. Blue means the evidence helped, dark gray that it hurt. Hover a cell for the underlying accuracies.</span>
+        </figcaption>
+      </figure>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">相关工作</span>
+        <span data-i18n="en" lang="en">Related work</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans"><strong>把频谱图当图像。</strong>Dixit、Heller 和 Donahue <a class="cite-ref" href="#ref-1">[1]</a> 表明 GPT-4o 能从频谱图上对 ESC-10 环境声分类，交叉验证正确率 59.0%。Loakman、James 和 Lin <a class="cite-ref" href="#ref-2">[2]</a> 让视觉语言模型从频谱图识别口语单词，发现零样本和微调后的模型都很少超过随机水平，这与我们没有转写时的语音结果一致。CaReCoS <a class="cite-ref" href="#ref-11">[11]</a> 在心音、呼吸音和咳嗽声的频谱图上报告的最好正确率为 51.2%。</span>
+        <span data-i18n="en" lang="en"><strong>Spectrograms as images.</strong> Dixit, Heller and Donahue <a class="cite-ref" href="#ref-1">[1]</a> showed that GPT-4o can classify ESC-10 environmental sounds from spectrogram images with 59.0% cross-validated accuracy. Loakman, James and Lin <a class="cite-ref" href="#ref-2">[2]</a> asked vision-language models to identify spoken words from spectrograms and found that zero-shot and fine-tuned models rarely perform above chance, consistent with our speech results without a transcript. CaReCoS <a class="cite-ref" href="#ref-11">[11]</a> reports a best accuracy of 51.2% on spectrograms of cardiac, respiratory and cough sounds.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans"><strong>基于音频特征的语言模型。</strong>与我们最好的配置最接近的是 SAR-LM <a class="cite-ref" href="#ref-9">[9]</a>：它把音频转成符号化特征（声音事件标签、Whisper 转写、音符与和弦转录），以文本形式交给 Gemini 2.5 Pro，在 MMAU test-mini 上达到 73.5%。AudioToolAgent <a class="cite-ref" href="#ref-12">[12]</a> 让语言模型把音频语言模型当工具来调度，在 MMAU 上报告最高 77.5%。音频描述级联更弱：GPT-4o 读 Qwen2-Audio 生成的描述在 test-mini 上得 57.3% <a class="cite-ref" href="#ref-3">[3]</a>，读 Gemini 2.5 Pro 生成的描述得 69.3%，Lu 等人 <a class="cite-ref" href="#ref-13">[13]</a> 观察到性能停滞在 70% 左右。与这些系统不同，我们的模型除 Whisper 外没有任何学习得到的音频组件，在条件 B 和 E 中则完全没有。</span>
+        <span data-i18n="en" lang="en"><strong>Language models over audio features.</strong> Closest to our best configuration, SAR-LM <a class="cite-ref" href="#ref-9">[9]</a> converts audio into symbolic features (sound-event tags, Whisper transcripts, note and chord transcriptions) and gives them to Gemini 2.5 Pro as text, reaching 73.5% on MMAU test-mini. AudioToolAgent <a class="cite-ref" href="#ref-12">[12]</a> lets a language model orchestrate audio-language models as tools and reports up to 77.5% on MMAU. Caption cascades are weaker: GPT-4o reading Qwen2-Audio captions scores 57.3% on test-mini <a class="cite-ref" href="#ref-3">[3]</a>, and 69.3% with Gemini 2.5 Pro captions, where Lu et al. <a class="cite-ref" href="#ref-13">[13]</a> observe performance plateauing at around 70%. Unlike these systems, our models get no learned audio component beyond Whisper, and in conditions B and E none at all.</span>
+      </p>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">局限与下一步</span>
+        <span data-i18n="en" lang="en">Limitations and what comes next</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">每个条件只跑了一次，所以两个点以内的差异都在运行间噪声范围内。外部数字来自厂商报告和第三方排行榜，可能使用了不同版本的 MMAU 或不同的答案匹配方式。MMAU 本身也有标注噪声：一些和弦标签似乎差了一个半音，至少有一个标为男性说话的片段，实测基频接近 230&nbsp;Hz，这对成年男性来说很少见。最后，模型给出的解释只是它们<i>声称</i>用到的证据；标注让你可以检查，但它们不是因果归因。</span>
+        <span data-i18n="en" lang="en">Each condition was run once, so differences under about two points are within run-to-run noise. External numbers come from vendor reports and a third-party leaderboard that may use a different MMAU revision or answer matcher. MMAU itself has label noise: some chord labels appear to be off by a semitone, and at least one clip labeled as a man speaking has a measured fundamental near 230&nbsp;Hz, which is unusual for an adult male voice. Finally, the explanations are what the models <i>report</i> using; the overlays let you check them, but they are not a causal attribution.</span>
+      </p>
+      <ul>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>以音频特征为输入：</strong>检验我们论点最直接的办法，是在图片旁边给同样的模型加上学习得到的音频嵌入，看图 5 中音质类的差距能补回多少。</span>
+          <span data-i18n="en" lang="en"><strong>Audio features as input:</strong> the direct test of our argument is to give the same models a learned audio embedding next to the picture and measure how much of the sound-quality gap in Figure 5 closes.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>证据路由：</strong>先用一个便宜的步骤决定该看图、查数还是转写。</span>
+          <span data-i18n="en" lang="en"><strong>Routing evidence:</strong> a cheap first pass deciding whether to look, query or transcribe.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>更好的图：</strong>音乐用对数频率或常 Q 变换视图，线性坐标在那里浪费了分辨率。我们预计这只能在边际上帮助和声，帮不了音色和情绪。</span>
+          <span data-i18n="en" lang="en"><strong>Better pictures:</strong> log-frequency and constant-Q views for music, where linear axes waste resolution. We expect these to help harmony at the margin, not timbre or emotion.</span>
+        </li>
+        <li>
+          <span data-i18n="zh" lang="zh-Hans"><strong>大规模跑 MMAU-Pro：</strong>我们的试验 <a class="cite-ref" href="#ref-10">[10]</a> 只有 27 道题。完整运行需要排除公开版本里音频已损坏的 205 道长音频题。</span>
+          <span data-i18n="en" lang="en"><strong>MMAU-Pro at scale:</strong> our pilot <a class="cite-ref" href="#ref-10">[10]</a> is 27 questions. A full run would need to exclude the 205 long-audio questions whose clips are corrupted in the public release.</span>
+        </li>
+      </ul>
+
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">复现</span>
+        <span data-i18n="en" lang="en">Reproducibility</span>
+      </h2>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans"><strong>代码与数据：</strong><a href="https://github.com/yichen14/reading-sound-without-ears">github.com/yichen14/reading-sound-without-ears</a>。仓库里有这里用到的全部脚本（Windows PowerShell 加少量 C#，不需要 Python）、完整的提示词和工具定义、全部 12,000 多条原始 API 回复及 token 用量、本文每个数字和图背后的逐题分数、Whisper 转写、MMAU-Pro 试验和损坏音频扫描。仓库不再分发 MMAU 的音频和题目，脚本会从官方发布处下载。</span>
+        <span data-i18n="en" lang="en"><strong>Code and data:</strong> <a href="https://github.com/yichen14/reading-sound-without-ears">github.com/yichen14/reading-sound-without-ears</a>. The repository has every script used here (Windows PowerShell with small C# helpers, no Python), the exact prompts and tool definition, all 12,000+ raw API responses with token counts, the per-question scores behind every number and figure in this post, the Whisper transcripts, the MMAU-Pro pilot and the corrupted-audio scan. It does not redistribute MMAU audio or questions; the scripts download them from the official release.</span>
+      </p>
+      <p>
+        <span data-i18n="zh" lang="zh-Hans">频谱图用 FFmpeg 的 <code>showspectrumpic</code> 滤镜 <a class="cite-ref" href="#ref-14">[14]</a> 从 16&nbsp;kHz 单声道音频渲染（magma 配色，0&ndash;8&nbsp;kHz 用 85&nbsp;dB 动态范围，0&ndash;2&nbsp;kHz 放大图用 70&nbsp;dB）。数值频谱用 2,048 点 FFT、512 点步长。转写来自 whisper.cpp <a class="cite-ref" href="#ref-15">[15]</a>，使用多语言 Whisper small 模型 <a class="cite-ref" href="#ref-4">[4]</a>，自动检测语言。题目和音频来自 Hugging Face 上公开的 MMAU test-mini（<code>gamma-lab-umd/MMAU-test-mini</code>）。每道题的请求、回复和 token 用量都有记录。</span>
+        <span data-i18n="en" lang="en">Spectrograms are rendered with FFmpeg's <code>showspectrumpic</code> filter <a class="cite-ref" href="#ref-14">[14]</a> from 16&nbsp;kHz mono audio (magma, 85&nbsp;dB range for 0&ndash;8&nbsp;kHz; 70&nbsp;dB for the 0&ndash;2&nbsp;kHz zoom). The numeric spectrogram uses a 2,048-point FFT with a 512-sample hop. Transcripts come from whisper.cpp <a class="cite-ref" href="#ref-15">[15]</a> with the multilingual Whisper small model <a class="cite-ref" href="#ref-4">[4]</a> and automatic language detection. Questions and audio are the public MMAU test-mini release on Hugging Face (<code>gamma-lab-umd/MMAU-test-mini</code>). Every request, response and token count is logged per question.</span>
+      </p>
+
+      <h2 id="references">
+        <span data-i18n="zh" lang="zh-Hans">参考文献</span>
+        <span data-i18n="en" lang="en">References</span>
+      </h2>
+      <ol class="refs">
+        <li id="ref-1">S. Dixit, L. M. Heller and C. Donahue. Vision Language Models Are Few-Shot Audio Spectrogram Classifiers. NeurIPS 2024 Workshops. arXiv:2411.12058, 2024. <a href="https://arxiv.org/abs/2411.12058">arxiv.org/abs/2411.12058</a></li>
+        <li id="ref-2">T. Loakman, J. James and C. Lin. Seeing isn't Hearing: Benchmarking Vision Language Models at Interpreting Spectrograms. In <i>Proceedings of IJCNLP-AACL 2025</i>, pages 79&ndash;86, Mumbai, India, 2025. doi:10.18653/v1/2025.ijcnlp-short.7. <a href="https://aclanthology.org/2025.ijcnlp-short.7/">aclanthology.org/2025.ijcnlp-short.7</a></li>
+        <li id="ref-3">S. Sakshi, U. Tyagi, S. Kumar, A. Seth, R. Selvakumar, O. Nieto, R. Duraiswami, S. Ghosh and D. Manocha. MMAU: A Massive Multi-Task Audio Understanding and Reasoning Benchmark. In <i>ICLR</i>, 2025. arXiv:2410.19168. <a href="https://arxiv.org/abs/2410.19168">arxiv.org/abs/2410.19168</a></li>
+        <li id="ref-4">A. Radford, J. W. Kim, T. Xu, G. Brockman, C. McLeavey and I. Sutskever. Robust Speech Recognition via Large-Scale Weak Supervision. In <i>ICML</i>, 2023. arXiv:2212.04356. <a href="https://arxiv.org/abs/2212.04356">arxiv.org/abs/2212.04356</a></li>
+        <li id="ref-5">Q. McNemar. Note on the Sampling Error of the Difference Between Correlated Proportions or Percentages. <i>Psychometrika</i>, 12(2):153&ndash;157, 1947.</li>
+        <li id="ref-6">Qwen Team. Qwen3.8-Omni: Towards Native Omni-Modal Agents. arXiv:2609.25611, 2026. <a href="https://arxiv.org/abs/2609.25611">arxiv.org/abs/2609.25611</a></li>
+        <li id="ref-7">SOTA2 Research. Audio Understanding on MMAU (test-mini) leaderboard. Accessed November 2026. <a href="https://www.sota2.com/research/sota/audio-understanding-on-mmau-test-mini">sota2.com/research/sota/audio-understanding-on-mmau-test-mini</a></li>
+        <li id="ref-8">B. Wu, C. Yan, C. Hu, C. Yi, C. Feng, F. Tian, et al. Step-Audio 2 Technical Report. arXiv:2507.16632, 2025. <a href="https://arxiv.org/abs/2507.16632">arxiv.org/abs/2507.16632</a></li>
+        <li id="ref-9">T. Taheri, Y. Ma and E. Benetos. SAR-LM: Symbolic Audio Reasoning with Large Language Models. arXiv:2511.06483, 2025. <a href="https://arxiv.org/abs/2511.06483">arxiv.org/abs/2511.06483</a></li>
+        <li id="ref-10">S. Kumar, Š. Sedláček, V. Lokegaonkar, F. López, W. Yu, N. Anand, et al. MMAU-Pro: A Challenging and Comprehensive Benchmark for Holistic Evaluation of Audio General Intelligence. arXiv:2508.13992, 2025. <a href="https://arxiv.org/abs/2508.13992">arxiv.org/abs/2508.13992</a></li>
+        <li id="ref-11">H. Rajgarhia, S. Ojha, A. Pothanapalli, R. Lokesh, A. Shaik, A. Mukherji and P. Desikan. CaReCoS: A Spectrogram based Visual Benchmark for Cardiac, Respiratory and Cough Sounds. arXiv:2607.03356, 2026. <a href="https://arxiv.org/abs/2607.03356">arxiv.org/abs/2607.03356</a></li>
+        <li id="ref-12">G. Wijngaard, E. Formisano, M. Dumontier and J. Jitsev. AudioToolAgent: An Agentic Framework for Audio-Language Models. arXiv:2510.02995, 2025. <a href="https://arxiv.org/abs/2510.02995">arxiv.org/abs/2510.02995</a></li>
+        <li id="ref-13">K.-H. Lu, S.-W. Fu, C.-H. H. Yang, Z. Chen, S.-F. Huang, C.-K. Yang, et al. How Auditory Knowledge in LLM Backbones Shapes Audio Language Models: A Holistic Evaluation. arXiv:2603.19195, 2026. <a href="https://arxiv.org/abs/2603.19195">arxiv.org/abs/2603.19195</a></li>
+        <li id="ref-14">FFmpeg Developers. FFmpeg multimedia framework, <code>showspectrumpic</code> filter. Software. <a href="https://ffmpeg.org/ffmpeg-filters.html#showspectrumpic">ffmpeg.org/ffmpeg-filters.html#showspectrumpic</a></li>
+        <li id="ref-15">G. Gerganov et al. whisper.cpp: port of OpenAI's Whisper model in C/C++. Software. <a href="https://github.com/ggml-org/whisper.cpp">github.com/ggml-org/whisper.cpp</a></li>
+      </ol>
+
+      <p style="color:var(--ink-soft);font-style:italic;margin-top:2.6rem;text-align:right;">
+        — 2026.11.20
+      </p>
+
+    </div>
+
+    <section class="citation">
+      <h2>
+        <span data-i18n="zh" lang="zh-Hans">引用本文</span>
+        <span data-i18n="en" lang="en">Cite this post</span>
+      </h2>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">APA</span>
+          <button class="copy-btn" type="button" data-copy="cite-apa-readingsound2026">copy</button>
+        </div>
+        <p class="cite-text" id="cite-apa-readingsound2026">Lu, Y. (2026, November 20). <em>Reading sound without ears: What language models read in spectrograms</em> [Blog post]. https://yichen14.github.io/posts/reading-sound-without-ears.html</p>
+      </div>
+
+      <div class="cite-block">
+        <div class="cite-head">
+          <span class="cite-kind">BibTeX</span>
+          <button class="copy-btn" type="button" data-copy="cite-bib-readingsound2026">copy</button>
+        </div>
+        <pre id="cite-bib-readingsound2026">@misc{lu2026readingsound,
+  author       = {Lu, Yichen},
+  title        = {Reading Sound Without Ears: What Language Models Read in Spectrograms},
+  howpublished = {Blog post},
+  year         = {2026},
+  month        = nov,
+  url          = {https://yichen14.github.io/posts/reading-sound-without-ears.html}
+}</pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon post-sheet" style="grid-template-columns:1fr">
+    <div class="col" style="grid-column:1">
+      <p class="foot">© <span id="year"></span> Yichen (Eason) Lu</p>
+    </div>
+  </footer>
+  <script src="reading-sound-without-ears/data.js"></script>
+  <script src="reading-sound-without-ears/figures.js"></script>
+</body>
+</html>
