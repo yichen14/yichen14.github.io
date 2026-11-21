@@ -84,14 +84,6 @@
         </figcaption>
       </figure>
 
-      <h2>
-        <span data-i18n="zh" lang="zh-Hans">起因：一支踩点的 MV</span>
-        <span data-i18n="en" lang="en">How this started: a music video on the beat</span>
-      </h2>
-      <p>
-        <span data-i18n="zh" lang="zh-Hans">这个项目源于一次意外。我发现 Claude Opus 居然能做 MV：只给它一首歌的波形和频谱图，它就能把画面和音乐的节奏配合得非常好，剪辑点落在鼓点上，画面的起伏也跟着音乐走。可它根本听不到声音。这让我很惊讶，于是想认真弄清楚：一个听不见的模型，到底能从声音的"图片"里读出什么，又读不出什么。</span>
-        <span data-i18n="en" lang="en">This project started with a surprise. I found that Claude Opus can make music videos: given only a track's waveform and spectrogram, it lined the visuals up with the music remarkably well, putting cuts on the beats and letting the imagery rise and fall with the song. It cannot hear. That surprised me enough to want a careful answer: what can a model that cannot hear actually read from a picture of sound, and what can it not?</span>
-      </p>
       <p>
         <span data-i18n="zh" lang="zh-Hans">现在的大语言模型已经很会看图，但大多数仍然不能直接接收音频。频谱图把声音变成图像，于是一个很自然的问题是：一个视觉语言模型光靠"看"，能解决多少音频任务？以往的尝试结论不一。GPT-4o 从频谱图上识别 10 类环境声能达到 59% <a class="cite-ref" href="#ref-1">[1]</a>，而在单词级的语音频谱图上，视觉模型几乎没有超过随机水平 <a class="cite-ref" href="#ref-2">[2]</a>。我们想要一个更干净的测量：完整的公开基准、当前最强的模型，以及能把"图片带来的信息"和"模型本来就知道的东西"分开的对照组。</span>
         <span data-i18n="en" lang="en">Large language models now read images well, but most of them still cannot take audio as input. A spectrogram turns sound into an image, so a natural question is how much of an audio task a vision-language model can solve just by looking. Earlier attempts gave mixed answers. GPT-4o reached 59% on a 10-class environmental-sound task from spectrograms <a class="cite-ref" href="#ref-1">[1]</a>, while on word-level speech spectrograms vision models rarely performed above chance <a class="cite-ref" href="#ref-2">[2]</a>. We wanted a cleaner measurement: a full public benchmark, the strongest current models, and controls that separate what the picture adds from what the model already knows.</span>
@@ -336,8 +328,8 @@
         <span data-i18n="en" lang="en">What this looks like in practice: music videos</span>
       </h3>
       <p>
-        <span data-i18n="zh" lang="zh-Hans">这个能力画像也解释了开头那支 MV：Claude 根据一首歌的频谱图或波形剪 MV 时，能可靠地找到底鼓和军鼓的位置并把剪辑点放上去，因为这些是离散的、高对比的事件：和它在 MMAU 上数得很好的东西是同一类。它从图上做不到的，是跟上观众真正能感受到的部分：旋律在哪里扬起、和声在哪里转折、歌手的声音在哪里破音或变轻。这些都藏在精细的音高关系和频谱细节里，而图片恰恰把它们模糊掉了，这也正是图 5 里正确率下降的地方。结果是一支踩在节拍上、却没有跟着音乐走的视频。</span>
-        <span data-i18n="en" lang="en">This profile also explains the music videos that started this project. When Claude edits a music video from a spectrogram or a waveform of the track, it reliably finds the kick and snare hits and places cuts on them, because those are discrete, high-contrast events: the same thing it counts so well on MMAU. What it cannot do from the picture is follow the parts of the song a viewer actually feels: where the melody lifts, when the harmony turns, when the singer's voice breaks or softens. Those live in fine pitch relationships and spectral detail that the picture blurs, which is exactly where accuracy falls in Figure 5. The result is a video that is on the beat but not with the music.</span>
+        <span data-i18n="zh" lang="zh-Hans">这个能力画像和我们让 Claude 根据一首歌的频谱图或波形剪 MV 时看到的一致。它能可靠地找到底鼓和军鼓的位置并把剪辑点放上去，因为这些是离散的、高对比的事件：和它在 MMAU 上数得很好的东西是同一类。它从图上做不到的，是跟上观众真正能感受到的部分：旋律在哪里扬起、和声在哪里转折、歌手的声音在哪里破音或变轻。这些都藏在精细的音高关系和频谱细节里，而图片恰恰把它们模糊掉了，这也正是图 5 里正确率下降的地方。结果是一支踩在节拍上、却没有跟着音乐走的视频。</span>
+        <span data-i18n="en" lang="en">This profile matches what we see when Claude edits a music video from a spectrogram or a waveform of the track. It reliably finds the kick and snare hits and places cuts on them, because those are discrete, high-contrast events: the same thing it counts so well on MMAU. What it cannot do from the picture is follow the parts of the song a viewer actually feels: where the melody lifts, when the harmony turns, when the singer's voice breaks or softens. Those live in fine pitch relationships and spectral detail that the picture blurs, which is exactly where accuracy falls in Figure 5. The result is a video that is on the beat but not with the music.</span>
       </p>
       <h3>
         <span data-i18n="zh" lang="zh-Hans">为什么"读"补不上这个差距</span>
